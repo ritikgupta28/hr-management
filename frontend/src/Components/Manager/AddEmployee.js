@@ -6,7 +6,6 @@ function AddEmployee() {
   const [email, setEmail] = useState('');
 
   const onAddEmployee = (e) => {
-    console.log(name, email);
     fetch('http://localhost:8000/newEmployee', {
       method: 'POST',
       headers: {
@@ -17,11 +16,10 @@ function AddEmployee() {
         email: email
       })
     })
-    .then(res => {
-      return res.json();
-    })
     .then(resData => {
-      console.log(resData);
+      setName("");
+      setEmail("");
+      alert("add_employee_done");
     })
     .catch(err => console.log(err));
   }

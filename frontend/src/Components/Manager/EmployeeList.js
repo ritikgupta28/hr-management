@@ -11,7 +11,10 @@ function EmployeeList() {
       }
       })
       .then(res => {
-        setEmployees(res.employees);
+        return res.json();
+      })
+      .then(resData => {
+        setEmployees(resData["employees"]);
       })
       .catch(err => console.log(err));
   }, [])
@@ -21,7 +24,7 @@ function EmployeeList() {
       <h1>Employee</h1>
       <div>
         {employees?.map(employee => (
-          <p key={employee._id}>employee.name</p>
+          <p key={employee._id}>{employee.name}</p>
         ))}
       </div>
     </div>
