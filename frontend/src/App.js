@@ -1,9 +1,9 @@
-import Dashboard from './Components/Employees/Dashboard';
+import Navbar from './Components/Manager/Navbar';
 
 function App() {
   return (
     <div>
-      <Dashboard />
+      <Navbar />
     </div>
   );
 }
