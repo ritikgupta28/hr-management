@@ -4,10 +4,9 @@ import "./AddEmployee.css";
 function AddEmployee() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [teamName, setTeamName] = useState('');
 
   const onAddEmployee = (e) => {
-    console.log(name, email, teamName);
+    console.log(name, email);
     fetch('http://localhost:8000/newEmployee', {
       method: 'POST',
       headers: {
@@ -45,15 +44,6 @@ function AddEmployee() {
           placeholder="Email"
           value={email}
           onChange = {e => setEmail(e.target.value)}  
-        />
-      </div>
-      <div className="add_employee_input">
-        <p>Team Name: </p>
-        <input
-          placeholder="Team Name"
-          type="text"
-          value={teamName}
-          onChange = {e => setTeamName(e.target.value)}  
         />
       </div>
       <div className="add_employee_input">
