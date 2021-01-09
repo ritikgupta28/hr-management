@@ -1,0 +1,9 @@
+.add_employee {
+  align-items: center;
+}
+
+.add_employee_input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,49 @@
+import React, { useState } from 'react';
+import "./AddEmployee.css";
+
+function AddEmployee() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [teamName, setTeamName] = useState('');
+
+  const onAddEmployee = (e) => {
+    console.log(name, email, teamName);
+  }
+
+  return (
+    <div className="add_employee">
+      <div className="add_employee_input">
+        <p>Name: </p>
+        <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange = {e => setName(e.target.value)}  
+        />
+      </div>
+      <div className="add_employee_input">
+        <p>Email: </p>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange = {e => setEmail(e.target.value)}  
+        />
+      </div>
+      <div className="add_employee_input">
+        <p>Team Name: </p>
+        <input
+          placeholder="Team Name"
+          type="text"
+          value={teamName}
+          onChange = {e => setTeamName(e.target.value)}  
+        />
+      </div>
+      <div className="add_employee_input">
+        <button type="submit" onClick={onAddEmployee}>Add</button>
+      </div>
+    </div>
+  )
+}
+
+export default AddEmployee;

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import Dashboard from "./Dashboard"
 import EmployeeList from "./EmployeeList"
 import Notification from "./Notification"
+import AddEmployee from "./AddEmployee"
 
 function Navbar() {
   return (
@@ -10,7 +11,8 @@ function Navbar() {
       <div className="navbar">
        <h1>HR-MANAGER</h1>
         <div className="navbar_link">
-         <button><Link to="/">Dashboard</Link></button>
+          <button><Link to="/">Dashboard</Link></button>
+          <button><Link to="/add_employee">Add_Employee</Link></button>
          <button><Link to="/employee">Employee</Link></button>
          <button><Link to="/notification">Notification</Link></button>
         </div>
@@ -37,6 +39,13 @@ function Navbar() {
             exact
             render={props => (
 					  <Notification />
+				    )} 
+          />
+          <Route
+            path='/add_employee'
+            exact
+            render={props => (
+					    <AddEmployee />
 				    )} 
           />
         </Switch>
