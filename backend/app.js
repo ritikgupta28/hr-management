@@ -2,8 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const http = require('http');
 
-const MONGODB_URI = "";
+const routes = require('./routes/routes');
+
+const MONGODB_URI = "mongodb+srv://ritikgupta:ZU5DvtmxnizGbPsu@cluster0-mzunh.mongodb.net/hr_manager?retryWrites=true&w=majority";
 
 const app = express();
 
@@ -18,21 +21,11 @@ app.use((req, res, next) => {
 		next();
 });
 
-app.get('/', (req, res) => {
-  res.send('Server is working!!')
-})
-
-app.use((error, req, res, next) => {
-	const status = error.statusCode || 500;
-	const message = error.message;
-	const data = error.data;
-	res.status(status).json({
-		message: message,
-		data: data
-	});
-})
+app.use('/', routes);
 
 const port = process.env.PORT || '8000';
+app.set('port', port);
+const server = http.createServer(app);
 
 mongoose
 	.connect(MONGODB_URI)

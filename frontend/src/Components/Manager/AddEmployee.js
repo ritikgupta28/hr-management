@@ -8,6 +8,23 @@ function AddEmployee() {
 
   const onAddEmployee = (e) => {
     console.log(name, email, teamName);
+    fetch('http://localhost:8000/newEmployee', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: name,
+        email: email
+      })
+    })
+    .then(res => {
+      return res.json();
+    })
+    .then(resData => {
+      console.log(resData);
+    })
+    .catch(err => console.log(err));
   }
 
   return (
