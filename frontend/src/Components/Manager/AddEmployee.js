@@ -39,7 +39,7 @@ function AddEmployee() {
         <p>Email: </p>
         <input
           type="email"
-          placeholder="Email"
+          placeholder="username@gmail.com"
           value={email}
           onChange = {e => setEmail(e.target.value)}  
         />

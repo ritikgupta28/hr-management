@@ -1,9 +1,19 @@
+import React, { useState } from "react"
+import Login from "./Components/Auth/Login";
 import Navbar from './Components/Manager/Navbar';
 
 function App() {
+  const [auth, setAuth] = useState(false);
+
   return (
     <div>
-      <Navbar />
+      {
+        auth
+          ?
+        <Login />
+          :
+        <Navbar />
+      }
     </div>
   );
 }
