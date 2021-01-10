@@ -13,7 +13,8 @@ function AddEmployee() {
       },
       body: JSON.stringify({
         name: name,
-        email: email
+        email: email,
+        teamAssign: false
       })
     })
     .then(resData => {

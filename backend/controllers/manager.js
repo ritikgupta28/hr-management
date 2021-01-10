@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
+const ObjectId = require('mongodb').ObjectID;
 
 const Employee = require('../models/employee');
+const Team = require('../models/team');
 
 exports.getEmployeeList = (req, res, next) => {
 	Employee.find()
@@ -31,22 +33,21 @@ exports.postNewEmployee = (req, res, next) => {
 }
 
 exports.getTeamList = (req, res, next) => {
-	Team.find()
-		.then(team => {
-			team.populate('members.employeeId')
-			.execPopulate()
-			.then(result => {
-				res.status(200).json({
-					teams: result
-				});
-			})
-			.catch(err => console.log(err));
+	Team.find().populate('members.employeeId')
+		.exec()
+		.then(result => {
+			res.status(200).json({
+				teams: result
+			});
 		})
 		.catch(err => console.log(err));
 }
 
 exports.postNewTeam = (req, res, next) => {
-	const { name, employees, description } = req.body;
+	const { name, members, description } = req.body;
+	const employees = members.map(i => {
+		return { employeeId: ObjectId(i) };
+	});
 	const team = new Team({
 		name: name,
 		members: employees,

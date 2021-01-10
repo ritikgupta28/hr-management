@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const teamSchema = new Schema(
-	{
+const teamSchema = new Schema({
 		name: {
 			type: String,
 			required: true
@@ -20,7 +19,6 @@ const teamSchema = new Schema(
 			type: String,
 			required: true
 		}
-	}
-);
+});
 
-module.exports = mongoose.model('Employee', employeeSchema);
+module.exports = mongoose.model('Team', teamSchema);
