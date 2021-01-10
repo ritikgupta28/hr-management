@@ -59,7 +59,7 @@ function AddTeam() {
       <div>
         {teamArray?.map(employee => (
           <div>
-            <p key={employee._d}>{employee._id}</p>
+            <p key={employee._id}>{employee._id}</p>
           </div>
         ))}
       </div>
@@ -67,10 +67,18 @@ function AddTeam() {
       {employees?.map(employee => (
         <div>
           <p key={employee._id}>{employee.name}</p>
-          <button value={employee._id} onClick={onAddEmployee}>Add</button>
+          <button
+            value={employee._id}
+            onClick={onAddEmployee}
+          >
+            Add
+          </button>
         </div>
       ))}
-      <button type = "submit" onClick={onAddTeam}>
+      <button
+        type="submit"
+        onClick={onAddTeam}
+      >
         Add Team
       </button>
     </div>

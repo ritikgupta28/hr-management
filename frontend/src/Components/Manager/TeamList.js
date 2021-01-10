@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import TeamDescription from './TeamDescription';
 
 function TeamList() {
   const [teams, setTeams] = useState([]);
@@ -24,15 +25,8 @@ function TeamList() {
       <h1>Team</h1>
       <div>
         {teams?.map(team => (
-          <div>
-          	<p key={team._id}>{team.name}</p>
-          	<div>
-          		{team.members?.map(member => (
-          			<p key={member._id}>{member.employeeId.email}</p>
-          		))}
-          	</div>
-          	<p key={team._id}>{team.description}</p>
-          	<br/>
+          <div key={team._id}>
+            <TeamDescription team={team} />
           </div>
         ))}
       </div>
