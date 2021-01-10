@@ -1,18 +1,18 @@
 export const initialState = {
-	user: null
+	employees: []
 };
 
 export const actionType = {
-	SET_USER: "SET_USER"
+	SET_EMPLOYEES: "SET_EMPLOYEES"
 };
 
 const reducer = (state, action) => {
 	console.log(action);
 	switch (action.type) {
-		case actionType.SET_USER: 
+		case actionType.SET_EMPLOYEES: 
 		return {
 			...state, 
-			user: action.user
+			employees: action.employees
 		};
 		default:
 		  return state;
