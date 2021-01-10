@@ -14,6 +14,13 @@ const employeeSchema = new Schema(
 		number: {
 			type: Number
 		},
+		team: {
+			type: String
+		},
+		teamAssign: {
+			type: Boolean,
+			required: true
+		},
 		city: {
 			type: String
 		},
@@ -22,6 +29,9 @@ const employeeSchema = new Schema(
 		},
 		country: {
 			type: String
+		},
+		salary: {
+			type: Number
 		}
 	}
 );

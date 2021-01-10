@@ -9,4 +9,8 @@ router.get('/employeeList', managerController.getEmployeeList);
 
 router.post('/newEmployee', managerController.postNewEmployee);
 
+router.get('/teamList', managerController.getTeamList);
+
+router.post('/newTeam', managerController.postNewTeam);
+
 module.exports = router;
