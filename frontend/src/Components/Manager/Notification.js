@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import openSocket from "socket.io-client";
+import moment from "moment"
 
 function Notification() {
   const [notifications, setNotification] = useState([]);
@@ -19,14 +20,23 @@ function Notification() {
         setNotification(resData["notifications"]);
       })
       .catch(err => console.log(err));
-  }, [])
+       
+      const socket = openSocket('http://localhost:8000');
+      socket.on('leave', data => {
+        if (data.action === 'leave') {
+          setNotification([ ...notifications, data])
+        }
+      })
+  }, [notifications])
 
   return (
     <div>
-      <h1>Notification</h1>
+      <h1>Notifications</h1>
       <div>
         {notifications?.map(notification => (
           <div key={notification._id}>
+            <p>{moment(notification.updatedAt).format("DD-MM-YYYY")}</p>
+            <p>{moment(notification.updatedAt).format("HH:mm")}</p>
             <p>{notification.employeeId.name}</p>
             <p>{notification.reason}</p>
             <br/>
@@ -35,25 +45,6 @@ function Notification() {
       </div>
     </div>
   )
-
-  
-  // useEffect(() => {
-  //   const socket = openSocket('http://localhost:8000');
-  //   console.log(socket);
-  //   // socket.on('description', data => {
-  //   //   if (data.action === 'notification') {
-  //   //     setNotification([...notification, data.description])
-  //   //   }
-  //   // })
-  // }, [])
-
-  // return (
-  //   <div>
-  //     {notification?.map(noti => {
-  //       <p>noti</p>
-  //     })}
-  //   </div>
-  // );
 }
 
 export default Notification;

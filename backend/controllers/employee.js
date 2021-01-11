@@ -38,18 +38,14 @@ exports.applyLeave = (req, res, next) => {
   notification
     .save()
     .then(result => {
+      io.getIO().emit('leave', {
+        action: 'leave',
+        employeeId: id,
+        reason: reason
+      });
       res.status(200).json({
         message: 'Success!'
       });
     })
     .catch(err => console.log(err));
-
-  // io.getIO().emit('description', {
-  //   action: 'notification',
-  //   description: reason
-  // });
-  // res.status(200).json({
-  //   message: 'done',
-  //   description: description
-  // })
 }

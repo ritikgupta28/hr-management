@@ -66,7 +66,7 @@ exports.postNewTeam = (req, res, next) => {
 }
 
 exports.getNotification = (req, res, next) => {
-	Notification.find().populate('employeeId')
+	Notification.find().sort({ 'updatedAt': -1 }).populate('employeeId')
 		.exec()
 		.then(result => {
 			res.status(200).json({

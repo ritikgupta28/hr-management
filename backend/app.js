@@ -5,7 +5,7 @@ const cors = require('cors');
 
 const routes = require('./routes/routes');
 
-const MONGODB_URI = "mongodb+srv://ritikgupta:ZU5DvtmxnizGbPsu@cluster0-mzunh.mongodb.net/hr_manager?retryWrites=true&w=majority";
+const MONGODB_URL = "mongodb+srv://ritikgupta:ZU5DvtmxnizGbPsu@cluster0-mzunh.mongodb.net/hr_manager?retryWrites=true&w=majority";
 
 const app = express();
 
@@ -25,7 +25,10 @@ app.use('/', routes);
 const port = process.env.PORT || '8000';
 
 mongoose
-	.connect(MONGODB_URI)
+	.connect(MONGODB_URL, { 
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
 	.then(result => {
 		const server = app.listen(port);
 		const io = require('./socket').init(server);
