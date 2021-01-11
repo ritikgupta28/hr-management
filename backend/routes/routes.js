@@ -15,4 +15,6 @@ router.post('/newTeam', managerController.postNewTeam);
 
 router.get('/attendance', managerController.getAttendance);
 
+router.use('/leave', employeeController.applyLeave);
+
 module.exports = router;

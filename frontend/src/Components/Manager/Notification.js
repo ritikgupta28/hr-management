@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import moment from 'moment';
-
+import openSocket from "socket.io-client";
 import "./Notification.css";
 
 function Notification() {
   const [date, onDateChange] = useState(new Date());
   const [absents, setAbsent] = useState([]);
   const [holidays, setHoliday] = useState([]);
+  const [notification, setNotification] = useState([]);
 
   useEffect(() => {
     fetch('http://localhost:8000/attendance', {
@@ -27,9 +28,22 @@ function Notification() {
       .catch(err => console.log(err));
   }, [])
   
+  useEffect(() => {
+    const socket = openSocket('http://localhost:8000');
+    console.log(socket);
+    // socket.on('description', data => {
+    //   if (data.action === 'notification') {
+    //     setNotification([...notification, data.description])
+    //   }
+    // })
+  }, [])
+
   return (
     <div>
-      <Calendar
+      {notification?.map(noti => {
+        <p>noti</p>
+      })}
+      {/* <Calendar
         onChange={onDateChange}
         value={date}
         tileClassName={({ date, view }) => {
@@ -41,7 +55,7 @@ function Notification() {
           }
         }
         }
-      />
+      /> */}
     </div>
   );
 }
