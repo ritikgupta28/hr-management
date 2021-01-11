@@ -63,3 +63,17 @@ exports.postNewTeam = (req, res, next) => {
 		})
 		.catch(err => console.log(err));
 }
+
+exports.getAttendance = (req, res, next) => {
+	const absents = [
+    '03-01-2021',
+    '05-01-2021'
+  ]
+  const holidays = [
+    '04-01-2021',
+  ]
+  res.status(200).json({
+  	absents: absents,
+  	holidays: holidays
+  })
+}

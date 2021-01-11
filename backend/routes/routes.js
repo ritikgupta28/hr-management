@@ -13,4 +13,6 @@ router.get('/teamList', managerController.getTeamList);
 
 router.post('/newTeam', managerController.postNewTeam);
 
+router.get('/attendance', managerController.getAttendance);
+
 module.exports = router;
