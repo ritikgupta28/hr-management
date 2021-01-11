@@ -17,10 +17,12 @@ router.get('/employee/:id', employeeController.getEmployee);
 
 router.get('/attendance', employeeController.getAttendance);
 
-router.post('/leave', employeeController.applyLeave);
+router.post('/leave', employeeController.postApplyLeave);
 
 router.get('/notification', managerController.getNotification);
 
-router.post('/reply', managerController.postReply);
+router.post('/acceptReply', managerController.postAcceptReply);
+
+router.post('/rejectReply', managerController.postRejectReply);
 
 module.exports = router;

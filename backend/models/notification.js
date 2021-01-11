@@ -10,9 +10,20 @@ const notificationSchema = new Schema({
 		reason: {
 			type: String,
 			required: true
+   	},
+   	reply: {
+   		type: String,
+   		default: 'unseen'
    	}
-},
-{ timestamps: true }
+  },
+  { timestamps: true }
 );
+
+notificationSchema.methods.addReply = function(answer) {
+	let abcdef = this.reply;
+	abcdef = answer;
+	this.reply = abcdef;
+	return this.save();
+};
 
 module.exports = mongoose.model('Notification', notificationSchema);

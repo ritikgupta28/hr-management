@@ -8,9 +8,6 @@ function AddTeam() {
   const [{ employees }, dispatch] = useStateValue();
   
   const onAddTeam = () => {
-    console.log(teamName);
-    console.log(description);
-    console.log(teamArray);
     fetch('http://localhost:8000/newTeam', {
       method: 'POST',
       headers: {

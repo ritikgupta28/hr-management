@@ -76,11 +76,37 @@ exports.getNotification = (req, res, next) => {
 		.catch(err => console.log(err));
 }
 
-exports.postReply = (req, res, next) => {
-	const { id } = req.body;
-	Employee.findById(id)
-		.then(result => {
-			return result.addLeave(new Date());
+exports.postAcceptReply = (req, res, next) => {
+	const { date, id } = req.body;
+
+	Notification.findById(id)
+		.then(notification => {
+			notification.addReply('accept');
+			Employee.findById(notification.employeeId)
+				.then(employee => {
+					return employee.addLeave(date);
+				})
+				.then(result => {
+					res.status(200).json({
+						message: 'Success!'
+					});
+				})
+				.catch(err => console.log(err)); 
 		})
-		.catch(err => console.log(err)); 
+		.catch(err => console.log(err));	
+}
+
+exports.postRejectReply = (req, res, next) => {
+	const { id } = req.body;
+
+	Notification.findById(id)
+		.then(notification => {
+			return notification.addReply('reject');
+		})
+		.then(result => {
+			res.status(200).json({
+				message: 'Success!'
+			});
+		})
+		.catch(err => console.log(err));	 
 }
