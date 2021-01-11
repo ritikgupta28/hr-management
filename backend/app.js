@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const http = require('http');
 
 const routes = require('./routes/routes');
 
@@ -24,12 +23,14 @@ app.use((req, res, next) => {
 app.use('/', routes);
 
 const port = process.env.PORT || '8000';
-app.set('port', port);
-const server = http.createServer(app);
 
 mongoose
 	.connect(MONGODB_URI)
 	.then(result => {
-		server.listen(port);
+		const server = app.listen(port);
+		const io = require('./socket').init(server);
+		io.on('connection', socket => {
+			console.log('Client connected');
+		})
 	})
 	.catch(err => console.log(err));
