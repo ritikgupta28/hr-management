@@ -21,4 +21,6 @@ router.post('/leave', employeeController.applyLeave);
 
 router.get('/notification', managerController.getNotification);
 
+router.post('/reply', managerController.postReply);
+
 module.exports = router;

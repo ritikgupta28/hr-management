@@ -75,3 +75,12 @@ exports.getNotification = (req, res, next) => {
 		})
 		.catch(err => console.log(err));
 }
+
+exports.postReply = (req, res, next) => {
+	const { id } = req.body;
+	Employee.findById(id)
+		.then(result => {
+			return result.addLeave(new Date());
+		})
+		.catch(err => console.log(err)); 
+}
