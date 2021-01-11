@@ -15,8 +15,7 @@ function App() {
         <Login />
           :
           <div>
-            <Leave />
-            <Notification />
+            <Navbar />
           </div>
       }
     </div>

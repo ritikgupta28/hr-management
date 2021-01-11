@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { actionType } from "../../reducer";
 import { useStateValue } from "../../StateProvider"
-
+import Card from './Card';
 
 function EmployeeList() {
   const [{ employees }, dispatch] = useStateValue();
@@ -30,7 +30,10 @@ function EmployeeList() {
       <h1>Employee</h1>
       <div>
         {employees?.map(employee => (
-          <p key={employee._id}>{employee.name}</p>
+          <Card
+            key={employee._id}
+            employee={employee}
+          />
         ))}
       </div>
     </div>

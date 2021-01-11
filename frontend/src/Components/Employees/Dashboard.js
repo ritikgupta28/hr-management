@@ -1,15 +1,37 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import Attendance from './Attendance';
+import Leave from './Leave';
 
-function Dashboard() {
+function Dashboard( props ) {
+  const [employee, setEmployee] = useState({});
+
+  useEffect(() => {
+  	const id = props.match.params.id;
+    fetch('http://localhost:8000/employee/' + id, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => {
+        return res.json();
+      })
+      .then(resData => {
+        console.log(resData);
+        setEmployee(resData["employee"]);
+      })
+      .catch(err => console.log(err));
+  }, [])
+
   return (
     <div>
-      <p>Email: test@test.com</p>
-      <p>Password: test</p>
-      <p>Phone No: +91 XXXXXXXXXX</p>
-      <p>Team Name: String</p>
-      <p>Team Members: abc, xyz, asd</p>
+      <Attendance />
+      <p>{employee.name}</p>
+     	<p>{employee.email}</p>
+     	<p>{employee.teamAssign}</p>
+      <Leave id={props.match.params.id}/>
     </div>
   )
 }
 
-export default Dashboard
+export default Dashboard;

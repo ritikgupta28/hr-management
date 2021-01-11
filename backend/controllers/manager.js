@@ -3,6 +3,7 @@ const ObjectId = require('mongodb').ObjectID;
 
 const Employee = require('../models/employee');
 const Team = require('../models/team');
+const Notification = require('../models/notification');
 
 exports.getEmployeeList = (req, res, next) => {
 	Employee.find()
@@ -64,16 +65,13 @@ exports.postNewTeam = (req, res, next) => {
 		.catch(err => console.log(err));
 }
 
-exports.getAttendance = (req, res, next) => {
-	const absents = [
-    '03-01-2021',
-    '05-01-2021'
-  ]
-  const holidays = [
-    '04-01-2021',
-  ]
-  res.status(200).json({
-  	absents: absents,
-  	holidays: holidays
-  })
+exports.getNotification = (req, res, next) => {
+	Notification.find().populate('employeeId')
+		.exec()
+		.then(result => {
+			res.status(200).json({
+				notifications: result
+			});
+		})
+		.catch(err => console.log(err));
 }

@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
-import moment from 'moment';
 import openSocket from "socket.io-client";
-import "./Notification.css";
 
 function Notification() {
-  const [date, onDateChange] = useState(new Date());
-  const [absents, setAbsent] = useState([]);
-  const [holidays, setHoliday] = useState([]);
-  const [notification, setNotification] = useState([]);
+  const [notifications, setNotification] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8000/attendance', {
+    fetch('http://localhost:8000/notification', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -22,42 +15,45 @@ function Notification() {
         return res.json();
       })
       .then(resData => {
-        setAbsent(resData["absents"]);
-        setHoliday(resData["holidays"]);
+        console.log(resData);
+        setNotification(resData["notifications"]);
       })
       .catch(err => console.log(err));
-  }, [])
-  
-  useEffect(() => {
-    const socket = openSocket('http://localhost:8000');
-    console.log(socket);
-    // socket.on('description', data => {
-    //   if (data.action === 'notification') {
-    //     setNotification([...notification, data.description])
-    //   }
-    // })
   }, [])
 
   return (
     <div>
-      {notification?.map(noti => {
-        <p>noti</p>
-      })}
-      {/* <Calendar
-        onChange={onDateChange}
-        value={date}
-        tileClassName={({ date, view }) => {
-          if(absents.find(x => x === moment(date).format("DD-MM-YYYY"))) {
-            return 'highlight'
-          }
-          if(holidays.find(x => x === moment(date).format("DD-MM-YYYY"))) {
-            return 'highlight1'
-          }
-        }
-        }
-      /> */}
+      <h1>Notification</h1>
+      <div>
+        {notifications?.map(notification => (
+          <div key={notification._id}>
+            <p>{notification.employeeId.name}</p>
+            <p>{notification.reason}</p>
+            <br/>
+          </div>
+        ))}
+      </div>
     </div>
-  );
+  )
+
+  
+  // useEffect(() => {
+  //   const socket = openSocket('http://localhost:8000');
+  //   console.log(socket);
+  //   // socket.on('description', data => {
+  //   //   if (data.action === 'notification') {
+  //   //     setNotification([...notification, data.description])
+  //   //   }
+  //   // })
+  // }, [])
+
+  // return (
+  //   <div>
+  //     {notification?.map(noti => {
+  //       <p>noti</p>
+  //     })}
+  //   </div>
+  // );
 }
 
 export default Notification;

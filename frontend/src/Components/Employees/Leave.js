@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 
-function Leave() {
-
-  const [description, setDescription] = useState("");
+function Leave({ id }) {
+  const [reason, setReason] = useState("");
 
   const onSubmit = () => {
     fetch('http://localhost:8000/leave', {
@@ -11,12 +10,13 @@ function Leave() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        description: description
+        reason: reason,
+        id: id
       })
     })
     .then(resData => {
-      setDescription("")
-      alert("done");
+      setReason("")
+      alert("Done!");
     })
     .catch(err => console.log(err));
   }
@@ -25,13 +25,10 @@ function Leave() {
     <div>
       <textarea
         type="text"
-        value={description}
-        onChange={e => setDescription(e.target.value)}
+        value={reason}
+        onChange={e => setReason(e.target.value)}
       />
-      <button
-        type="submit"
-        onClick={onSubmit}
-       >Submit</button>
+      <button type="submit" onClick={onSubmit} >Submit</button>
     </div>
   )
 }

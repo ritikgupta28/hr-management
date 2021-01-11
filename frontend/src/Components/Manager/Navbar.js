@@ -5,6 +5,7 @@ import AddEmployee from "./AddEmployee"
 import EmployeeList from "./EmployeeList"
 import AddTeam from "./AddTeam"
 import Notification from "./Notification"
+import Dashboard from "../Employees/Dashboard"
 import "./Navbar.css"
 
 function Navbar() {
@@ -17,7 +18,7 @@ function Navbar() {
 					<button><Link to="/add_team">Add Team</Link></button>
 					<button><Link to="/employee">Employee</Link></button>
 					<button><Link to="/add_employee">Add Employee</Link></button>
-					<button><Link to="/notification">Notification</Link></button>
+					{<button><Link to="/notification">Notification</Link></button>}
 				</div>
 				<h2>MENU</h2>
 			</div>
@@ -57,6 +58,14 @@ function Navbar() {
 						render={props => (
 						<Notification />
 						)} 
+					/>
+					<Route
+						path='/employee/:id'
+						render={props => (
+							<Dashboard
+								{...props}
+							/>
+						)}
 					/>
 				</Switch>
 			</div>

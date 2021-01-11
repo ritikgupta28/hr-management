@@ -13,8 +13,12 @@ router.get('/teamList', managerController.getTeamList);
 
 router.post('/newTeam', managerController.postNewTeam);
 
-router.get('/attendance', managerController.getAttendance);
+router.get('/employee/:id', employeeController.getEmployee);
 
-router.use('/leave', employeeController.applyLeave);
+router.get('/attendance', employeeController.getAttendance);
+
+router.post('/leave', employeeController.applyLeave);
+
+router.get('/notification', managerController.getNotification);
 
 module.exports = router;
