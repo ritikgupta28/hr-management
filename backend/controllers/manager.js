@@ -16,11 +16,11 @@ exports.getEmployeeList = (req, res, next) => {
 }
 
 exports.postNewEmployee = (req, res, next) => {
-	const { name, email, teamAssign } = req.body;
+	const { name, email, role } = req.body;
 	const employee = new Employee({
 		name: name,
 		email: email,
-		teamAssign: teamAssign
+		role: role
 	});
 
 	employee

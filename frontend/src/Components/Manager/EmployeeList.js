@@ -23,8 +23,20 @@ function EmployeeList() {
       .catch(err => console.log(err));
   }, [])
 
-  if(name !== "" && employees.name.indexOf(name) === -1) {
-    return null
+  const renderEmployee = (employee) => {
+    if(name !== "" && employee.name.indexOf(name) === -1) {
+      return null
+    }
+    if(team !== "" && employee.teamName.indexOf(team) === -1) {
+      return null
+    }
+    if(role !== "" && employee.role.indexOf(role) === -1) {
+      return null
+    }
+
+    return <div>
+      <p>{employee.email}</p>
+    </div>
   }
 
   return (
@@ -58,10 +70,7 @@ function EmployeeList() {
       <br />
       <div>
         {employees?.map(employee => (
-          <Card
-            key={employee._id}
-            employee={employee}
-          />
+          renderEmployee(employee)
         ))}
       </div>
     </div>

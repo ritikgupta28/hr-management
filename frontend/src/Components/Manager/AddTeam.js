@@ -23,6 +23,7 @@ function AddTeam() {
   }, [])
   
   const onAddTeam = () => {
+    console.log(teamName, teamArray, description);
     fetch('http://localhost:8000/newTeam', {
       method: 'POST',
       headers: {
@@ -79,7 +80,7 @@ function AddTeam() {
         <div>
           <p key={employee._id}>{employee.name}</p>
           <button
-            value={employee.name}
+            value={employee._id}
             onClick={onAddEmployee}
           >
             Add

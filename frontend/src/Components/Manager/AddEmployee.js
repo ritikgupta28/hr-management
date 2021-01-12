@@ -4,6 +4,7 @@ import "./AddEmployee.css";
 function AddEmployee() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [role, setRole] = useState('');
 
   const onAddEmployee = (e) => {
     fetch('http://localhost:8000/newEmployee', {
@@ -14,12 +15,13 @@ function AddEmployee() {
       body: JSON.stringify({
         name: name,
         email: email,
-        teamAssign: false
+        role: role
       })
     })
     .then(resData => {
       setName("");
       setEmail("");
+      setRole("");
       alert("add_employee_done");
     })
     .catch(err => console.log(err));
@@ -43,6 +45,15 @@ function AddEmployee() {
           placeholder="username@gmail.com"
           value={email}
           onChange = {e => setEmail(e.target.value)}  
+        />
+      </div>
+      <div className="add_employee_input">
+        <p>Role: </p>
+        <input
+          type="text"
+          placeholder="Role"
+          value={role}
+          onChange = {e => setRole(e.target.value)}  
         />
       </div>
       <div className="add_employee_input">
