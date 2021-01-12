@@ -3,6 +3,9 @@ import Card from './Card';
 
 function EmployeeList() {
   const [employees, setEmployees] = useState();
+  const [name, setName] = useState("");
+  const [team, setTeam] = useState("");
+  const [role, setRole] = useState("");
 
   useEffect(() => {
     fetch('http://localhost:8000/employeeList', {
@@ -20,9 +23,39 @@ function EmployeeList() {
       .catch(err => console.log(err));
   }, [])
 
+  if(name !== "" && employees.name.indexOf(name) === -1) {
+    return null
+  }
+
   return (
     <div>
-      <h1>Employee</h1>
+      <div>
+        <p>Name: </p>
+        <input 
+          type = "text"
+          value = {name} 
+          onChange = {e => setName(e.target.value)}
+        />
+      </div> 
+      <br />
+      <div>
+        <p>Team: </p>
+        <input 
+          type = "text"
+          value = {team}
+          onChange = {e => setTeam(e.target.value)}
+        />
+      </div>
+      <br />
+      <div>
+        <p>Role: </p>
+        <input 
+          type = "text"
+          value = {role} 
+          onChange = {e => setRole(e.target.value)}
+        />
+      </div>
+      <br />
       <div>
         {employees?.map(employee => (
           <Card

@@ -13,6 +13,10 @@ const employeeSchema = new Schema({
 		number: {
 			type: Number
 		},
+		role: {
+			type: String,
+			default: ""
+		},
 		teamName: {
 			type: String,
 			default: ""
