@@ -24,13 +24,13 @@ function EmployeeList() {
   }, [])
 
   const renderEmployee = (employee) => {
-    if(name !== "" && employee.name.indexOf(name) === -1) {
+    if(name !== "" && employee.name.toLowerCase().indexOf(name.toLowerCase()) === -1) {
       return null
     }
-    if(team !== "" && employee.teamName.indexOf(team) === -1) {
+    if(team !== "" && employee.teamName.toLowerCase().indexOf(team.toLowerCase()) === -1) {
       return null
     }
-    if(role !== "" && employee.role.indexOf(role) === -1) {
+    if(role !== "" && employee.role.toLowerCase().indexOf(role.toLowerCase()) === -1) {
       return null
     }
 
