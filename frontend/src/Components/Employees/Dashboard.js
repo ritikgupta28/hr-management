@@ -17,7 +17,6 @@ function Dashboard( props ) {
         return res.json();
       })
       .then(resData => {
-        console.log(resData);
         setEmployee(resData["employee"]);
       })
       .catch(err => console.log(err));
@@ -25,11 +24,11 @@ function Dashboard( props ) {
 
   return (
     <div>
-      <Attendance id={props.match.params.id}/>
+      <Attendance id={props.match.params.id} />
       <p>{employee.name}</p>
      	<p>{employee.email}</p>
      	<p>{employee.teamAssign}</p>
-      <Leave id={props.match.params.id}/>
+      <Leave id={props.match.params.id} />
     </div>
   )
 }

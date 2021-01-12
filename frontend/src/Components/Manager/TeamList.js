@@ -25,9 +25,7 @@ function TeamList() {
       <h1>Team</h1>
       <div>
         {teams?.map(team => (
-          <div key={team._id}>
-            <TeamDescription team={team} />
-          </div>
+          <TeamDescription key={team._id} team={team} />
         ))}
       </div>
     </div>

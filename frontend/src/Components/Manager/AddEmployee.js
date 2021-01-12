@@ -57,7 +57,12 @@ function AddEmployee() {
         />
       </div>
       <div className="add_employee_input">
-        <button type="submit" onClick={onAddEmployee}>Add</button>
+        <button
+          type="submit"
+          onClick={onAddEmployee}
+        >
+          Add
+        </button>
       </div>
     </div>
   )

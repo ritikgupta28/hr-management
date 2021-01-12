@@ -34,9 +34,9 @@ function EmployeeList() {
       return null
     }
 
-    return <div>
+    return (
       <Card employee={employee} />
-    </div>
+    )
   }
 
   return (
@@ -44,33 +44,35 @@ function EmployeeList() {
       <div>
         <p>Name: </p>
         <input 
-          type = "text"
-          value = {name} 
-          onChange = {e => setName(e.target.value)}
+          type="text"
+          value={name} 
+          onChange={e => setName(e.target.value)}
         />
       </div> 
       <br />
       <div>
         <p>Team: </p>
         <input 
-          type = "text"
-          value = {team}
-          onChange = {e => setTeam(e.target.value)}
+          type="text"
+          value={team}
+          onChange={e => setTeam(e.target.value)}
         />
       </div>
       <br />
       <div>
         <p>Role: </p>
         <input 
-          type = "text"
-          value = {role} 
-          onChange = {e => setRole(e.target.value)}
+          type="text"
+          value={role} 
+          onChange={e => setRole(e.target.value)}
         />
       </div>
       <br />
       <div>
         {employees?.map(employee => (
-          renderEmployee(employee)
+          <div key={employee._id}>
+            {renderEmployee(employee)}
+          </div>
         ))}
       </div>
     </div>

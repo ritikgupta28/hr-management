@@ -17,13 +17,13 @@ function AddTeam() {
         return res.json();
       })
       .then(resData => {
-        setEmployees(employees.filter(employees => employees.teamName === ""));
+        setEmployees(resData["employees"].filter(employees => employees.teamName === ""));
       })
       .catch(err => console.log(err));
   }, [])
   
   const onAddTeam = () => {
-    console.log(teamName, teamArray, description);
+
     fetch('http://localhost:8000/newTeam', {
       method: 'POST',
       headers: {
@@ -75,15 +75,13 @@ function AddTeam() {
       <br />
       <div>
         {teamArray?.map(employee => (
-          <div>
-            <p key={employee.id}>{employee.email}</p>
-          </div>
+          <p key={employee.id} >{employee.email}</p>
         ))}
       </div>
       <hr />
       {employees?.map(employee => (
-        <div>
-          <p key={employee._id}>{employee.email}</p>
+        <div key={employee._id}>
+          <p>{employee.email}</p>
           <button
             value={employee._id}
             onClick={() => onAddEmployee(employee._id, employee.email)}

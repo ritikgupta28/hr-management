@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import moment from 'moment';
-
 import './Attendance.css';
 
 function Attendance({ id }) {
@@ -21,7 +20,6 @@ function Attendance({ id }) {
         return res.json();
       })
       .then(resData => {
-        console.log(resData);
         setAbsent(resData["absents"]);
         setHoliday(resData["holidays"]);
       })
