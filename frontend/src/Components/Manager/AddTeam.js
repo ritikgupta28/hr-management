@@ -17,7 +17,7 @@ function AddTeam() {
         return res.json();
       })
       .then(resData => {
-        setEmployees(resData["employees"])
+        setEmployees(employees.filter(employees => employees.teamName === ""));
       })
       .catch(err => console.log(err));
   }, [])
@@ -44,8 +44,13 @@ function AddTeam() {
     .catch(err => console.log(err));
   }
 
-  const onAddEmployee = (e) => {
-    setTeamArray([...teamArray, e.target.value]);
+  const onAddEmployee = (e1, e2) => {
+    const temp = {
+      id: e1,
+      email: e2
+    }
+    setTeamArray([...teamArray, temp]);
+    setEmployees(employees.filter(employees => employees._id !== e1));
   }
 
   return (
@@ -71,17 +76,17 @@ function AddTeam() {
       <div>
         {teamArray?.map(employee => (
           <div>
-            <p key={employee._id}>{employee}</p>
+            <p key={employee.id}>{employee.email}</p>
           </div>
         ))}
       </div>
       <hr />
       {employees?.map(employee => (
         <div>
-          <p key={employee._id}>{employee.name}</p>
+          <p key={employee._id}>{employee.email}</p>
           <button
             value={employee._id}
-            onClick={onAddEmployee}
+            onClick={() => onAddEmployee(employee._id, employee.email)}
           >
             Add
           </button>

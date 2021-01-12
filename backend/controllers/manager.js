@@ -48,11 +48,11 @@ exports.postNewTeam = (req, res, next) => {
 	const { name, members, description } = req.body;
 
 	const employees = members.map(i => {
-		return { employeeId: ObjectId(i) };
+		return { employeeId: ObjectId(i.id) };
 	});
 
 	members.map(id => {
-		Employee.findById(id)
+		Employee.findById(id.id)
 			.then(employee => {
 				employee.addTeam(name);
 			})
