@@ -35,7 +35,7 @@ function EmployeeList() {
     }
 
     return <div>
-      <p>{employee.email}</p>
+      <Card employee={employee} />
     </div>
   }
 
