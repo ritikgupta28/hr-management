@@ -5,13 +5,13 @@ import moment from 'moment';
 
 import './Attendance.css';
 
-function Attendance() {
+function Attendance({ id }) {
   const [date, onDateChange] = useState(new Date());
   const [absents, setAbsent] = useState([]);
   const [holidays, setHoliday] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8000/attendance', {
+    fetch('http://localhost:8000/attendance/' + id, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'

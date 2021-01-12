@@ -46,9 +46,19 @@ exports.getTeamList = (req, res, next) => {
 
 exports.postNewTeam = (req, res, next) => {
 	const { name, members, description } = req.body;
+
 	const employees = members.map(i => {
 		return { employeeId: ObjectId(i) };
 	});
+
+	members.map(id => {
+		Employee.findById(id)
+			.then(employee => {
+				employee.addTeam(name);
+			})
+			.catch(err => console.log(err));
+	})
+	
 	const team = new Team({
 		name: name,
 		members: employees,
@@ -77,14 +87,16 @@ exports.getNotification = (req, res, next) => {
 }
 
 exports.postAcceptReply = (req, res, next) => {
-	const { date, id } = req.body;
-
+	const { id } = req.body;
+	let dates;
+	
 	Notification.findById(id)
 		.then(notification => {
+			dates = notification.dates;
 			notification.addReply('accept');
 			Employee.findById(notification.employeeId)
 				.then(employee => {
-					return employee.addLeave(date);
+					return employee.addLeave(dates);
 				})
 				.then(result => {
 					res.status(200).json({

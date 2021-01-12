@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react';
-import { actionType } from "../../reducer";
-import { useStateValue } from "../../StateProvider"
+import React, { useEffect, useState } from 'react';
 import Card from './Card';
 
 function EmployeeList() {
-  const [{ employees }, dispatch] = useStateValue();
+  const [employees, setEmployees] = useState();
 
   useEffect(() => {
     fetch('http://localhost:8000/employeeList', {
@@ -17,10 +15,7 @@ function EmployeeList() {
         return res.json();
       })
       .then(resData => {
-        dispatch({
-          type: actionType.SET_EMPLOYEES,
-          employees: resData["employees"]
-        })
+        setEmployees(resData["employees"])
       })
       .catch(err => console.log(err));
   }, [])

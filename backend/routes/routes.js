@@ -15,7 +15,7 @@ router.post('/newTeam', managerController.postNewTeam);
 
 router.get('/employee/:id', employeeController.getEmployee);
 
-router.get('/attendance', employeeController.getAttendance);
+router.get('/attendance/:id', employeeController.getAttendance);
 
 router.post('/leave', employeeController.postApplyLeave);
 

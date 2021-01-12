@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
+import moment from "moment"
 
 function Leave({ id }) {
+  const [dates, setDates] = useState([]);
   const [reason, setReason] = useState("");
 
   const onSubmit = () => {
@@ -10,6 +12,7 @@ function Leave({ id }) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
+        dates: dates,
         reason: reason,
         id: id
       })
@@ -23,12 +26,25 @@ function Leave({ id }) {
 
   return (
     <div>
+      {dates.map(date => (
+        <p>{date}</p>
+      ))}
       <textarea
         type="text"
         value={reason}
         onChange={e => setReason(e.target.value)}
       />
-      <button type="submit" onClick={onSubmit} >Submit</button>
+      <input 
+        type="date"
+        value={dates}
+        onChange={e => setDates([...dates, moment(e.target.value).format("DD-MM-YYYY")])}
+      />
+      <button
+        type="submit"
+        onClick={onSubmit}
+      >
+        Submit
+      </button>
     </div>
   )
 }

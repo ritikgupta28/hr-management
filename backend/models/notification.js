@@ -14,15 +14,19 @@ const notificationSchema = new Schema({
    	reply: {
    		type: String,
    		default: 'unseen'
-   	}
+	  },
+	  dates: {
+		  type: Array,
+		  default: [Date]
+	  }
   },
   { timestamps: true }
 );
 
 notificationSchema.methods.addReply = function(answer) {
-	let abcdef = this.reply;
-	abcdef = answer;
-	this.reply = abcdef;
+	let newReply = this.reply;
+	newReply = answer;
+	this.reply = newReply;
 	return this.save();
 };
 

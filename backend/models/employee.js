@@ -13,12 +13,9 @@ const employeeSchema = new Schema({
 		number: {
 			type: Number
 		},
-		team: {
-			type: String
-		},
-		teamAssign: {
-			type: Boolean,
-			required: true
+		teamName: {
+			type: String,
+			default: ""
 		},
 		city: {
 			type: String
@@ -38,11 +35,20 @@ const employeeSchema = new Schema({
 		}
 });
 
-employeeSchema.methods.addLeave = function (date) {
+employeeSchema.methods.addLeave = function (dates) {
 	const newAbsent = this.absent;
-	newAbsent.push(date);
+	dates.map(date => (
+		newAbsent.push(date)
+	))
 	this.absent = newAbsent;
 	return this.save();
 };
+
+employeeSchema.methods.addTeam = function (name) {
+	let newName = this.teamName;
+	newName = name;
+	this.teamName = newName;
+	return this.save();
+}
 
 module.exports = mongoose.model('Employee', employeeSchema);

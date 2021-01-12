@@ -1,3 +1,4 @@
+const employee = require('../models/employee');
 const Employee = require('../models/employee');
 const Notification = require('../models/notification');
 
@@ -15,22 +16,26 @@ exports.getEmployee = (req, res, next) => {
 }
 
 exports.getAttendance = (req, res, next) => {
-  const absents = [
-    '03-01-2021',
-    '05-01-2021'
-  ]
+  const id = req.params.id;
+
   const holidays = [
-    '04-01-2021',
-  ]
-  res.status(200).json({
-    absents: absents,
-    holidays: holidays
-  })
+    '04-01-2021'
+  ];
+
+  Employee.findById(id)
+    .then(employee => {
+      res.status(200).json({
+        absents: employee.absent,
+        holidays: holidays
+      })
+    })
+    .catch(err => console.log(err));
 }
 
 exports.postApplyLeave = (req, res, next) => {
-  const { reason, id } = req.body;
+  const { reason, id, dates } = req.body;
   const notification = new Notification({
+    dates: dates,
     employeeId: id,
     reason: reason
   });

@@ -25,7 +25,7 @@ function Dashboard( props ) {
 
   return (
     <div>
-      <Attendance />
+      <Attendance id={props.match.params.id}/>
       <p>{employee.name}</p>
      	<p>{employee.email}</p>
      	<p>{employee.teamAssign}</p>

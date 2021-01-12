@@ -1,11 +1,26 @@
-import React, { useState } from 'react'
-import { useStateValue } from "../../StateProvider"
+import React, { useState, useEffect } from 'react'
 
 function AddTeam() {
   const [teamName, setTeamName] = useState("");
   const [teamArray, setTeamArray] = useState([]);
   const [description, setDescription] = useState("");
-  const [{ employees }, dispatch] = useStateValue();
+  const [employees, setEmployees] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:8000/employeeList', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+      })
+      .then(res => {
+        return res.json();
+      })
+      .then(resData => {
+        setEmployees(resData["employees"])
+      })
+      .catch(err => console.log(err));
+  }, [])
   
   const onAddTeam = () => {
     fetch('http://localhost:8000/newTeam', {
@@ -30,7 +45,6 @@ function AddTeam() {
 
   const onAddEmployee = (e) => {
     setTeamArray([...teamArray, e.target.value]);
-    console.log(teamArray);
   }
 
   return (
@@ -56,7 +70,7 @@ function AddTeam() {
       <div>
         {teamArray?.map(employee => (
           <div>
-            <p key={employee._id}>{employee._id}</p>
+            <p key={employee._id}>{employee}</p>
           </div>
         ))}
       </div>
@@ -65,7 +79,7 @@ function AddTeam() {
         <div>
           <p key={employee._id}>{employee.name}</p>
           <button
-            value={employee._id}
+            value={employee.name}
             onClick={onAddEmployee}
           >
             Add
