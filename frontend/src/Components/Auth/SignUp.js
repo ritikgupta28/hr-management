@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
 
-function SignUp() {
+function SignUp({ signupHandler }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
-  const onSignUp = () => {
-    console.log(name, email, password);
+  const onSignUp = (e) => {
+    const resData = {
+      email: email,
+      password: password,
+      name: name
+    }
+    signupHandler(e, resData);
   }
 
   return (

@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
 
-function Login() {
+function Login({ loginHandler }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onLogin = () => {
-    console.log(email, password);
+  const onLogin = (e) => {
+    const resData = {
+      email: email,
+      password: password
+    }
+    loginHandler(e, resData);
   }
 
   return (

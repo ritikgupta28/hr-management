@@ -8,7 +8,7 @@ import Notification from "./Notification"
 import Dashboard from "../Employees/Dashboard"
 import "./Navbar.css"
 
-function Navbar() {
+function Navbar({ logoutHandler }) {
 	return (
 		<Router >
 			<div className="navbar">
@@ -20,7 +20,7 @@ function Navbar() {
 					<button><Link to="/add_employee">Add Employee</Link></button>
 					{<button><Link to="/notification">Notification</Link></button>}
 				</div>
-				<h2>MENU</h2>
+				<button onClick={logoutHandler}>LogOut</button>
 			</div>
 			<div className="navbar_page">
 				<Switch>
