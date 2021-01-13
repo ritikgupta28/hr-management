@@ -5,6 +5,7 @@ function AddEmployee() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('');
+  const [salary, setSalary] = useState('');
 
   const onAddEmployee = (e) => {
     fetch('http://localhost:8000/newEmployee', {
@@ -15,13 +16,15 @@ function AddEmployee() {
       body: JSON.stringify({
         name: name,
         email: email,
-        role: role
+        role: role,
+        salary: salary
       })
     })
     .then(resData => {
       setName("");
       setEmail("");
       setRole("");
+      setSalary('');
       alert("add_employee_done");
     })
     .catch(err => console.log(err));
@@ -45,6 +48,14 @@ function AddEmployee() {
           placeholder="username@gmail.com"
           value={email}
           onChange = {e => setEmail(e.target.value)}  
+        />
+      </div>
+      <div className="add_employee_input">
+        <p>Salary: </p>
+        <input
+          type="number"
+          value={salary}
+          onChange = {e => setSalary(e.target.value)}  
         />
       </div>
       <div className="add_employee_input">

@@ -31,7 +31,8 @@ const employeeSchema = new Schema({
 			type: String
 		},
 		salary: {
-			type: Number
+			type: Number,
+			required: true
 		},
 		absent: {
 			type: Array,
@@ -41,9 +42,11 @@ const employeeSchema = new Schema({
 
 employeeSchema.methods.addLeave = function (dates) {
 	const newAbsent = this.absent;
-	dates.map(date => (
-		newAbsent.push(date)
-	))
+	dates.map(date => {
+		if(newAbsent.indexOf(date) === -1) {
+			newAbsent.push(date);
+		}
+	})
 	this.absent = newAbsent;
 	return this.save();
 };

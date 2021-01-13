@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Attendance from './Attendance';
 import Leave from './Leave';
+import Salary from './Salary';
 
 function Dashboard( props ) {
   const [employee, setEmployee] = useState({});
@@ -26,9 +27,10 @@ function Dashboard( props ) {
     <div>
       <Attendance id={props.match.params.id} />
       <p>{employee.name}</p>
-     	<p>{employee.email}</p>
+      <p>{employee.email}</p>
      	<p>{employee.teamAssign}</p>
       <Leave id={props.match.params.id} />
+      <Salary id={props.match.params.id}/>
     </div>
   )
 }

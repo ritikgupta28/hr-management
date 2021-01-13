@@ -54,3 +54,25 @@ exports.postApplyLeave = (req, res, next) => {
     })
     .catch(err => console.log(err));
 }
+
+exports.postSalary = (req, res, next) => {
+  const { month, id } = req.body;
+  Employee.findById(id)
+    .then(employee => {
+      const absent  = employee.absent;
+      let countAbsents = 0;
+      absent.map(date => {
+        if(date.substring(3,10).indexOf(month) !== -1) {
+          countAbsents++;
+        }
+      })
+      let salary = (employee.salary)/12;
+      let expectedSalary = salary;
+      expectedSalary -= ((expectedSalary/30)*countAbsents);
+      res.status(200).json({
+        salary: salary,
+        expectedSalary: expectedSalary
+      });
+    })
+    .catch(err => console.log(err));
+}

@@ -25,4 +25,6 @@ router.post('/acceptReply', managerController.postAcceptReply);
 
 router.post('/rejectReply', managerController.postRejectReply);
 
+router.post('/salary', employeeController.postSalary);
+
 module.exports = router;
