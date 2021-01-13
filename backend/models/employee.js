@@ -5,7 +5,10 @@ const employeeSchema = new Schema({
 		name: {
 			type: String,
 			required: true
-		},
+	  },
+	  password: {
+		  type: String
+	  },
 		email: {
 			type: String,
 			required: true
@@ -32,7 +35,7 @@ const employeeSchema = new Schema({
 		},
 		salary: {
 			type: Number,
-			required: true
+			//required: true
 		},
 		absent: {
 			type: Array,

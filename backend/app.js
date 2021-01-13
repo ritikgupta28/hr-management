@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
-
+const authRoutes = require('./routes/auth');
 const routes = require('./routes/routes');
 
 const MONGODB_URL = "mongodb+srv://ritikgupta:ZU5DvtmxnizGbPsu@cluster0-mzunh.mongodb.net/hr_manager?retryWrites=true&w=majority";
@@ -21,6 +21,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/', routes);
+app.use('/auth', authRoutes);
 
 const port = process.env.PORT || '8000';
 
