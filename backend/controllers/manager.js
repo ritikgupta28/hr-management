@@ -4,6 +4,21 @@ const ObjectId = require('mongodb').ObjectID;
 const Employee = require('../models/employee');
 const Team = require('../models/team');
 const Notification = require('../models/notification');
+const Manager = require('../models/manager');
+
+exports.postHoliday = (req, res, next) => {
+	const { id, dates } = req.body;
+	Manager.findById(id)
+		.then(manager => {
+			return manager.addHoliday(dates);
+		})
+		.then(result => {
+			res.status(200).json({
+				message: 'Success!'
+			});
+		})
+		.catch(err => console.log(err)); 
+}
 
 exports.getEmployeeList = (req, res, next) => {
 	Employee.find()

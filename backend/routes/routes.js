@@ -27,4 +27,6 @@ router.post('/rejectReply', managerController.postRejectReply);
 
 router.post('/salary', employeeController.postSalary);
 
+router.post('/holiday', managerController.postHoliday);
+
 module.exports = router;

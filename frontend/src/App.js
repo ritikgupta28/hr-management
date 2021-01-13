@@ -126,7 +126,7 @@ function App(props) {
       <div>
         {isAuth
           ?
-          <Navbar logoutHandler={logoutHandler}/>
+          <Navbar logoutHandler={logoutHandler} id={id}/>
           :
           <Login loginHandler={loginHandler} />
         }

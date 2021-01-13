@@ -5,10 +5,11 @@ import AddEmployee from "./AddEmployee"
 import EmployeeList from "./EmployeeList"
 import AddTeam from "./AddTeam"
 import Notification from "./Notification"
+import Holiday from "./Holiday"
 import Dashboard from "../Employees/Dashboard"
 import "./Navbar.css"
 
-function Navbar({ logoutHandler }) {
+function Navbar({ logoutHandler, id }) {
 	return (
 		<Router >
 			<div className="navbar">
@@ -18,7 +19,8 @@ function Navbar({ logoutHandler }) {
 					<button><Link to="/add_team">Add Team</Link></button>
 					<button><Link to="/employee">Employee</Link></button>
 					<button><Link to="/add_employee">Add Employee</Link></button>
-					{<button><Link to="/notification">Notification</Link></button>}
+					<button><Link to="/holiday">Holiday</Link></button>
+					<button><Link to="/notification">Notification</Link></button>
 				</div>
 				<button onClick={logoutHandler}>LogOut</button>
 			</div>
@@ -56,7 +58,16 @@ function Navbar({ logoutHandler }) {
 						path='/notification'
 						exact
 						render={props => (
-						<Notification />
+							<Notification />
+						)} 
+					/>
+					<Route
+						path='/holiday'
+						exact
+						render={props => (
+							<Holiday
+								id={id}
+							/>
 						)} 
 					/>
 					<Route
