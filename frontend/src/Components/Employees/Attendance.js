@@ -3,8 +3,11 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import moment from 'moment';
 import './Attendance.css';
+import { useStateValue } from "../../StateProvider"
 
-function Attendance({ id }) {
+function Attendance() {
+
+  const [{ id }, dispatch] = useStateValue();
   const [date, onDateChange] = useState(new Date());
   const [absents, setAbsent] = useState([]);
   const [holidays, setHoliday] = useState([]);

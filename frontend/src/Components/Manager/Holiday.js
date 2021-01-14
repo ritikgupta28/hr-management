@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import moment from "moment"
+import { useStateValue } from "../../StateProvider"
 
-function Holiday({ id }) {
+function Holiday() {
+  
+  const [{ id }, dispatch] = useStateValue();
   const [dates, setDates] = useState([]);
 
   const onSubmit = () => {

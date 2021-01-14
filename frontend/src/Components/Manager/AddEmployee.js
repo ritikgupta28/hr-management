@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import "./AddEmployee.css";
 
 function AddEmployee() {
+  
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('');
@@ -25,7 +26,7 @@ function AddEmployee() {
       setEmail("");
       setRole("");
       setSalary('');
-      alert("add_employee_done");
+      alert("Done");
     })
     .catch(err => console.log(err));
   }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import TeamDescription from './TeamDescription';
 
 function TeamList() {
+  
   const [teams, setTeams] = useState([]);
 
   useEffect(() => {

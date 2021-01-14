@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
+import { useStateValue } from "../../StateProvider";
 
-function Salary({ id }) {
+function Salary() {
 
+  const [{ id }, dispatch] = useStateValue();
   const [month, setMonth] = useState("");
   const [salary, setSalary] = useState("");
   const [expectedSalary, setExpectedSalary] = useState("");

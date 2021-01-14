@@ -1,17 +1,57 @@
 import React, { useState } from 'react'
+import { actionType } from "../../reducer";
+import { useStateValue } from "../../StateProvider"
 
-function SignUp({ signupHandler }) {
+function SignUp(props) {
+
+  const [{ status }, dispatch] = useStateValue();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
   const onSignUp = (e) => {
-    const resData = {
-      email: email,
-      password: password,
-      name: name
-    }
-    signupHandler(e, resData);
+    e.preventDefault();
+    fetch('http://localhost:8000/auth/signup', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        password: password
+      })
+    })
+      .then(res => {
+        dispatch({
+          type: actionType.SET_STATUS,
+          status: res.status
+        })
+        return res.json();
+      })
+      .then(resData => {
+        if(status === 422) {
+          throw new Error(resData.message);
+        }
+        if(status !== 200 && status !== 201) {
+          throw new Error(resData.message);
+        }
+        dispatch({
+          type: actionType.SET_IS_AUTH,
+          isAuth: false
+        })
+        props.history.push('/login');
+      })
+      .catch(err => {
+        dispatch({
+          type: actionType.SET_IS_AUTH,
+          isAuth: false
+        })
+        dispatch({
+          type: actionType.SET_ERROR,
+          error: err
+        })
+      });
   }
 
   return (

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import openSocket from "socket.io-client";
 import Detail from './Detail';
 
 function Notification() {
@@ -20,13 +19,6 @@ function Notification() {
         setNotification(resData["notifications"]);
       })
       .catch(err => console.log(err));
-       
-      // const socket = openSocket('http://localhost:8000');
-      // socket.on('leave', data => {
-      //   if (data.action === 'leave') {
-      //     setNotification([ ...notifications, data])
-      //   }
-      // })
   }, [])
 
   return (

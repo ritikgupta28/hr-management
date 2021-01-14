@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 function AddTeam() {
+
   const [teamName, setTeamName] = useState("");
   const [teamArray, setTeamArray] = useState([]);
   const [description, setDescription] = useState("");
@@ -39,7 +40,7 @@ function AddTeam() {
       setTeamName("");
       setTeamArray([]);
       setDescription("");
-      alert("Add Team Successfully!");
+      alert("Done!");
     })
     .catch(err => console.log(err));
   }

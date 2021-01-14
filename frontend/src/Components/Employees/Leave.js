@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import moment from "moment"
+import { useStateValue } from "../../StateProvider";
 
-function Leave({ id }) {
+function Leave() {
+  
+  const [{ id }, dispatch] = useStateValue();
   const [dates, setDates] = useState([]);
   const [reason, setReason] = useState("");
 

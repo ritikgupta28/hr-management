@@ -3,7 +3,8 @@ import Attendance from './Attendance';
 import Leave from './Leave';
 import Salary from './Salary';
 
-function Dashboard( props ) {
+function Dashboard(props) {
+  
   const [employee, setEmployee] = useState({});
 
   useEffect(() => {
@@ -25,12 +26,12 @@ function Dashboard( props ) {
 
   return (
     <div>
-      <Attendance id={props.match.params.id} />
+      <Attendance />
       <p>{employee.name}</p>
       <p>{employee.email}</p>
      	<p>{employee.teamAssign}</p>
-      <Leave id={props.match.params.id} />
-      <Salary id={props.match.params.id}/>
+      <Leave />
+      <Salary />
     </div>
   )
 }

@@ -9,7 +9,8 @@ import Holiday from "./Holiday"
 import Dashboard from "../Employees/Dashboard"
 import "./Navbar.css"
 
-function Navbar({ logoutHandler, id }) {
+function Navbar({ logoutHandler }) {
+	
 	return (
 		<Router >
 			<div className="navbar">
@@ -22,7 +23,11 @@ function Navbar({ logoutHandler, id }) {
 					<button><Link to="/holiday">Holiday</Link></button>
 					<button><Link to="/notification">Notification</Link></button>
 				</div>
-				<button onClick={logoutHandler}>LogOut</button>
+				<button
+					onClick={logoutHandler}
+				>
+					LogOut
+				</button>
 			</div>
 			<div className="navbar_page">
 				<Switch>
@@ -65,17 +70,13 @@ function Navbar({ logoutHandler, id }) {
 						path='/holiday'
 						exact
 						render={props => (
-							<Holiday
-								id={id}
-							/>
+							<Holiday />
 						)} 
 					/>
 					<Route
 						path='/employee/:id'
 						render={props => (
-							<Dashboard
-								{...props}
-							/>
+							<Dashboard />
 						)}
 					/>
 				</Switch>
