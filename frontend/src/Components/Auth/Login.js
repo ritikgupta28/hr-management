@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { actionType } from "../../reducer";
 import { useStateValue } from "../../StateProvider"
 
-function Login({ loginHandler }) {
+function Login() {
 
   const [{ status }, dispatch] = useStateValue();
   const [email, setEmail] = useState("");
@@ -87,7 +87,12 @@ function Login({ loginHandler }) {
         />
       </div>
       <div className="">
-        <button type="submit" onClick={onLogin}>Login</button>
+        <button
+          type="submit"
+          onClick={onLogin}
+        >
+          Login
+        </button>
       </div>
     </div>
   )

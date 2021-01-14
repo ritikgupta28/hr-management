@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { actionType } from "../../reducer";
 import { useStateValue } from "../../StateProvider"
 
-function SignUp(props) {
+function SignUp() {
 
   const [{ status }, dispatch] = useStateValue();
   const [email, setEmail] = useState("");
@@ -40,7 +40,7 @@ function SignUp(props) {
           type: actionType.SET_IS_AUTH,
           isAuth: false
         })
-        props.history.push('/login');
+        // props.history.push('/login');
       })
       .catch(err => {
         dispatch({
@@ -84,7 +84,12 @@ function SignUp(props) {
         />
       </div>
       <div className="">
-        <button type="submit" onClick={onSignUp}>SignUp</button>
+        <button
+          type="submit"
+          onClick={onSignUp}
+        >
+          SignUp
+        </button>
       </div>
     </div>
   )
