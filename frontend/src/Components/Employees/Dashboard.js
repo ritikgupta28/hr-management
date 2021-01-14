@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Attendance from './Attendance';
 import Leave from './Leave';
 import Salary from './Salary';
+import { useStateValue } from "../../StateProvider";
 
 function Dashboard(props) {
-  
+  const [{ token }, dispatch] = useStateValue();
   const [employee, setEmployee] = useState({});
 
   useEffect(() => {
@@ -12,6 +13,7 @@ function Dashboard(props) {
     fetch('http://localhost:8000/employee/' + id, {
       method: 'GET',
       headers: {
+        Authorization: 'Bearer ' + token,
         'Content-Type': 'application/json'
       }
     })

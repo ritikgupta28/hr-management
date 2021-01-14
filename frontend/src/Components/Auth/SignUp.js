@@ -11,7 +11,7 @@ function SignUp() {
 
   const onSignUp = (e) => {
     e.preventDefault();
-    fetch('http://localhost:8000/auth/signup', {
+    fetch('http://localhost:8000/auth/employeeSignup', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'

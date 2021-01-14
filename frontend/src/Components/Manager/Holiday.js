@@ -4,13 +4,14 @@ import { useStateValue } from "../../StateProvider"
 
 function Holiday() {
   
-  const [{ id }, dispatch] = useStateValue();
+  const [{ id, token }, dispatch] = useStateValue();
   const [dates, setDates] = useState([]);
 
   const onSubmit = () => {
     fetch('http://localhost:8000/holiday', {
       method: 'POST',
       headers: {
+        Authorization: 'Bearer ' + token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({

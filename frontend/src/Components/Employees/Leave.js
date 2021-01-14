@@ -4,7 +4,7 @@ import { useStateValue } from "../../StateProvider";
 
 function Leave() {
   
-  const [{ id }, dispatch] = useStateValue();
+  const [{ id, token }, dispatch] = useStateValue();
   const [dates, setDates] = useState([]);
   const [reason, setReason] = useState("");
 
@@ -12,6 +12,7 @@ function Leave() {
     fetch('http://localhost:8000/leave', {
       method: 'POST',
       headers: {
+        Authorization: 'Bearer ' + token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({

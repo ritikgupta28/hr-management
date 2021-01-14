@@ -76,7 +76,9 @@ function Navbar({ logoutHandler }) {
 					<Route
 						path='/employee/:id'
 						render={props => (
-							<Dashboard />
+							<Dashboard
+								{ ...props }
+							/>
 						)}
 					/>
 				</Switch>

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import moment from "moment"
+import { useStateValue } from "../../StateProvider";
 
 function Detail({ notification }) {
-
+  const [{ token }, dispatch] = useStateValue();
   const [reply, setReply] = useState(notification.reply);
 
   const renderButtons = () => {
@@ -31,6 +32,7 @@ function Detail({ notification }) {
     fetch('http://localhost:8000/acceptReply', {
       method: 'POST',
       headers: {
+        Authorization: 'Bearer ' + token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -47,6 +49,7 @@ function Detail({ notification }) {
     fetch('http://localhost:8000/rejectReply', {
       method: 'POST',
       headers: {
+        Authorization: 'Bearer ' + token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({

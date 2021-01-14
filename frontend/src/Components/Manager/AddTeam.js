@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import { useStateValue } from "../../StateProvider";
 
 function AddTeam() {
-
+  const [{ token }, dispatch] = useStateValue();
   const [teamName, setTeamName] = useState("");
   const [teamArray, setTeamArray] = useState([]);
   const [description, setDescription] = useState("");
@@ -11,6 +12,7 @@ function AddTeam() {
     fetch('http://localhost:8000/employeeList', {
       method: 'GET',
       headers: {
+        Authorization: 'Bearer ' + token,
         'Content-Type': 'application/json'
       }
       })
@@ -28,6 +30,7 @@ function AddTeam() {
     fetch('http://localhost:8000/newTeam', {
       method: 'POST',
       headers: {
+        Authorization: 'Bearer ' + token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({

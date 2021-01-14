@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import "./AddEmployee.css";
+import { useStateValue } from "../../StateProvider";
 
 function AddEmployee() {
-  
+  const [{ token }, dispatch] = useStateValue();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('');
@@ -12,6 +13,7 @@ function AddEmployee() {
     fetch('http://localhost:8000/newEmployee', {
       method: 'POST',
       headers: {
+        Authorization: 'Bearer ' + token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({

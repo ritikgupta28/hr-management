@@ -4,7 +4,7 @@ import { useStateValue } from "../../StateProvider";
 
 function Salary() {
 
-  const [{ id }, dispatch] = useStateValue();
+  const [{ id, token }, dispatch] = useStateValue();
   const [month, setMonth] = useState("");
   const [salary, setSalary] = useState("");
   const [expectedSalary, setExpectedSalary] = useState("");
@@ -13,6 +13,7 @@ function Salary() {
     fetch('http://localhost:8000/salary', {
       method: 'POST',
       headers: {
+        Authorization: 'Bearer ' + token,
         "Content-Type": 'application/json'
       },
       body: JSON.stringify({

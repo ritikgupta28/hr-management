@@ -2,31 +2,33 @@ const express = require('express');
 
 const managerController = require('../controllers/manager');
 const employeeController = require('../controllers/employee');
+const isManager = require('../middleware/isManagerAuth');
+const isEmployee = require('../middleware/isEmployeeAuth');
 
 const router = express.Router();
 
-router.get('/employeeList', managerController.getEmployeeList);
+router.get('/employeeList', isManager, managerController.getEmployeeList);
 
-router.post('/newEmployee', managerController.postNewEmployee);
+router.post('/newEmployee', isManager, managerController.postNewEmployee);
 
-router.get('/teamList', managerController.getTeamList);
+router.get('/teamList', isManager, managerController.getTeamList);
 
-router.post('/newTeam', managerController.postNewTeam);
+router.post('/newTeam', isManager, managerController.postNewTeam);
 
-router.get('/employee/:id', employeeController.getEmployee);
+router.get('/employee/:id', isManager, isEmployee, employeeController.getEmployee);
 
-router.get('/attendance/:id', employeeController.getAttendance);
+router.get('/attendance/:id', isManager, isEmployee, employeeController.getAttendance);
 
-router.post('/leave', employeeController.postApplyLeave);
+router.post('/leave', isEmployee, employeeController.postApplyLeave);
 
-router.get('/notification', managerController.getNotification);
+router.get('/notification', isManager, managerController.getNotification);
 
-router.post('/acceptReply', managerController.postAcceptReply);
+router.post('/acceptReply', isManager, managerController.postAcceptReply);
 
-router.post('/rejectReply', managerController.postRejectReply);
+router.post('/rejectReply', isManager, managerController.postRejectReply);
 
-router.post('/salary', employeeController.postSalary);
+router.post('/salary', isManager, isEmployee, employeeController.postSalary);
 
-router.post('/holiday', managerController.postHoliday);
+router.post('/holiday', isManager, managerController.postHoliday);
 
 module.exports = router;

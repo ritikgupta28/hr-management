@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Card from './Card';
+import { useStateValue } from "../../StateProvider";
 
 function EmployeeList() {
-  
+  const [{ token }, dispatch] = useStateValue();
   const [employees, setEmployees] = useState();
   const [name, setName] = useState("");
   const [team, setTeam] = useState("");
@@ -12,6 +13,7 @@ function EmployeeList() {
     fetch('http://localhost:8000/employeeList', {
       method: 'GET',
       headers: {
+        Authorization: 'Bearer ' + token,
         'Content-Type': 'application/json'
       }
       })

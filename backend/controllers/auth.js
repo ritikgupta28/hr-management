@@ -2,6 +2,7 @@ const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Employee = require('../models/employee');
+const Manager = require('../models/manager');
 // const nodemailer = require('nodemailer');
 // const sendgridTransport = require('nodemailer-sendgrid-transport');
 
@@ -13,7 +14,7 @@ const Employee = require('../models/employee');
 //   })
 // );
 
-exports.signup = (req, res, next) => {
+exports.employeeSignup = (req, res, next) => {
 	const errors = validationResult(req);
 	if(!errors.isEmpty()) {
 	 	const error = new Error(errors.array()[0].msg);
@@ -54,21 +55,65 @@ exports.signup = (req, res, next) => {
 };
 
 exports.login = (req, res, next) => {
-
   const { email, password } = req.body;
 
-	let loadedEmployee; 
+	let loadedEmployee;
+	let flag = false; 
 	Employee.findOne({ email: email })
 	.then(employee => {
 		if(!employee) {
-			const error = new Error('E-mail is not registered!');
-			error.statusCode = 401;
-			throw error;
+			let loadedManager;
+			return Manager.findOne({ email: email })
+			.then(manager => {
+				if(!manager) {
+					const error = new Error('E-mail is not registered!');
+					error.statusCode = 401;
+					throw error;
+				}
+				loadedManager = manager;
+				
+				return bcrypt.compare(password, manager.password);
+			})
+			.then(isEqual => {
+				if(!isEqual) {
+					const error = new Error('Wrong password!');
+					error.statusCode = 401;
+					throw error;
+				}
+				const token = jwt.sign({
+					email: loadedManager.email,
+					managerId: loadedManager._id.toString()
+				},
+				'somesupersecretsecret',
+				{ expiresIn: '3h' }
+				);
+				
+				res.status(200).json({
+					token: token,
+					id: loadedManager._id.toString()
+				});
+				flag = true;
+			})
+			.catch(err => {
+				if(!err.statusCode) {
+					err.statusCode = 500;
+				}
+				next(err);
+			});
+			// const error = new Error('E-mail is not registered!');
+			// error.statusCode = 401;
+			// throw error;
 		}
 		loadedEmployee = employee;
+		
 		return bcrypt.compare(password, employee.password);
 	})
 	.then(isEqual => {
+		if(flag) {
+			const error = new Error('Success!');
+			error.statusCode = 200;
+			throw error;
+		}
 		if(!isEqual) {
 			const error = new Error('Wrong password!');
 			error.statusCode = 401;
@@ -81,7 +126,8 @@ exports.login = (req, res, next) => {
 		'somesupersecretsecret', 
 		{ expiresIn: '3h' }
 		);
-		res.status(200).json({ 
+		
+		res.status(200).json({
 			token: token, 
 			id: loadedEmployee._id.toString() 
 		});
@@ -92,4 +138,37 @@ exports.login = (req, res, next) => {
       }
       next(err);
     });
+};
+
+exports.managerSignup = (req, res, next) => {
+	// const errors = validationResult(req);
+	// if(!errors.isEmpty()) {
+	//  	const error = new Error(errors.array()[0].msg);
+	//  	error.statusCode = 422;
+	//  	error.data = errors.array()[0].msg;
+	//  	throw error;
+ //  }
+  
+  const { email, password } = req.body;
+
+	bcrypt.hash(password, 12)
+		.then(hashedPw => {
+			const manager = new Manager({
+				email: email,
+				password: hashedPw
+			});
+			return manager.save();
+		})
+		.then(result => {
+			res.status(201).json({
+				message: 'Manager created!',
+				managerId: result._id
+			});
+		})
+		.catch(err => {
+			if(!err.statusCode) {
+				err.statusCode = 500;
+			}
+			next(err);
+		});
 };
