@@ -1,0 +1,17 @@
+.login {
+}
+
+.heading {
+  font-size: 40px;
+  font-weight: 20%;
+  letter-spacing: 10px;
+}
+
+.login_input {
+  font-size: 20px;
+}
+
+.login_button {
+  margin: 10px;
+  padding: 20px;
+}

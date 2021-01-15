@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { actionType } from "../../reducer";
 import { useStateValue } from "../../StateProvider"
+import "./Auth.css"
 
 function Login() {
 
@@ -39,21 +40,20 @@ function Login() {
           token: resData.token
         })
         dispatch({
-          type: actionType.SET_ID,
-          id: resData.id
-        })
-        dispatch({
           type: actionType.SET_IS_AUTH,
           isAuth: true
         })
         dispatch({
-          type: actionType.SET_IS_ADMIN_AUTH,
-          isAdminAuth: resData.isAdminAuth
+          type: actionType.SET_IS_MANAGER_ID,
+          managerId: resData.managerId
         })
-        console.log(resData.isAdminAuth)
-        localStorage.setItem('isAdminAuth', resData.isAdminAuth);
+        dispatch({
+          type: actionType.SET_IS_EMPLOYEE_ID,
+          employeeId: resData.employeeId
+        })
         localStorage.setItem('token', resData.token);
-        localStorage.setItem('id', resData.id);
+        localStorage.setItem('managerId', resData.managerId);
+        localStorage.setItem('employeeId', resData.employeeId);
         const remainingMilliseconds = 5 * 60 * 60 * 1000;
         const expiryDate = new Date(
           new Date().getTime() + remainingMilliseconds
@@ -70,10 +70,11 @@ function Login() {
   }
 
   return (
-    <div>
-      <p>LOGIN</p>
-      <div className="">
-        <p>Email: </p>
+    <div className="login">
+      <p className="heading">LOGIN</p>
+      <div>
+      <div className="login_input">
+        <p className="input_lable">Email: </p>
         <input
           type="email"
           placeholder="username@gmail.com"
@@ -81,8 +82,8 @@ function Login() {
           onChange = {e => setEmail(e.target.value)}  
         />
       </div>
-      <div className="">
-        <p>Password: </p>
+      <div className="login_input">
+        <p className="input_lable">Password: </p>
         <input
           type="password"
           placeholder="password"
@@ -90,13 +91,14 @@ function Login() {
           onChange = {e => setPassword(e.target.value)}  
         />
       </div>
-      <div className="">
+      <div className="login_button">
         <button
           type="submit"
           onClick={onLogin}
         >
           Login
         </button>
+      </div>
       </div>
     </div>
   )

@@ -90,8 +90,8 @@ exports.login = (req, res, next) => {
 				
 				res.status(200).json({
 					token: token,
-					id: loadedManager._id.toString(),
-					isAdminAuth: true
+					managerId: loadedManager._id.toString(),
+					employeeId: "null"
 				});
 				flag = true;
 			})
@@ -122,7 +122,7 @@ exports.login = (req, res, next) => {
 		}
 		const token = jwt.sign({
 			email: loadedEmployee.email,
-			employeeId: loadedEmployee._id.toString()
+			employeeId: loadedEmployee._id.toString(),
 		}, 
 		'somesupersecretsecret', 
 		{ expiresIn: '3h' }
@@ -130,8 +130,8 @@ exports.login = (req, res, next) => {
 		
 		res.status(200).json({
 			token: token, 
-			id: loadedEmployee._id.toString(),
-			isAdminAuth: false
+			employeeId: loadedEmployee._id.toString(),
+			managerId: "null"
 		});
 	}) 
 	.catch(err => {

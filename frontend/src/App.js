@@ -2,14 +2,13 @@ import React, { useEffect } from 'react';
 import ManagerNavbar from "./Components/Manager/Navbar";
 import EmployeeNavbar from "./Components/Employees/Navbar";
 import Login from "./Components/Auth/Login";
-import SignUp from "./Components/Auth/SignUp";
+// import SignUp from "./Components/Auth/SignUp";
 import { actionType } from "./reducer";
 import { useStateValue } from "./StateProvider";
 
-
 function App() {
 
-  const [{ isAuth, isAdminAuth }, dispatch] = useStateValue();
+  const [{ isAuth, managerId }, dispatch] = useStateValue();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -21,33 +20,33 @@ function App() {
       logoutHandler();
       return;
     }
-    const id = localStorage.getItem('id');
+    const managerId = localStorage.getItem('managerId');
+    const employeeId = localStorage.getItem('employeeId');
     const remainingMilliseconds = new Date(expiryDate).getTime() - new Date().getTime();
     dispatch({
       type: actionType.SET_TOKEN,
       token: token
     })
-    if(id != null) {
+    if(managerId !== "null") {
       dispatch({
-				type: actionType.SET_ID,
-				id: id
+				type: actionType.SET_MANAGER_ID,
+				managerId: managerId
+			})
+    }
+    if(employeeId !== "null") {
+      dispatch({
+				type: actionType.SET_EMPLOYEE_ID,
+				employeeId: employeeId
 			})
     }
     dispatch({
       type: actionType.SET_IS_AUTH,
       isAuth: true
     })
-    const isAdmin = localStorage.getItem('isAdminAuth');
-    console.log('1', isAdmin);
-    dispatch({
-      type: actionType.SET_IS_ADMIN_AUTH,
-      isAdminAuth: isAdmin
-    })
-    console.log('2', isAdminAuth);
     setAutoLogout(remainingMilliseconds);
   }, [])
 
-  const setAutoLogout = milliseconds => {
+  const setAutoLogout = (milliseconds) => {
     setTimeout(() => {
       logoutHandler();
     }, milliseconds);
@@ -62,30 +61,25 @@ function App() {
       type: actionType.SET_IS_AUTH,
       isAuth: false
     })
-    dispatch({
-      type: actionType.SET_IS_ADMIN_AUTH,
-      isAdminAuth: false
-    })
-    localStorage.removeItem('isAdminAuth');
     localStorage.removeItem('token');
     localStorage.removeItem('expiryDate');
-    localStorage.removeItem('id');
+    localStorage.removeItem('managerId');
+    localStorage.removeItem('employeeId');
   };
 
     return (
       <div>
         {isAuth
           ?
-          (isAdminAuth === "true"
-          ?
-          <ManagerNavbar logoutHandler={logoutHandler} />
+          (managerId !== "null"
+            ?
+            <ManagerNavbar logoutHandler={logoutHandler} />
           :
           <EmployeeNavbar logoutHandler={logoutHandler} />
           )
           :
           <div>
             <Login />
-            <SignUp />
           </div>
         }
       </div>
