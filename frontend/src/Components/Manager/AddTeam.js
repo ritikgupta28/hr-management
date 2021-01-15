@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import { actionType } from "../../reducer"
 import { useStateValue } from "../../StateProvider";
 
 function AddTeam() {
-  const [{ token }, dispatch] = useStateValue();
+  const [{ token, status }, dispatch] = useStateValue();
   const [teamName, setTeamName] = useState("");
   const [teamArray, setTeamArray] = useState([]);
   const [description, setDescription] = useState("");
@@ -15,18 +16,26 @@ function AddTeam() {
         Authorization: 'Bearer ' + token,
         'Content-Type': 'application/json'
       }
-      })
+    })
       .then(res => {
+        dispatch({
+          type: actionType.SET_STATUS,
+          status: res.status
+        })
         return res.json();
       })
       .then(resData => {
+        if (status === 500) {
+          throw new Error(resData.message);
+        }
         setEmployees(resData["employees"].filter(employees => employees.teamName === ""));
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        alert(err);
+      });
   }, [])
   
   const onAddTeam = () => {
-
     fetch('http://localhost:8000/newTeam', {
       method: 'POST',
       headers: {
@@ -39,13 +48,25 @@ function AddTeam() {
         description: description
       })
     })
+    .then(res => {
+      dispatch({
+        type: actionType.SET_STATUS,
+        status: res.status
+      })
+      return res.json();
+    })
     .then(resData => {
+      if (status === 500) {
+        throw new Error(resData.message);
+      }
       setTeamName("");
       setTeamArray([]);
       setDescription("");
       alert("Done!");
     })
-    .catch(err => console.log(err));
+      .catch(err => {
+        alert(err);
+    });
   }
 
   const onAddEmployee = (e1, e2) => {

@@ -1,4 +1,5 @@
 const Employee = require('../models/employee');
+const Manager = require('../models/manager')
 
 exports.getEmployee = (req, res, next) => {
 	const id = req.params.id;
@@ -17,16 +18,22 @@ exports.getEmployee = (req, res, next) => {
 
 exports.getAttendance = (req, res, next) => {
   const id = req.params.id;
-  const holidays = [
-    '04-01-2021'
-  ];
-
-  Employee.findById(id)
-    .then(employee => {
-      res.status(200).json({
-        absents: employee.absent,
-        holidays: holidays
+  let holidays;
+  Manager.find()
+    .then(manager => {
+      holidays = manager[0].holiday;
+      Employee.findById(id)
+      .then(employee => {
+        res.status(200).json({
+          absents: employee.absent,
+          holidays: holidays
+        })
       })
+      .catch(err => {
+        const error = new Error;
+        error.message = 'Failed to fetch attendance!'
+        next(error);
+      });
     })
     .catch(err => {
       const error = new Error;

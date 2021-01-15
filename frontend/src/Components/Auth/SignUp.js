@@ -47,15 +47,13 @@ function SignUp() {
           type: actionType.SET_IS_AUTH,
           isAuth: false
         })
-        dispatch({
-          type: actionType.SET_ERROR,
-          error: err
-        })
+        alert(err);
       });
   }
 
   return (
     <div>
+      <p>SignUp</p>
       <div className="">
         <p>Name: </p>
         <input

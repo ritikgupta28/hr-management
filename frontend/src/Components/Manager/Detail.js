@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import moment from "moment"
+import { actionType } from "../../reducer"
 import { useStateValue } from "../../StateProvider";
 
 function Detail({ notification }) {
-  const [{ token }, dispatch] = useStateValue();
+  const [{ token, status }, dispatch] = useStateValue();
   const [reply, setReply] = useState(notification.reply);
 
   const renderButtons = () => {
@@ -39,10 +40,22 @@ function Detail({ notification }) {
         id: e.target.value
       })
     })
-      .then(resData => {
+    .then(res => {
+      dispatch({
+        type: actionType.SET_STATUS,
+        status: res.status
+      })
+      return res.json();
+    })
+    .then(resData => {
+      if (status === 500) {
+        throw new Error(resData.message);
+      }
       setReply("accept")
     })
-    .catch(err => console.log(err));
+      .catch(err => {
+        alert(err);
+    });
   }
 
   const onReject = (e) => {
@@ -56,10 +69,22 @@ function Detail({ notification }) {
         id: e.target.value
       })
     })
-      .then(resData => {
+    .then(res => {
+      dispatch({
+        type: actionType.SET_STATUS,
+        status: res.status
+      })
+      return res.json();
+    })
+    .then(resData => {
+      if (status === 500) {
+        throw new Error(resData.message);
+      }
         setReply("reject")
     })
-    .catch(err => console.log(err));
+      .catch(err => {
+        alert(err);
+    });
   }
 
   return (

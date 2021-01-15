@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import moment from "moment"
+import { actionType } from "../../reducer"
 import { useStateValue } from "../../StateProvider"
 
 function Holiday() {
   
-  const [{ id, token }, dispatch] = useStateValue();
+  const [{ id, token, status }, dispatch] = useStateValue();
   const [dates, setDates] = useState([]);
 
   const onSubmit = () => {
@@ -18,10 +19,22 @@ function Holiday() {
         dates: dates
       })
     })
+    .then(res => {
+      dispatch({
+        type: actionType.SET_STATUS,
+        status: res.status
+      })
+      return res.json();
+    })
     .then(resData => {
+      if (status === 500) {
+        throw new Error(resData.message);
+      }
       alert("Done!");
     })
-    .catch(err => console.log(err));
+      .catch(err => {
+        alert(err);
+    });
   }
 
   return (

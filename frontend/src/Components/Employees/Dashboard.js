@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Attendance from './Attendance';
 import Leave from './Leave';
 import Salary from './Salary';
+import { actionType } from "../../reducer";
 import { useStateValue } from "../../StateProvider";
 
 function Dashboard({ id }) {
-  const [{ token }, dispatch] = useStateValue();
+  
+  const [{ token, status }, dispatch] = useStateValue();
   const [employee, setEmployee] = useState({});
 
   useEffect(() => {
@@ -16,21 +18,30 @@ function Dashboard({ id }) {
         'Content-Type': 'application/json'
       }
     })
-      .then(res => {
-        return res.json();
+    .then(res => {
+      dispatch({
+        type: actionType.SET_STATUS,
+        status: res.status
       })
-      .then(resData => {
+      return res.json();
+    })
+    .then(resData => {
+      if (status === 500) {
+        throw new Error(resData.message);
+      }
         setEmployee(resData["employee"]);
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        alert(err);
+      });
   }, [])
 
   return (
     <div>
       <Attendance id={id} />
-      <p>{employee.name}</p>
-      <p>{employee.email}</p>
-     	<p>{employee.teamAssign}</p>
+      <p>{employee?.name}</p>
+      <p>{employee?.email}</p>
+     	<p>{employee?.teamAssign}</p>
       <Leave />
       <Salary id={id} />
     </div>

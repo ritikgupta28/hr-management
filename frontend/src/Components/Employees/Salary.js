@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
+import { actionType } from "../../reducer"
 import { useStateValue } from "../../StateProvider";
 
 function Salary({ id }) {
 
-  const [{ token }, dispatch] = useStateValue();
+  const [{ token, status }, dispatch] = useStateValue();
   const [month, setMonth] = useState("");
   const [salary, setSalary] = useState("");
   const [expectedSalary, setExpectedSalary] = useState("");
@@ -22,13 +23,22 @@ function Salary({ id }) {
       })
     })
       .then(res => {
-        return res.json();
+      dispatch({
+        type: actionType.SET_STATUS,
+        status: res.status
       })
-      .then(resData => {
-        setExpectedSalary(resData["expectedSalary"].toPrecision(4));
-        setSalary(resData["salary"].toPrecision(4));
+      return res.json();
+    })
+    .then(resData => {
+      if (status === 500) {
+        throw new Error(resData.message);
+      }
+        setExpectedSalary(resData["expectedSalary"]?.toPrecision(4));
+        setSalary(resData["salary"]?.toPrecision(4));
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        alert(err);
+      });
   }, [month]);
 
   return (

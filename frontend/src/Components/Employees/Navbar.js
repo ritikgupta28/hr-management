@@ -4,14 +4,30 @@ import Dashboard from "../Employees/Dashboard";
 import { useStateValue } from "../../StateProvider";
 
 function EmployeeNavbar({ logoutHandler }) {
+
 	const [{ id }, dispatch] = useStateValue();
+	
 	return (
-		<div>
-			<button onClick={logoutHandler}>
-				LogOut
-			</button>
-			<Dashboard id={id} />
-		</div>
+		<Router>
+			<div className="navbar">
+			 <h1>EMPLOYEE</h1>
+				<button onClick={logoutHandler}>
+					LogOut
+				</button>
+			</div>
+			<div className="navbar_page">
+				<Switch>
+					<Route
+						path='/'
+						render={props => (
+							<Dashboard
+								id={id}
+							/>
+						)}
+					/>
+				</Switch>
+			</div>
+		</Router>
 	)
 }
 

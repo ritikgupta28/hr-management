@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import TeamDescription from './TeamDescription';
+import { actionType } from "../../reducer"
 import { useStateValue } from "../../StateProvider";
 
 function TeamList() {
-  const [{ token }, dispatch] = useStateValue();
+
+  const [{ token, status }, dispatch] = useStateValue();
   const [teams, setTeams] = useState([]);
 
   useEffect(() => {
@@ -15,12 +17,21 @@ function TeamList() {
       }
       })
       .then(res => {
+        dispatch({
+          type: actionType.SET_STATUS,
+          status: res.status
+        })
         return res.json();
       })
       .then(resData => {
+        if (status === 500) {
+          throw new Error(resData.message);
+        }
         setTeams(resData["teams"]);
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        alert(err);
+      });
   }, [])
 
   return (

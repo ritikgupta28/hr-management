@@ -7,8 +7,9 @@ import { actionType } from "./reducer";
 import { useStateValue } from "./StateProvider";
 
 
-function App(props) {
-  const [{ status, isAuth, isAdminAuth }, dispatch] = useStateValue();
+function App() {
+
+  const [{ isAuth, isAdminAuth }, dispatch] = useStateValue();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -36,6 +37,13 @@ function App(props) {
       type: actionType.SET_IS_AUTH,
       isAuth: true
     })
+    const isAdmin = localStorage.getItem('isAdminAuth');
+    console.log('1', isAdmin);
+    dispatch({
+      type: actionType.SET_IS_ADMIN_AUTH,
+      isAdminAuth: isAdmin
+    })
+    console.log('2', isAdminAuth);
     setAutoLogout(remainingMilliseconds);
   }, [])
 
@@ -54,6 +62,11 @@ function App(props) {
       type: actionType.SET_IS_AUTH,
       isAuth: false
     })
+    dispatch({
+      type: actionType.SET_IS_ADMIN_AUTH,
+      isAdminAuth: false
+    })
+    localStorage.removeItem('isAdminAuth');
     localStorage.removeItem('token');
     localStorage.removeItem('expiryDate');
     localStorage.removeItem('id');
@@ -63,11 +76,12 @@ function App(props) {
       <div>
         {isAuth
           ?
-          isAdminAuth
+          (isAdminAuth === "true"
           ?
           <ManagerNavbar logoutHandler={logoutHandler} />
           :
           <EmployeeNavbar logoutHandler={logoutHandler} />
+          )
           :
           <div>
             <Login />

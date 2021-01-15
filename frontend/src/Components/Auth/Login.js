@@ -4,10 +4,9 @@ import { useStateValue } from "../../StateProvider"
 
 function Login() {
 
-  const [{ status, isAdminAuth }, dispatch] = useStateValue();
+  const [{ status }, dispatch] = useStateValue();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
 
   const onLogin = (e) => {
     e.preventDefault();
@@ -51,6 +50,8 @@ function Login() {
           type: actionType.SET_IS_ADMIN_AUTH,
           isAdminAuth: resData.isAdminAuth
         })
+        console.log(resData.isAdminAuth)
+        localStorage.setItem('isAdminAuth', resData.isAdminAuth);
         localStorage.setItem('token', resData.token);
         localStorage.setItem('id', resData.id);
         const remainingMilliseconds = 5 * 60 * 60 * 1000;
@@ -64,15 +65,13 @@ function Login() {
           type: actionType.SET_IS_AUTH,
           isAuth: false
         })
-        dispatch({
-          type: actionType.SET_ERROR,
-          error: err
-        })
+        alert(err);
       });
   }
 
   return (
     <div>
+      <p>LOGIN</p>
       <div className="">
         <p>Email: </p>
         <input
