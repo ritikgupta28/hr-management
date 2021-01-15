@@ -4,11 +4,12 @@ import { useStateValue } from "../../StateProvider";
 
 function AddTeam() {
   
-  const [{ token, status }, dispatch] = useStateValue();
+  const [{ token }, dispatch] = useStateValue();
   const [teamName, setTeamName] = useState("");
   const [teamArray, setTeamArray] = useState([]);
   const [description, setDescription] = useState("");
   const [employees, setEmployees] = useState([]);
+  const [status, setStatus] = useState(null);
 
   useEffect(() => {
     fetch('http://localhost:8000/employeeList', {
@@ -19,10 +20,7 @@ function AddTeam() {
       }
     })
       .then(res => {
-        dispatch({
-          type: actionType.SET_STATUS,
-          status: res.status
-        })
+        setStatus(res.status)
         return res.json();
       })
       .then(resData => {

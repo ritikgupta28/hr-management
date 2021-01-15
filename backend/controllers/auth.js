@@ -18,7 +18,7 @@ exports.employeeSignup = (req, res, next) => {
 	const errors = validationResult(req);
 	if(!errors.isEmpty()) {
 	 	const error = new Error(errors.array()[0].msg);
-	 	error.statusCode = 422;
+	 	error.statusCode = 500;
 	 	error.data = errors.array()[0].msg;
 	 	throw error;
   }
@@ -67,7 +67,7 @@ exports.login = (req, res, next) => {
 			.then(manager => {
 				if(!manager) {
 					const error = new Error('E-mail is not registered!');
-					error.statusCode = 401;
+					error.statusCode = 500;
 					throw error;
 				}
 				loadedManager = manager;
@@ -77,7 +77,7 @@ exports.login = (req, res, next) => {
 			.then(isEqual => {
 				if(!isEqual) {
 					const error = new Error('Wrong password!');
-					error.statusCode = 401;
+					error.statusCode = 500;
 					throw error;
 				}
 				const token = jwt.sign({
@@ -95,9 +95,6 @@ exports.login = (req, res, next) => {
 				return flag;
 			})
 			.catch(err => {
-				if(!err.statusCode) {
-					err.statusCode = 500;
-				}
 				next(err);
 			});
 			// const error = new Error('E-mail is not registered!');
@@ -119,7 +116,7 @@ exports.login = (req, res, next) => {
 		else {
 			if(!isEqual) {
 				const error = new Error('Wrong password!');
-				error.statusCode = 401;
+				error.statusCode = 500;
 				throw error;
 			}
 			const token = jwt.sign({
@@ -138,9 +135,6 @@ exports.login = (req, res, next) => {
 		}
 	})
 	.catch(err => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
       next(err);
     });
 };

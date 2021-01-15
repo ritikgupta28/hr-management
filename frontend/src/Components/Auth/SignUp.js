@@ -4,10 +4,11 @@ import { useStateValue } from "../../StateProvider"
 
 function SignUp() {
 
-  const [{ status }, dispatch] = useStateValue();
+  const [{}, dispatch] = useStateValue();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [status, setStatus] = useState(null);
 
   const onSignUp = (e) => {
     e.preventDefault();
@@ -23,24 +24,17 @@ function SignUp() {
       })
     })
       .then(res => {
-        dispatch({
-          type: actionType.SET_STATUS,
-          status: res.status
-        })
+        setStatus(res.status)
         return res.json();
       })
       .then(resData => {
-        if(status === 422) {
-          throw new Error(resData.message);
-        }
-        if(status !== 200 && status !== 201) {
+        if(status === 500) {
           throw new Error(resData.message);
         }
         dispatch({
           type: actionType.SET_IS_AUTH,
           isAuth: false
         })
-        // props.history.push('/login');
       })
       .catch(err => {
         dispatch({

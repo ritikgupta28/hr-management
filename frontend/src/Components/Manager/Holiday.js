@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import moment from "moment"
-import { actionType } from "../../reducer"
 import { useStateValue } from "../../StateProvider"
 
 function Holiday() {
   
-  const [{ token, status }, dispatch] = useStateValue();
+  const [{ token }, dispatch] = useStateValue();
   const [dates, setDates] = useState([]);
+  const [status, setStatus] = useState(null);
 
   const onSubmit = () => {
     fetch('http://localhost:8000/holiday', {
@@ -20,10 +20,7 @@ function Holiday() {
       })
     })
     .then(res => {
-      dispatch({
-        type: actionType.SET_STATUS,
-        status: res.status
-      })
+      setStatus(res.status)
       return res.json();
     })
     .then(resData => {

@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import "./AddEmployee.css";
-import { actionType } from "../../reducer"
 import { useStateValue } from "../../StateProvider";
 
 function AddEmployee() {
   
-  const [{ token, status }, dispatch] = useStateValue();
+  const [{ token }, dispatch] = useStateValue();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('');
   const [salary, setSalary] = useState('');
+  const [status, setStatus] = useState(null);
 
   const onAddEmployee = (e) => {
     fetch('http://localhost:8000/newEmployee', {
@@ -25,10 +25,7 @@ function AddEmployee() {
         salary: salary
       })
     }).then(res => {
-      dispatch({
-        type: actionType.SET_STATUS,
-        status: res.status
-      })
+      setStatus(res.status)
       return res.json();
     })
     .then(resData => {

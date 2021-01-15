@@ -5,9 +5,10 @@ import "./Auth.css"
 
 function Login() {
 
-  const [{ status }, dispatch] = useStateValue();
+  const [{}, dispatch] = useStateValue();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [status, setStatus] = useState(null);
 
   const onLogin = (e) => {
     e.preventDefault();
@@ -22,18 +23,11 @@ function Login() {
       })
     })
       .then(res => {
-        dispatch({
-          type: actionType.SET_STATUS,
-          status: res.status
-        })
+        setStatus(res.status)
         return res.json();
       })
       .then(resData => {
-        // console.log(status);
-        if(status === 401) {
-          throw new Error(resData.message);
-        }
-        if(status !== 200 && status !== 201) {
+        if (status === 500) {
           throw new Error(resData.message);
         }
         dispatch({

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Card from './Card';
-import { actionType } from "../../reducer"
 import { useStateValue } from "../../StateProvider";
 
 function EmployeeList() {
-  const [{ token, status }, dispatch] = useStateValue();
+  const [{ token }, dispatch] = useStateValue();
   const [employees, setEmployees] = useState();
   const [name, setName] = useState("");
   const [team, setTeam] = useState("");
   const [role, setRole] = useState("");
+  const [status, setStatus] = useState(null);
 
   useEffect(() => {
     fetch('http://localhost:8000/employeeList', {
@@ -19,10 +19,7 @@ function EmployeeList() {
       }
       })
       .then(res => {
-        dispatch({
-          type: actionType.SET_STATUS,
-          status: res.status
-        })
+        setStatus(res.message)
         return res.json();
       })
       .then(resData => {

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-import { actionType } from "../../reducer"
 import { useStateValue } from "../../StateProvider";
 
 function Salary({ id }) {
 
-  const [{ token, status }, dispatch] = useStateValue();
+  const [{ token }, dispatch] = useStateValue();
   const [month, setMonth] = useState("");
   const [salary, setSalary] = useState("");
   const [expectedSalary, setExpectedSalary] = useState("");
+  const [status, setStatus] = useState(null);
   
   useEffect(() => {
     fetch('http://localhost:8000/salary', {
@@ -23,10 +23,7 @@ function Salary({ id }) {
       })
     })
       .then(res => {
-      dispatch({
-        type: actionType.SET_STATUS,
-        status: res.status
-      })
+      setStatus(res.status)
       return res.json();
     })
     .then(resData => {

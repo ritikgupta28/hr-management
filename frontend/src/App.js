@@ -11,7 +11,6 @@ function App() {
   const [{ isAuth, managerId, employeeId }, dispatch] = useStateValue();
 
   useEffect(() => {
-    console.log(isAuth, employeeId, managerId);
     const token = localStorage.getItem('token');
     const expiryDate = localStorage.getItem('expiryDate');
     if (!token || !expiryDate) {
@@ -28,23 +27,18 @@ function App() {
       type: actionType.SET_TOKEN,
       token: token
     })
-    if(mId !== "null") {
       dispatch({
 				type: actionType.SET_MANAGER_ID,
 				managerId: mId
 			})
-    }
-    if(eId !== "null") {
       dispatch({
 				type: actionType.SET_EMPLOYEE_ID,
 				employeeId: eId
 			})
-    }
     dispatch({
       type: actionType.SET_IS_AUTH,
       isAuth: true
     })
-    console.log('1', managerId, employeeId)
     setAutoLogout(remainingMilliseconds);
   }, [])
 

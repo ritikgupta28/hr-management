@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import moment from "moment"
-import { actionType } from "../../reducer"
 import { useStateValue } from "../../StateProvider";
 
 function Leave() {
   
-  const [{ token, status }, dispatch] = useStateValue();
+  const [{ token }, dispatch] = useStateValue();
   const [dates, setDates] = useState([]);
   const [reason, setReason] = useState("");
+  const [status, setStatus] = useState(null);
 
   const onSubmit = () => {
     fetch('http://localhost:8000/leave', {
@@ -22,10 +22,7 @@ function Leave() {
       })
     })
     .then(res => {
-      dispatch({
-        type: actionType.SET_STATUS,
-        status: res.status
-      })
+      setStatus(res.status)
       return res.json();
     })
     .then(resData => {

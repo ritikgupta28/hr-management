@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Attendance from './Attendance';
 import Leave from './Leave';
 import Salary from './Salary';
-import { actionType } from "../../reducer";
 import { useStateValue } from "../../StateProvider";
 
 function Dashboard({ id }) {
   
-  const [{ token, status, employeeId }, dispatch] = useStateValue();
+  const [{ token, employeeId }, dispatch] = useStateValue();
   const [employee, setEmployee] = useState({});
+  const [status, setStatus] = useState(null);
 
   useEffect(() => {
     fetch('http://localhost:8000/employee/' + id, {
@@ -19,10 +19,7 @@ function Dashboard({ id }) {
       }
     })
     .then(res => {
-      dispatch({
-        type: actionType.SET_STATUS,
-        status: res.status
-      })
+      setStatus(res.status)
       return res.json();
     })
     .then(resData => {
@@ -44,7 +41,7 @@ function Dashboard({ id }) {
      	<p>{employee?.teamAssign}</p>
       {employeeId !== "null"
         ?
-        < Leave />
+        <Leave />
         :
         null
       }

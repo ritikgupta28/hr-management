@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Detail from './Detail';
-import { actionType } from "../../reducer"
 import { useStateValue } from "../../StateProvider"
 
 function Notification() {
-  const [{ token, status }, dispatch] = useStateValue();
+
+  const [{ token }, dispatch] = useStateValue();
   const [notifications, setNotification] = useState([]);
+  const [status, setStatus] = useState(null);
 
   useEffect(() => {
     fetch('http://localhost:8000/notification', {
@@ -16,10 +17,7 @@ function Notification() {
       }
       })
       .then(res => {
-        dispatch({
-          type: actionType.SET_STATUS,
-          status: res.status
-        })
+        setStatus(res.status)
         return res.json();
       })
       .then(resData => {

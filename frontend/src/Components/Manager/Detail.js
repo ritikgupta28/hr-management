@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import moment from "moment"
-import { actionType } from "../../reducer"
 import { useStateValue } from "../../StateProvider";
 
 function Detail({ notification }) {
-  const [{ token, status }, dispatch] = useStateValue();
+
+  const [{ token }, dispatch] = useStateValue();
   const [reply, setReply] = useState(notification.reply);
+  const [status, setStatus] = useState(null);
 
   const renderButtons = () => {
     return (
@@ -41,10 +42,7 @@ function Detail({ notification }) {
       })
     })
     .then(res => {
-      dispatch({
-        type: actionType.SET_STATUS,
-        status: res.status
-      })
+      setStatus(res.status)
       return res.json();
     })
     .then(resData => {
@@ -70,10 +68,7 @@ function Detail({ notification }) {
       })
     })
     .then(res => {
-      dispatch({
-        type: actionType.SET_STATUS,
-        status: res.status
-      })
+      setStatus(res.message)
       return res.json();
     })
     .then(resData => {

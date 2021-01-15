@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import TeamDescription from './TeamDescription';
-import { actionType } from "../../reducer"
 import { useStateValue } from "../../StateProvider";
 
 function TeamList() {
 
-  const [{ token, status }, dispatch] = useStateValue();
+  const [{ token }, dispatch] = useStateValue();
   const [teams, setTeams] = useState([]);
+  const [status, setStatus] = useState(null);
 
   useEffect(() => {
     fetch('http://localhost:8000/teamList', {
@@ -17,10 +17,7 @@ function TeamList() {
       }
       })
       .then(res => {
-        dispatch({
-          type: actionType.SET_STATUS,
-          status: res.status
-        })
+        setStatus(res.status)
         return res.json();
       })
       .then(resData => {
