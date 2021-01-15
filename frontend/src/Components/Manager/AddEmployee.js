@@ -4,6 +4,7 @@ import { actionType } from "../../reducer"
 import { useStateValue } from "../../StateProvider";
 
 function AddEmployee() {
+  
   const [{ token, status }, dispatch] = useStateValue();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');

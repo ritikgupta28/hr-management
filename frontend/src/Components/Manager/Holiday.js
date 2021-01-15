@@ -5,7 +5,7 @@ import { useStateValue } from "../../StateProvider"
 
 function Holiday() {
   
-  const [{ id, token, status }, dispatch] = useStateValue();
+  const [{ token, status }, dispatch] = useStateValue();
   const [dates, setDates] = useState([]);
 
   const onSubmit = () => {

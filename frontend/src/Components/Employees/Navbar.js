@@ -1,11 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import Dashboard from "../Employees/Dashboard";
 import { useStateValue } from "../../StateProvider";
 
 function EmployeeNavbar({ logoutHandler }) {
 
-	const [{ id }, dispatch] = useStateValue();
+	const [{ employeeId }, dispatch] = useStateValue();
 	
 	return (
 		<Router>
@@ -21,10 +21,11 @@ function EmployeeNavbar({ logoutHandler }) {
 						path='/'
 						render={props => (
 							<Dashboard
-								id={id}
+								id={employeeId}
 							/>
 						)}
 					/>
+					<Redirect to="/" />
 				</Switch>
 			</div>
 		</Router>

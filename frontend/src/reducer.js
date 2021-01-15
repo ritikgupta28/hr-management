@@ -1,7 +1,7 @@
 export const initialState = {
 	status: null,
-	managerId: null,
-	employeeId: null,
+	managerId: "null",
+	employeeId: "null",
 	isAuth: false,
 	token: null
 };
@@ -15,6 +15,7 @@ export const actionType = {
 };
 
 const reducer = (state, action) => {
+	console.log(action);
 	switch (action.type) {
 		case actionType.SET_STATUS: return { ...state, status: action.status };
 		case actionType.SET_MANAGER_ID: return { ...state, managerId: action.managerId };

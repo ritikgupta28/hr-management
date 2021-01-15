@@ -44,11 +44,11 @@ function Login() {
           isAuth: true
         })
         dispatch({
-          type: actionType.SET_IS_MANAGER_ID,
+          type: actionType.SET_MANAGER_ID,
           managerId: resData.managerId
         })
         dispatch({
-          type: actionType.SET_IS_EMPLOYEE_ID,
+          type: actionType.SET_EMPLOYEE_ID,
           employeeId: resData.employeeId
         })
         localStorage.setItem('token', resData.token);

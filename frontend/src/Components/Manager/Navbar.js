@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Link, Route, Switch, Redirect } from 'react-router-dom'
 import TeamList from "./TeamList"
 import AddEmployee from "./AddEmployee"
 import EmployeeList from "./EmployeeList"
@@ -81,6 +81,7 @@ function ManagerNavbar({ logoutHandler }) {
 							/>
 						)}
 					/>
+					<Redirect to="/" />
 				</Switch>
 			</div>
 		</Router>

@@ -3,6 +3,7 @@ import { actionType } from "../../reducer"
 import { useStateValue } from "../../StateProvider";
 
 function AddTeam() {
+  
   const [{ token, status }, dispatch] = useStateValue();
   const [teamName, setTeamName] = useState("");
   const [teamArray, setTeamArray] = useState([]);

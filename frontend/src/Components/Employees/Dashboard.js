@@ -7,7 +7,7 @@ import { useStateValue } from "../../StateProvider";
 
 function Dashboard({ id }) {
   
-  const [{ token, status }, dispatch] = useStateValue();
+  const [{ token, status, employeeId }, dispatch] = useStateValue();
   const [employee, setEmployee] = useState({});
 
   useEffect(() => {
@@ -42,7 +42,12 @@ function Dashboard({ id }) {
       <p>{employee?.name}</p>
       <p>{employee?.email}</p>
      	<p>{employee?.teamAssign}</p>
-      <Leave />
+      {employeeId !== "null"
+        ?
+        < Leave />
+        :
+        null
+      }
       <Salary id={id} />
     </div>
   )

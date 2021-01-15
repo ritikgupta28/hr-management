@@ -8,7 +8,7 @@ import { useStateValue } from "./StateProvider";
 
 function App() {
 
-  const [{ isAuth, managerId }, dispatch] = useStateValue();
+  const [{ isAuth, managerId, employeeId }, dispatch] = useStateValue();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -20,29 +20,30 @@ function App() {
       logoutHandler();
       return;
     }
-    const managerId = localStorage.getItem('managerId');
-    const employeeId = localStorage.getItem('employeeId');
+    const mId = localStorage.getItem('managerId');
+    const eId = localStorage.getItem('employeeId');
     const remainingMilliseconds = new Date(expiryDate).getTime() - new Date().getTime();
     dispatch({
       type: actionType.SET_TOKEN,
       token: token
     })
-    if(managerId !== "null") {
+    if(mId !== "null") {
       dispatch({
 				type: actionType.SET_MANAGER_ID,
-				managerId: managerId
+				managerId: mId
 			})
     }
-    if(employeeId !== "null") {
+    if(eId !== "null") {
       dispatch({
 				type: actionType.SET_EMPLOYEE_ID,
-				employeeId: employeeId
+				employeeId: eId
 			})
     }
     dispatch({
       type: actionType.SET_IS_AUTH,
       isAuth: true
     })
+    console.log('1', managerId, employeeId)
     setAutoLogout(remainingMilliseconds);
   }, [])
 
