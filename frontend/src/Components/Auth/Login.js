@@ -4,9 +4,10 @@ import { useStateValue } from "../../StateProvider"
 
 function Login() {
 
-  const [{ status }, dispatch] = useStateValue();
+  const [{ status, isAdminAuth }, dispatch] = useStateValue();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
 
   const onLogin = (e) => {
     e.preventDefault();
@@ -45,6 +46,10 @@ function Login() {
         dispatch({
           type: actionType.SET_IS_AUTH,
           isAuth: true
+        })
+        dispatch({
+          type: actionType.SET_IS_ADMIN_AUTH,
+          isAdminAuth: resData.isAdminAuth
         })
         localStorage.setItem('token', resData.token);
         localStorage.setItem('id', resData.id);

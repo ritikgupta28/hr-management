@@ -7,8 +7,8 @@ const Notification = require('../models/notification');
 const Manager = require('../models/manager');
 
 exports.postHoliday = (req, res, next) => {
-	const { id, dates } = req.body;
-	Manager.findById(id)
+	const { dates } = req.body;
+	Manager.findById(req.managerId)
 		.then(manager => {
 			return manager.addHoliday(dates);
 		})
@@ -17,7 +17,11 @@ exports.postHoliday = (req, res, next) => {
 				message: 'Success!'
 			});
 		})
-		.catch(err => console.log(err)); 
+		.catch(err => {
+      const error = new Error;
+      error.message = 'Failed to post holiday!'
+      next(error);
+    });
 }
 
 exports.getEmployeeList = (req, res, next) => {
@@ -27,7 +31,11 @@ exports.getEmployeeList = (req, res, next) => {
 				employees: employee
 			});
 		})
-		.catch(err => console.log(err));
+		.catch(err => {
+      const error = new Error;
+      error.message = 'Failed to fetch employees!'
+      next(error);
+    });
 }
 
 exports.postNewEmployee = (req, res, next) => {
@@ -46,7 +54,11 @@ exports.postNewEmployee = (req, res, next) => {
 				message: 'Success!'
 			})
 		})
-		.catch(err => console.log(err));
+		.catch(err => {
+      const error = new Error;
+      error.message = 'Failed to add employee!'
+      next(error);
+    });
 }
 
 exports.getTeamList = (req, res, next) => {
@@ -57,7 +69,11 @@ exports.getTeamList = (req, res, next) => {
 				teams: result
 			});
 		})
-		.catch(err => console.log(err));
+		.catch(err => {
+      const error = new Error;
+      error.message = 'Failed to fetch teams!'
+      next(error);
+    });
 }
 
 exports.postNewTeam = (req, res, next) => {
@@ -72,7 +88,11 @@ exports.postNewTeam = (req, res, next) => {
 			.then(employee => {
 				employee.addTeam(name);
 			})
-			.catch(err => console.log(err));
+			.catch(err => {
+      	const error = new Error;
+      	error.message = 'Failed to add team name in employee!'
+      	next(error);
+    	});
 	})
 	
 	const team = new Team({
@@ -88,7 +108,11 @@ exports.postNewTeam = (req, res, next) => {
 				message: 'Success!'
 			})
 		})
-		.catch(err => console.log(err));
+		.catch(err => {
+      const error = new Error;
+      error.message = 'Failed to add team!'
+      next(error);
+    });
 }
 
 exports.getNotification = (req, res, next) => {
@@ -99,7 +123,11 @@ exports.getNotification = (req, res, next) => {
 				notifications: result
 			});
 		})
-		.catch(err => console.log(err));
+		.catch(err => {
+      const error = new Error;
+      error.message = 'Failed to fetch notifications!'
+      next(error);
+    });
 }
 
 exports.postAcceptReply = (req, res, next) => {
@@ -119,9 +147,17 @@ exports.postAcceptReply = (req, res, next) => {
 						message: 'Success!'
 					});
 				})
-				.catch(err => console.log(err)); 
+				.catch(err => {
+      		const error = new Error;
+      		error.message = 'Failed to add dates of leave in employee!'
+      		next(error);
+    		});
 		})
-		.catch(err => console.log(err));	
+		.catch(err => {
+      const error = new Error;
+      error.message = 'Failed to accept leave!'
+      next(error);
+    });
 }
 
 exports.postRejectReply = (req, res, next) => {
@@ -136,5 +172,9 @@ exports.postRejectReply = (req, res, next) => {
 				message: 'Success!'
 			});
 		})
-		.catch(err => console.log(err));	 
+		.catch(err => {
+      const error = new Error;
+      error.message = 'Failed to reject leave!'
+      next(error);
+    });
 }

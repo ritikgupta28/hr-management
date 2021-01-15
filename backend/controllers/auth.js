@@ -90,7 +90,8 @@ exports.login = (req, res, next) => {
 				
 				res.status(200).json({
 					token: token,
-					id: loadedManager._id.toString()
+					id: loadedManager._id.toString(),
+					isAdminAuth: true
 				});
 				flag = true;
 			})
@@ -129,7 +130,8 @@ exports.login = (req, res, next) => {
 		
 		res.status(200).json({
 			token: token, 
-			id: loadedEmployee._id.toString() 
+			id: loadedEmployee._id.toString(),
+			isAdminAuth: false
 		});
 	}) 
 	.catch(err => {

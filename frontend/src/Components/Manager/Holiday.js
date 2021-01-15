@@ -15,8 +15,7 @@ function Holiday() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        dates: dates,
-        id: id
+        dates: dates
       })
     })
     .then(resData => {

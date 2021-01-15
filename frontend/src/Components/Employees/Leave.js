@@ -4,7 +4,7 @@ import { useStateValue } from "../../StateProvider";
 
 function Leave() {
   
-  const [{ id, token }, dispatch] = useStateValue();
+  const [{ token }, dispatch] = useStateValue();
   const [dates, setDates] = useState([]);
   const [reason, setReason] = useState("");
 
@@ -17,8 +17,7 @@ function Leave() {
       },
       body: JSON.stringify({
         dates: dates,
-        reason: reason,
-        id: id
+        reason: reason
       })
     })
     .then(resData => {

@@ -4,12 +4,11 @@ import Leave from './Leave';
 import Salary from './Salary';
 import { useStateValue } from "../../StateProvider";
 
-function Dashboard(props) {
+function Dashboard({ id }) {
   const [{ token }, dispatch] = useStateValue();
   const [employee, setEmployee] = useState({});
 
   useEffect(() => {
-  	const id = props.match.params.id;
     fetch('http://localhost:8000/employee/' + id, {
       method: 'GET',
       headers: {
@@ -28,12 +27,12 @@ function Dashboard(props) {
 
   return (
     <div>
-      <Attendance />
+      <Attendance id={id} />
       <p>{employee.name}</p>
       <p>{employee.email}</p>
      	<p>{employee.teamAssign}</p>
       <Leave />
-      <Salary />
+      <Salary id={id} />
     </div>
   )
 }

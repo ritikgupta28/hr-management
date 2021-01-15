@@ -22,5 +22,12 @@ module.exports = (req, res, next) => {
     throw error;
   }
   req.employeeId = decodedToken.employeeId;
+
+  if(!req.employeeId) {
+    const error = new Error('Hello employee, this url is not valid for you!');
+    error.statusCode = 401;
+    throw error;
+  }
+  
   next();
 };

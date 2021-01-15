@@ -9,7 +9,7 @@ import Holiday from "./Holiday"
 import Dashboard from "../Employees/Dashboard"
 import "./Navbar.css"
 
-function Navbar({ logoutHandler }) {
+function ManagerNavbar({ logoutHandler }) {
 	
 	return (
 		<Router >
@@ -77,7 +77,7 @@ function Navbar({ logoutHandler }) {
 						path='/employee/:id'
 						render={props => (
 							<Dashboard
-								{ ...props }
+								id={props.match.params.id}
 							/>
 						)}
 					/>
@@ -87,4 +87,4 @@ function Navbar({ logoutHandler }) {
 	)
 }
 
-export default Navbar;
+export default ManagerNavbar;

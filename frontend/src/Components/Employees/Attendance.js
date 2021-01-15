@@ -5,9 +5,9 @@ import moment from 'moment';
 import './Attendance.css';
 import { useStateValue } from "../../StateProvider";
 
-function Attendance() {
+function Attendance({ id }) {
 
-  const [{ id, token }, dispatch] = useStateValue();
+  const [{ token }, dispatch] = useStateValue();
   const [date, onDateChange] = useState(new Date());
   const [absents, setAbsent] = useState([]);
   const [holidays, setHoliday] = useState([]);

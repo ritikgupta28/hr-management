@@ -21,13 +21,12 @@ module.exports = (req, res, next) => {
     error.statusCode = 401;
     throw error;
   }
-  req.managerId = decodedToken.managerId;
-
-  if(!req.managerId) {
-    const error = new Error('Hello manager, this url is not valid for you!');
-    error.statusCode = 401;
-    throw error;
+  if(decodedToken.managerId) {
+    req.managerId = decodedToken.managerId;
   }
-
+  if(decodedToken.employeeId) {
+    req.employeeId = decodedToken.employeeId;
+  }
+  
   next();
 };

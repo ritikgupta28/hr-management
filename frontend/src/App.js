@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
-import Navbar from "./Components/Manager/Navbar";
-import Login from "./Components/Auth/Login"
-import SignUp from "./Components/Auth/SignUp"
+import ManagerNavbar from "./Components/Manager/Navbar";
+import EmployeeNavbar from "./Components/Employees/Navbar";
+import Login from "./Components/Auth/Login";
+import SignUp from "./Components/Auth/SignUp";
 import { actionType } from "./reducer";
-import { useStateValue } from "./StateProvider"
+import { useStateValue } from "./StateProvider";
 
 
 function App(props) {
-  const [{ status, isAuth }, dispatch] = useStateValue();
+  const [{ status, isAuth, isAdminAuth }, dispatch] = useStateValue();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -62,7 +63,11 @@ function App(props) {
       <div>
         {isAuth
           ?
-          <Navbar logoutHandler={ logoutHandler }/>
+          isAdminAuth
+          ?
+          <ManagerNavbar logoutHandler={logoutHandler} />
+          :
+          <EmployeeNavbar logoutHandler={logoutHandler} />
           :
           <div>
             <Login />
