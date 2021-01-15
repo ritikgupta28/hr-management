@@ -5,10 +5,11 @@ import Login from "./Components/Auth/Login";
 // import SignUp from "./Components/Auth/SignUp";
 import { actionType } from "./reducer";
 import { useStateValue } from "./StateProvider";
+import Navbar from './Components/LandingPage/Navbar';
 
 function App() {
 
-  const [{ isAuth, managerId, employeeId }, dispatch] = useStateValue();
+  const [{ isAuth, managerId }, dispatch] = useStateValue();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -68,15 +69,13 @@ function App() {
         {isAuth
           ?
           (managerId !== "null"
-            ?
-            <ManagerNavbar logoutHandler={logoutHandler} />
+          ?
+          <ManagerNavbar logoutHandler={logoutHandler} />
           :
           <EmployeeNavbar logoutHandler={logoutHandler} />
           )
           :
-          <div>
-            <Login />
-          </div>
+          <Navbar />
         }
       </div>
     );

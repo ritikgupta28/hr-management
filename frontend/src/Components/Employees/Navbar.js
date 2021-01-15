@@ -6,7 +6,7 @@ import { useStateValue } from "../../StateProvider";
 function EmployeeNavbar({ logoutHandler }) {
 
 	const [{ employeeId }, dispatch] = useStateValue();
-	
+
 	return (
 		<Router>
 			<div className="navbar">
@@ -18,14 +18,15 @@ function EmployeeNavbar({ logoutHandler }) {
 			<div className="navbar_page">
 				<Switch>
 					<Route
-						path='/'
+						path='/dashboard'
+						exact
 						render={props => (
 							<Dashboard
 								id={employeeId}
 							/>
 						)}
 					/>
-					<Redirect to="/" />
+					<Redirect to="/dashboard" />
 				</Switch>
 			</div>
 		</Router>

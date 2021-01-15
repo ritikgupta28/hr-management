@@ -16,7 +16,7 @@ function ManagerNavbar({ logoutHandler }) {
 			<div className="navbar">
 			 <h1>HR-MANAGER</h1>
 				<div className="navbar_link">
-					<button><Link to="/">Team</Link></button>
+					<button><Link to="/teams">Team</Link></button>
 					<button><Link to="/add_team">Add Team</Link></button>
 					<button><Link to="/employee">Employee</Link></button>
 					<button><Link to="/add_employee">Add Employee</Link></button>
@@ -32,7 +32,7 @@ function ManagerNavbar({ logoutHandler }) {
 			<div className="navbar_page">
 				<Switch>
 					<Route
-						path='/'
+						path='/teams'
 						exact
 						render={props => (
 							<TeamList />
@@ -81,7 +81,7 @@ function ManagerNavbar({ logoutHandler }) {
 							/>
 						)}
 					/>
-					<Redirect to="/" />
+					<Redirect to="/teams" />
 				</Switch>
 			</div>
 		</Router>
