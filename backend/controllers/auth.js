@@ -57,8 +57,8 @@ exports.employeeSignup = (req, res, next) => {
 exports.login = (req, res, next) => {
   const { email, password } = req.body;
 
-	let loadedEmployee;
-	let flag = false; 
+	let loadedEmployee, managerToken, managerMnagaerId, managerEmployeeId;
+	let flag = false;
 	Employee.findOne({ email: email })
 	.then(employee => {
 		if(!employee) {
@@ -88,12 +88,11 @@ exports.login = (req, res, next) => {
 				{ expiresIn: '3h' }
 				);
 				
-				res.status(200).json({
-					token: token,
-					managerId: loadedManager._id.toString(),
-					employeeId: "null"
-				});
+				managerToken = token;
+				managerMnagaerId = loadedManager._id.toString();
+				managerEmployeeId = "null";
 				flag = true;
+				return flag;
 			})
 			.catch(err => {
 				if(!err.statusCode) {
@@ -111,29 +110,33 @@ exports.login = (req, res, next) => {
 	})
 	.then(isEqual => {
 		if(flag) {
-			const error = new Error('Success!');
-			error.statusCode = 200;
-			throw error;
+			res.status(200).json({
+				token: managerToken,
+				managerId: managerMnagaerId,
+				employeeId: managerEmployeeId
+			});
 		}
-		if(!isEqual) {
-			const error = new Error('Wrong password!');
-			error.statusCode = 401;
-			throw error;
+		else {
+			if(!isEqual) {
+				const error = new Error('Wrong password!');
+				error.statusCode = 401;
+				throw error;
+			}
+			const token = jwt.sign({
+				email: loadedEmployee.email,
+				employeeId: loadedEmployee._id.toString(),
+			},
+			'somesupersecretsecret', 
+			{ expiresIn: '3h' }
+			);
+			
+			res.status(200).json({
+				token: token,
+				employeeId: loadedEmployee._id.toString(),
+				managerId: "null"
+			});
 		}
-		const token = jwt.sign({
-			email: loadedEmployee.email,
-			employeeId: loadedEmployee._id.toString(),
-		}, 
-		'somesupersecretsecret', 
-		{ expiresIn: '3h' }
-		);
-		
-		res.status(200).json({
-			token: token, 
-			employeeId: loadedEmployee._id.toString(),
-			managerId: "null"
-		});
-	}) 
+	})
 	.catch(err => {
       if (!err.statusCode) {
         err.statusCode = 500;

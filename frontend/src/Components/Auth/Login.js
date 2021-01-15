@@ -29,6 +29,7 @@ function Login() {
         return res.json();
       })
       .then(resData => {
+        // console.log(status);
         if(status === 401) {
           throw new Error(resData.message);
         }

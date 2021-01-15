@@ -11,6 +11,7 @@ function App() {
   const [{ isAuth, managerId, employeeId }, dispatch] = useStateValue();
 
   useEffect(() => {
+    console.log(isAuth, employeeId, managerId);
     const token = localStorage.getItem('token');
     const expiryDate = localStorage.getItem('expiryDate');
     if (!token || !expiryDate) {
