@@ -25,7 +25,7 @@ exports.postHoliday = (req, res, next) => {
 }
 
 exports.getEmployeeList = (req, res, next) => {
-	Employee.find()
+	Employee.find({ register: true })
 		.then(employee => {
 			res.status(200).json({
 				employees: employee

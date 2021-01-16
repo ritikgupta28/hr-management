@@ -23,31 +23,39 @@ exports.employeeSignup = (req, res, next) => {
 	 	throw error;
   }
   
-  const { email, name, password } = req.body;
-  
+  const { email, name, password, mobile } = req.body;
+
+ //  async function hashPassword(password) {
+ //  	const hashedPassword = await bcrypt.hash(password, 12);
+ //  	return hashedPassword;
+	// }
+
+	// const hashedPw = hashPassword(password);
+
 	Employee.findOne({ email: email })
 		.then(employee => {
-			if(employee) {
-				return bcrypt.hash(password, 12)
-			}
-			else {
+			console.log(employee);
+			if(!employee) {
+				console.log(employee);
 				const error = new Error('Email is not verified!');
 				error.statusCode = 500;
 				throw error;
 			}
-		})
-		.then(hashedPw => {
-			const employee = new Employee({
-				email: email,
-				name: name,
-				password: hashedPw
-			});
-			return employee.save();
+			else {
+				if(employee.register) {
+					const error = new Error('Email is already registered!');
+					error.statusCode = 500;
+					throw error;
+				}
+				bcrypt.hash(password, 12)
+					.then(hashedPw => {
+						return employee.addEmployee(name, email, hashedPw, mobile);
+					})
+			}
 		})
 		.then(result => {
 			res.status(201).json({
-				message: 'Employee created!',
-				employeeId: result._id
+				message: 'Employee created!'
 			});
 			// return transporter.sendMail({
 			// 	to: email,

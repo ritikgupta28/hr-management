@@ -13,8 +13,9 @@ const employeeSchema = new Schema({
 			type: String,
 			required: true
 		},
-		number: {
-			type: Number
+		mobile: {
+			type: String,
+			default: ""
 		},
 		role: {
 			type: String,
@@ -34,14 +35,42 @@ const employeeSchema = new Schema({
 			type: String
 		},
 		salary: {
-			type: Number,
-			//required: true
+			type: Number
 		},
 		absent: {
 			type: Array,
 			default: [Date]
+		},
+		register: {
+			type: Boolean,
+			default: false
 		}
 });
+
+employeeSchema.methods.addEmployee = function (name, email, hashedPw, mobile) {
+	let newName = this.name;
+	newName = name;
+	this.name = newName;
+	let newEmail = this.email;
+	newEmail = email;
+	this.email = newEmail;
+	let newPassword = this.password;
+	newPassword = hashedPw;
+	this.password = newPassword;
+	let newMobile = this.mobile;
+	newMobile = mobile;
+	this.mobile = newMobile;
+	let newRegister = true;
+	this.register = newRegister;
+	return this.save();
+}
+
+employeeSchema.methods.addTeam = function (name) {
+	let newName = this.teamName;
+	newName = name;
+	this.teamName = newName;
+	return this.save();
+}
 
 employeeSchema.methods.addLeave = function (dates) {
 	const newAbsent = this.absent;
@@ -53,12 +82,5 @@ employeeSchema.methods.addLeave = function (dates) {
 	this.absent = newAbsent;
 	return this.save();
 };
-
-employeeSchema.methods.addTeam = function (name) {
-	let newName = this.teamName;
-	newName = name;
-	this.teamName = newName;
-	return this.save();
-}
 
 module.exports = mongoose.model('Employee', employeeSchema);

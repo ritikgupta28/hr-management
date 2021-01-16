@@ -5,9 +5,10 @@ import { useStateValue } from "../../StateProvider"
 function SignUp() {
 
   const [{}, dispatch] = useStateValue();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [mobile, setMobile] = useState("");
 
   const onSignUp = async (e) => {
     e.preventDefault();
@@ -20,7 +21,8 @@ function SignUp() {
       body: JSON.stringify({
         name: name,
         email: email,
-        password: password
+        password: password,
+        mobile: mobile
       })
       })
       const status = await response.status;
@@ -28,6 +30,11 @@ function SignUp() {
       if(status === 500) {
         throw new Error(resData.message);
       }
+      setName("");
+      setEmail("");
+      setPassword("");
+      setMobile("");
+      alert("Done!");
     } catch(err) {
         alert(err);
     };
@@ -61,6 +68,15 @@ function SignUp() {
           placeholder="password"
           value={password}
           onChange = {e => setPassword(e.target.value)}  
+        />
+      </div>
+      <div className="">
+        <p>Mobile: </p>
+        <input
+          type="text"
+          placeholder="Mobile"
+          value={mobile}
+          onChange = {e => setMobile(e.target.value)}  
         />
       </div>
       <div className="">

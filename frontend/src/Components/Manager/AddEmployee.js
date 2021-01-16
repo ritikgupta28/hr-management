@@ -33,7 +33,7 @@ function AddEmployee() {
       setName("");
       setEmail("");
       setRole("");
-      setSalary('');
+      setSalary("");
       alert("Done!");
     } catch(err) {
       alert(err);
