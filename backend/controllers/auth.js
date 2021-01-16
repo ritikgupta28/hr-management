@@ -24,8 +24,18 @@ exports.employeeSignup = (req, res, next) => {
   }
   
   const { email, name, password } = req.body;
-
-	bcrypt.hash(password, 12)
+  
+	Employee.findOne({ email: email })
+		.then(employee => {
+			if(employee) {
+				return bcrypt.hash(password, 12)
+			}
+			else {
+				const error = new Error('Email is not verified!');
+				error.statusCode = 500;
+				throw error;
+			}
+		})
 		.then(hashedPw => {
 			const employee = new Employee({
 				email: email,
@@ -94,7 +104,10 @@ exports.login = (req, res, next) => {
 				flag = true;
 				return flag;
 			})
-			.catch(err => {
+				.catch(err => {
+					if(!err.statusCode) {
+						err.statusCode = 500;
+					}
 				next(err);
 			});
 			// const error = new Error('E-mail is not registered!');

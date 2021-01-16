@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { actionType } from "../../reducer"
 import { useStateValue } from "../../StateProvider";
 
 function AddTeam() {
@@ -9,52 +8,47 @@ function AddTeam() {
   const [teamArray, setTeamArray] = useState([]);
   const [description, setDescription] = useState("");
   const [employees, setEmployees] = useState([]);
-  const [status, setStatus] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:8000/employeeList', {
-      method: 'GET',
-      headers: {
-        Authorization: 'Bearer ' + token,
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(res => {
-        setStatus(res.status)
-        return res.json();
-      })
-      .then(resData => {
+    async function fetchData() {
+      try {
+        const response = await fetch('http://localhost:8000/employeeList', {
+          method: 'GET',
+          headers: {
+            Authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json'
+          }
+        })
+        const status = await response.status;
+        const resData = await response.json();
         if (status === 500) {
           throw new Error(resData.message);
         }
         setEmployees(resData["employees"].filter(employees => employees.teamName === ""));
-      })
-      .catch(err => {
-        alert(err);
-      });
+        } catch(err) {
+          alert(err);
+        };
+      }
+    fetchData();
   }, [])
   
-  const onAddTeam = () => {
-    fetch('http://localhost:8000/newTeam', {
-      method: 'POST',
-      headers: {
-        Authorization: 'Bearer ' + token,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: teamName,
-        members: teamArray,
-        description: description
+  const onAddTeam = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:8000/newTeam', {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + token,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: teamName,
+          members: teamArray,
+          description: description
+        })
       })
-    })
-    .then(res => {
-      dispatch({
-        type: actionType.SET_STATUS,
-        status: res.status
-      })
-      return res.json();
-    })
-    .then(resData => {
+      const status = await response.status;
+      const resData = await response.json();
       if (status === 500) {
         throw new Error(resData.message);
       }
@@ -62,10 +56,9 @@ function AddTeam() {
       setTeamArray([]);
       setDescription("");
       alert("Done!");
-    })
-      .catch(err => {
-        alert(err);
-    });
+    } catch(err) {
+      alert(err)
+    }
   }
 
   const onAddEmployee = (e1, e2) => {

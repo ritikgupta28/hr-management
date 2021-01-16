@@ -6,23 +6,22 @@ function Detail({ notification }) {
 
   const [{ token }, dispatch] = useStateValue();
   const [reply, setReply] = useState(notification.reply);
-  const [status, setStatus] = useState(null);
 
   const renderButtons = () => {
     return (
-        reply === "unseen"
-          ? 
-          <div>
-            <button value={notification._id} onClick={onAccept}>Accept</button>
-            <button value={notification._id} onClick={onReject}>Reject</button>
-          </div>
+      reply === "unseen"
+        ?
+        <div>
+          <button value={notification._id} onClick={onAccept}>Accept</button>
+          <button value={notification._id} onClick={onReject}>Reject</button>
+        </div>
+        :
+        (reply === "accept"
+          ?
+          <p>Accepted</p>
           :
-          (reply === "accept"
-            ? 
-            <p>Accepted</p>
-            :
-            <p>Rejected</p>
-          )
+          <p>Rejected</p>
+        )
     )
   }
  
@@ -30,56 +29,50 @@ function Detail({ notification }) {
     renderButtons();
   }, [reply])
 
-  const onAccept = (e) => {
-    fetch('http://localhost:8000/acceptReply', {
-      method: 'POST',
-      headers: {
-        Authorization: 'Bearer ' + token,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        id: e.target.value
+  const onAccept = async (e) => {
+    try {
+      const response = await fetch('http://localhost:8000/acceptReply', {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + token,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: e.target.value
+        })
       })
-    })
-    .then(res => {
-      setStatus(res.status)
-      return res.json();
-    })
-    .then(resData => {
+      const status = await response.status;
+      const resData = await response.json();
       if (status === 500) {
         throw new Error(resData.message);
       }
       setReply("accept")
-    })
-      .catch(err => {
-        alert(err);
-    });
-  }
-
-  const onReject = (e) => {
-    fetch('http://localhost:8000/rejectReply', {
-      method: 'POST',
-      headers: {
-        Authorization: 'Bearer ' + token,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        id: e.target.value
-      })
-    })
-    .then(res => {
-      setStatus(res.message)
-      return res.json();
-    })
-    .then(resData => {
-      if (status === 500) {
-        throw new Error(resData.message);
-      }
+    } catch (err) {
+      alert(err);
+    }
+}
+  
+    const onReject = async (e) => {
+      try { 
+        const response = await fetch('http://localhost:8000/rejectReply', {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + token,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: e.target.value
+        })
+        })
+        const status = await response.status;
+        const resData = await response.json();
+        if (status === 500) {
+          throw new Error(resData.message);
+        }
         setReply("reject")
-    })
-      .catch(err => {
-        alert(err);
-    });
+    } catch(err) {
+      alert(err);
+    }
   }
 
   return (
@@ -97,4 +90,4 @@ function Detail({ notification }) {
   )
 }
 
-export default Detail
+export default Detail;

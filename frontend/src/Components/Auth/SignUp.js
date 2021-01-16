@@ -8,12 +8,12 @@ function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [status, setStatus] = useState(null);
 
-  const onSignUp = (e) => {
+  const onSignUp = async (e) => {
     e.preventDefault();
-    fetch('http://localhost:8000/auth/employeeSignup', {
-      method: 'PUT',
+    try {
+      const response = await fetch('http://localhost:8000/auth/emloyeeSignup', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -22,27 +22,15 @@ function SignUp() {
         email: email,
         password: password
       })
-    })
-      .then(res => {
-        setStatus(res.status)
-        return res.json();
       })
-      .then(resData => {
-        if(status === 500) {
-          throw new Error(resData.message);
-        }
-        dispatch({
-          type: actionType.SET_IS_AUTH,
-          isAuth: false
-        })
-      })
-      .catch(err => {
-        dispatch({
-          type: actionType.SET_IS_AUTH,
-          isAuth: false
-        })
+      const status = await response.status;
+      const resData = await response.json();
+      if(status === 500) {
+        throw new Error(resData.message);
+      }
+    } catch(err) {
         alert(err);
-      });
+    };
   }
 
   return (

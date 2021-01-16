@@ -9,26 +9,24 @@ function AddEmployee() {
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('');
   const [salary, setSalary] = useState('');
-  const [status, setStatus] = useState(null);
 
-  const onAddEmployee = (e) => {
-    fetch('http://localhost:8000/newEmployee', {
-      method: 'POST',
-      headers: {
-        Authorization: 'Bearer ' + token,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: name,
-        email: email,
-        role: role,
-        salary: salary
+  const onAddEmployee = async (e) => {
+    try {
+      const response = await fetch('http://localhost:8000/newEmployee', {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + token,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          role: role,
+          salary: salary
+        })
       })
-    }).then(res => {
-      setStatus(res.status)
-      return res.json();
-    })
-    .then(resData => {
+      const status = await response.status;
+      const resData = await response.json();
       if (status === 500) {
         throw new Error(resData.message);
       }
@@ -37,10 +35,9 @@ function AddEmployee() {
       setRole("");
       setSalary('');
       alert("Done!");
-    })
-      .catch(err => {
-        alert(err);
-    });
+    } catch(err) {
+      alert(err);
+    };
   }
 
   return (

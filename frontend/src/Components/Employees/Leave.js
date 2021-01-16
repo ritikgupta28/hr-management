@@ -7,10 +7,11 @@ function Leave() {
   const [{ token }, dispatch] = useStateValue();
   const [dates, setDates] = useState([]);
   const [reason, setReason] = useState("");
-  const [status, setStatus] = useState(null);
 
-  const onSubmit = () => {
-    fetch('http://localhost:8000/leave', {
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:8000/leave', {
       method: 'POST',
       headers: {
         Authorization: 'Bearer ' + token,
@@ -20,21 +21,17 @@ function Leave() {
         dates: dates,
         reason: reason
       })
-    })
-    .then(res => {
-      setStatus(res.status)
-      return res.json();
-    })
-    .then(resData => {
+      })
+      const status = await response.status;
+      const resData = await response.json();
       if (status === 500) {
         throw new Error(resData.message);
       }
       setReason("")
       alert("Done!");
-    })
-      .catch(err => {
-        alert(err);
-    });
+    } catch(err) {
+      alert(err);
+    };
   }
 
   return (

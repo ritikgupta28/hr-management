@@ -6,32 +6,29 @@ function Holiday() {
   
   const [{ token }, dispatch] = useStateValue();
   const [dates, setDates] = useState([]);
-  const [status, setStatus] = useState(null);
 
-  const onSubmit = () => {
-    fetch('http://localhost:8000/holiday', {
-      method: 'POST',
-      headers: {
-        Authorization: 'Bearer ' + token,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        dates: dates
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:8000/holiday', {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + token,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          dates: dates
+        })
       })
-    })
-    .then(res => {
-      setStatus(res.status)
-      return res.json();
-    })
-    .then(resData => {
+      const status = await response.status;
+      const resData = await response.json();
       if (status === 500) {
         throw new Error(resData.message);
       }
       alert("Done!");
-    })
-      .catch(err => {
-        alert(err);
-    });
+    } catch(err) {
+      alert(err)
+    }
   }
 
   return (

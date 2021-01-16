@@ -9,29 +9,28 @@ function EmployeeList() {
   const [name, setName] = useState("");
   const [team, setTeam] = useState("");
   const [role, setRole] = useState("");
-  const [status, setStatus] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:8000/employeeList', {
-      method: 'GET',
-      headers: {
-        Authorization: 'Bearer ' + token,
-        'Content-Type': 'application/json'
-      }
-      })
-      .then(res => {
-        setStatus(res.message)
-        return res.json();
-      })
-      .then(resData => {
+    async function fetchData() {
+      try {
+        const response = await fetch('http://localhost:8000/employeeList', {
+          method: 'GET',
+          headers: {
+            Authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json'
+          }
+          })
+        const status = await response.status;
+        const resData = await response.json(); 
         if (status === 500) {
           throw new Error(resData.message);
         }
         setEmployees(resData["employees"])
-      })
-      .catch(err => {
-        alert(err);
-      });
+      } catch(err) {
+        alert(err)
+      }
+    }
+    fetchData();
   }, [])
 
   const renderEmployee = (employee) => {

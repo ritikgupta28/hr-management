@@ -5,7 +5,7 @@ const router = express.Router();
 const Employee = require('../models/employee');
 const authController = require('../controllers/auth');
 
-router.put('/emloyeeSignup', [
+router.post('/emloyeeSignup', [
 	body('email')
 		.isEmail()
 		.withMessage('Please enter a valid email.')
@@ -27,7 +27,7 @@ router.put('/emloyeeSignup', [
 		.trim()
 		.not()
 		.isEmpty()
-	],
+],
 	authController.employeeSignup
 );
 

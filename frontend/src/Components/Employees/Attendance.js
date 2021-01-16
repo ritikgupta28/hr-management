@@ -11,30 +11,32 @@ function Attendance({ id }) {
   const [date, onDateChange] = useState(new Date());
   const [absents, setAbsent] = useState([]);
   const [holidays, setHoliday] = useState([]);
-  const [status, setStatus] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:8000/attendance/' + id, {
-      method: 'GET',
-      headers: {
-        Authorization: 'Bearer ' + token,
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(res => {
-        setStatus(res.status)
-        return res.json();
-      })
-      .then(resData => {
-        if (status === 500) {
-          throw new Error(resData.message);
+    if (id === null) {
+      return;
+    }
+    async function fetchData() {
+      try {
+        const response = await fetch('http://localhost:8000/attendance/' + id, {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + token,
+          'Content-Type': 'application/json'
         }
-        setAbsent(resData["absents"]);
-        setHoliday(resData["holidays"]);
       })
-      .catch(err => {
+      const status = await response.status;
+      const resData = await response.json();
+      if (status === 500) {
+        throw new Error(resData.message);
+      }
+      setAbsent(resData["absents"]);
+      setHoliday(resData["holidays"]);
+      } catch(err) {
         alert(err)
-      });
+      };
+    }
+    fetchData();
   }, [])
 
   return (

@@ -6,29 +6,27 @@ function TeamList() {
 
   const [{ token }, dispatch] = useStateValue();
   const [teams, setTeams] = useState([]);
-  const [status, setStatus] = useState(null);
-
   useEffect(() => {
-    fetch('http://localhost:8000/teamList', {
-      method: 'GET',
-      headers: {
-        Authorization: 'Bearer ' + token,
-        'Content-Type': 'application/json'
-      }
-      })
-      .then(res => {
-        setStatus(res.status)
-        return res.json();
-      })
-      .then(resData => {
+    async function fetchData() {
+      try {
+        const response = await fetch('http://localhost:8000/teamList', {
+          method: 'GET',
+          headers: {
+            Authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json'
+          }
+        })
+        const status = await response.status;
+        const resData = await response.json();
         if (status === 500) {
           throw new Error(resData.message);
         }
         setTeams(resData["teams"]);
-      })
-      .catch(err => {
-        alert(err);
-      });
+      } catch(err) {
+        alert(err)
+      }
+    }
+    fetchData();
   }, [])
 
   return (

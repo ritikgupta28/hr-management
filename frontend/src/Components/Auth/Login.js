@@ -8,11 +8,11 @@ function Login() {
   const [{}, dispatch] = useStateValue();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [status, setStatus] = useState(null);
 
-  const onLogin = (e) => {
+  const onLogin = async (e) => {
     e.preventDefault();
-    fetch('http://localhost:8000/auth/login', {
+    try { 
+      const response = await fetch('http://localhost:8000/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -21,47 +21,43 @@ function Login() {
         email: email,
         password: password
       })
-    })
-      .then(res => {
-        setStatus(res.status)
-        return res.json();
       })
-      .then(resData => {
-        if (status === 500) {
-          throw new Error(resData.message);
-        }
-        dispatch({
-          type: actionType.SET_TOKEN,
-          token: resData.token
-        })
-        dispatch({
-          type: actionType.SET_IS_AUTH,
-          isAuth: true
-        })
-        dispatch({
-          type: actionType.SET_MANAGER_ID,
-          managerId: resData.managerId
-        })
-        dispatch({
-          type: actionType.SET_EMPLOYEE_ID,
-          employeeId: resData.employeeId
-        })
-        localStorage.setItem('token', resData.token);
-        localStorage.setItem('managerId', resData.managerId);
-        localStorage.setItem('employeeId', resData.employeeId);
-        const remainingMilliseconds = 5 * 60 * 60 * 1000;
-        const expiryDate = new Date(
-          new Date().getTime() + remainingMilliseconds
-        );
-        localStorage.setItem('expiryDate', expiryDate.toISOString());
+      const status = await response.status;
+      const resData = await response.json();
+      if (status === 500) {
+        throw new Error(resData.message);
+      }
+      dispatch({
+        type: actionType.SET_TOKEN,
+        token: resData.token
       })
-      .catch(err => {
+      dispatch({
+        type: actionType.SET_IS_AUTH,
+        isAuth: true
+      })
+      dispatch({
+        type: actionType.SET_MANAGER_ID,
+        managerId: resData.managerId
+      })
+      dispatch({
+        type: actionType.SET_EMPLOYEE_ID,
+        employeeId: resData.employeeId
+      })
+      localStorage.setItem('token', resData.token);
+      localStorage.setItem('managerId', resData.managerId);
+      localStorage.setItem('employeeId', resData.employeeId);
+      const remainingMilliseconds = 5 * 60 * 60 * 1000;
+      const expiryDate = new Date(
+        new Date().getTime() + remainingMilliseconds
+      );
+      localStorage.setItem('expiryDate', expiryDate.toISOString());
+      } catch(err) {
         dispatch({
           type: actionType.SET_IS_AUTH,
           isAuth: false
         })
         alert(err);
-      });
+      }
   }
 
   return (
