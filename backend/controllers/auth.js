@@ -3,16 +3,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Employee = require('../models/employee');
 const Manager = require('../models/manager');
-// const nodemailer = require('nodemailer');
-// const sendgridTransport = require('nodemailer-sendgrid-transport');
-
-// const transporter = nodemailer.createTransport(
-//   sendgridTransport({
-//     auth: {
-//       api_key: process.env.SENDGRID_KEY
-//     }
-//   })
-// );
 
 exports.employeeSignup = (req, res, next) => {
 	const errors = validationResult(req);
@@ -25,18 +15,9 @@ exports.employeeSignup = (req, res, next) => {
   
   const { email, name, password, mobile } = req.body;
 
- //  async function hashPassword(password) {
- //  	const hashedPassword = await bcrypt.hash(password, 12);
- //  	return hashedPassword;
-	// }
-
-	// const hashedPw = hashPassword(password);
-
 	Employee.findOne({ email: email })
 		.then(employee => {
-			console.log(employee);
 			if(!employee) {
-				console.log(employee);
 				const error = new Error('Email is not verified!');
 				error.statusCode = 500;
 				throw error;
@@ -57,12 +38,6 @@ exports.employeeSignup = (req, res, next) => {
 			res.status(201).json({
 				message: 'Employee created!'
 			});
-			// return transporter.sendMail({
-			// 	to: email,
-			// 	from: 'rgritik001@gmail.com',
-			// 	subject: 'Signup Succeeded!',
-			// 	html: '<h4>Hey! You have successfully signed up as an user on Platform Up.</h4>'
-			// });
 		})
 		.catch(err => {
 			if(!err.statusCode) {
@@ -118,9 +93,6 @@ exports.login = (req, res, next) => {
 					}
 				next(err);
 			});
-			// const error = new Error('E-mail is not registered!');
-			// error.statusCode = 401;
-			// throw error;
 		}
 		loadedEmployee = employee;
 		
@@ -161,13 +133,13 @@ exports.login = (req, res, next) => {
 };
 
 exports.managerSignup = (req, res, next) => {
-	// const errors = validationResult(req);
-	// if(!errors.isEmpty()) {
-	//  	const error = new Error(errors.array()[0].msg);
-	//  	error.statusCode = 422;
-	//  	error.data = errors.array()[0].msg;
-	//  	throw error;
- //  }
+	const errors = validationResult(req);
+	if(!errors.isEmpty()) {
+	 	const error = new Error(errors.array()[0].msg);
+	 	error.statusCode = 422;
+	 	error.data = errors.array()[0].msg;
+	 	throw error;
+  }
   
   const { email, password } = req.body;
 

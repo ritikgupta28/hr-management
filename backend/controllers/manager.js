@@ -1,10 +1,20 @@
 const mongoose = require('mongoose');
 const ObjectId = require('mongodb').ObjectID;
+const nodemailer = require('nodemailer');
+const sendgridTransport = require('nodemailer-sendgrid-transport');
 
 const Employee = require('../models/employee');
 const Team = require('../models/team');
 const Notification = require('../models/notification');
 const Manager = require('../models/manager');
+
+const transporter = nodemailer.createTransport(
+  sendgridTransport({
+    auth: {
+      api_key: "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"
+    }
+  })
+);
 
 exports.postHoliday = (req, res, next) => {
 	const { dates } = req.body;
@@ -40,25 +50,52 @@ exports.getEmployeeList = (req, res, next) => {
 
 exports.postNewEmployee = (req, res, next) => {
 	const { name, email, role, salary } = req.body;
-	const employee = new Employee({
-		name: name,
-		email: email,
-		role: role,
-		salary: salary
-	});
+	
+	Employee.findOne({ email: email })
+		.then(employee => {
+			console.log(employee);
+			if(!employee) {
+				const employee = new Employee({
+					name: name,
+					email: email,
+					role: role,
+					salary: salary
+				});
 
-	employee
-		.save()
-		.then(result => {
-			res.status(200).json({
-				message: 'Success!'
-			})
+				employee
+					.save()
+					.then(result => {
+						return transporter.sendMail({
+							to: email,
+							from: 'rgritik001@gmail.com',
+							subject: 'Signup Succeeded!',
+							html: '<h4>Hey! You have successfully registered as an employee.</h4>'
+						});
+					})
+					.then(resData => {
+						res.status(200).json({
+							message: 'Employee Added!'
+						});
+					})
+					.catch(err => {
+    			  if(!err.statusCode) {
+							err.statusCode = 500;
+						}
+						next(err);
+			    });
+			}
+			else {
+				const error = new Error('Employee is already registered!');
+				error.statusCode = 500;
+				throw error;
+			}
 		})
 		.catch(err => {
-      const error = new Error;
-      error.message = 'Failed to add employee!'
-      next(error);
-    });
+			if(!err.statusCode) {
+				err.statusCode = 500;
+			}
+			next(err);
+		});
 }
 
 exports.getTeamList = (req, res, next) => {
