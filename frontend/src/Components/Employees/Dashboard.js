@@ -10,9 +10,6 @@ function Dashboard({ id }) {
   const [employee, setEmployee] = useState({});
 
   useEffect(() => {
-    if (id === null) {
-      return;
-    }
     async function fetchData() {
     try {
       const response = await fetch('http://localhost:8000/employee/' + id, {
@@ -32,7 +29,9 @@ function Dashboard({ id }) {
         alert(err);
     }
     }
-    fetchData();
+    if (id !== "null") {
+      fetchData();
+    }
   }, [])
 
   return (

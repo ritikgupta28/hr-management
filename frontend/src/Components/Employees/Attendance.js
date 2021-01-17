@@ -13,9 +13,6 @@ function Attendance({ id }) {
   const [holidays, setHoliday] = useState([]);
 
   useEffect(() => {
-    if (id === null) {
-      return;
-    }
     async function fetchData() {
       try {
         const response = await fetch('http://localhost:8000/attendance/' + id, {
@@ -46,10 +43,10 @@ function Attendance({ id }) {
         value={date}
         tileClassName={({ date, view }) => {
           if(absents?.find(x => x === moment(date).format("DD-MM-YYYY"))) {
-            return 'highlight'
+            return 'absents'
           }
           if(holidays?.find(x => x === moment(date).format("DD-MM-YYYY"))) {
-            return 'highlight1'
+            return 'holidays'
           }
         }}
       />

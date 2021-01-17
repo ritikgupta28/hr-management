@@ -13,10 +13,6 @@ const employeeSchema = new Schema({
 			type: String,
 			required: true
 		},
-		mobile: {
-			type: String,
-			default: ""
-		},
 		role: {
 			type: String,
 			default: ""
@@ -24,15 +20,6 @@ const employeeSchema = new Schema({
 		teamName: {
 			type: String,
 			default: ""
-		},
-		city: {
-			type: String
-		},
-		state: {
-			type: String
-		},
-		country: {
-			type: String
 		},
 		salary: {
 			type: Number
@@ -48,14 +35,11 @@ const employeeSchema = new Schema({
 });
 
 employeeSchema.methods.addEmployee = function (name, email, hashedPw) {
-	let newName = this.name;
-	newName = name;
+	let newName = name;
 	this.name = newName;
-	let newEmail = this.email;
-	newEmail = email;
+	let newEmail = email;
 	this.email = newEmail;
-	let newPassword = this.password;
-	newPassword = hashedPw;
+	let newPassword = hashedPw;
 	this.password = newPassword;
 	let newRegister = true;
 	this.register = newRegister;
@@ -63,16 +47,15 @@ employeeSchema.methods.addEmployee = function (name, email, hashedPw) {
 }
 
 employeeSchema.methods.addTeam = function (name) {
-	let newName = this.teamName;
-	newName = name;
+	let newName = name;
 	this.teamName = newName;
 	return this.save();
 }
 
-employeeSchema.methods.addLeave = function (dates) {
+employeeSchema.methods.addLeave = function (dates, holidays) {
 	const newAbsent = this.absent;
 	dates.map(date => {
-		if(newAbsent.indexOf(date) === -1) {
+		if(newAbsent.indexOf(date) === -1 && holidays.indexOf(date) === -1) {
 			newAbsent.push(date);
 		}
 	})

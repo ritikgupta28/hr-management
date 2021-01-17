@@ -24,6 +24,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button'
 import ListItemText from '@material-ui/core/ListItemText';
+import Footer from "../Footer";
 
 const drawerWidth = 240;
 
@@ -255,7 +256,8 @@ function ManagerNavbar({ logoutHandler }) {
 					<Redirect to="/teams" />
 					</Switch>
 				</main>
-				</div>
+      </div>
+      <Footer />
 		</Router>
 	)
 }

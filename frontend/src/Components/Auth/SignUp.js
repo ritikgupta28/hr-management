@@ -42,27 +42,13 @@ function SignUp() {
   const [password, setPassword] = useState("");
 
   const employeePassword = async () => {
-    setPassword(prompt("Please enter password:", ""));
-  }
-
-  const Copyright = () => {
-    return (
-      <Typography variant="body2" color="textSecondary" align="center">
-        {'Copyright © '}
-        <Link color="inherit" href="http://localhost:3000">
-          HR-MANAGER
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
+    return prompt("Please enter a password:", "");
   }
 
   const classes = useStyles();
 
   const onSignUp = async (e) => {
     e.preventDefault();
-    await employeePassword();
     try {
       const response = await fetch('http://localhost:8000/auth/emloyeeSignup', {
       method: 'POST',
@@ -90,20 +76,24 @@ function SignUp() {
   }
 
   const responseSuccessGoogle = async (response) => {
+    let psswrd;
     try {
-        const res = await fetch('http://localhost:8000/auth/googleEmployeeSignup', {
+      await employeePassword().then(resData => {
+        psswrd = resData;
+      });
+      const res = await fetch('http://localhost:8000/auth/googleEmployeeSignup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           tokenId: response.tokenId,
-          password: password
+          password: psswrd
         })
       })
       const status = await res.status;
       const resData = await res.json();
-      if (status === 500) {
+      if(status === 500) {
         throw new Error(resData.message);
       }
       alert("Done!");
@@ -199,9 +189,6 @@ function SignUp() {
           cookiePolicy={'single_host_origin'}
         />
       </div>
-      <Box mt={8}>
-        <Copyright />
-        </Box>
       </Container>
   )
 }

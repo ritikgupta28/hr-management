@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import ManagerNavbar from "./Components/Manager/Navbar";
 import EmployeeNavbar from "./Components/Employees/Navbar";
-import Login from "./Components/Auth/Login";
-// import SignUp from "./Components/Auth/SignUp";
 import { actionType } from "./reducer";
 import { useStateValue } from "./StateProvider";
 import Navbar from './Components/LandingPage/Navbar';

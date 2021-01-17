@@ -10,9 +10,6 @@ function Salary({ id }) {
   const [expectedSalary, setExpectedSalary] = useState("");
   
   useEffect(() => {
-    if (id === null) {
-      return;
-    }
     async function fetchData() {
       try {
         const response = await fetch('http://localhost:8000/salary', {

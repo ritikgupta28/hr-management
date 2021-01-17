@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import "./AddEmployee.css";
 import { useStateValue } from "../../StateProvider";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Avatar from '@material-ui/core/Avatar';

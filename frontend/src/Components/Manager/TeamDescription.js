@@ -1,3 +1,4 @@
+import { Button, Container, Divider, List, ListItem, ListItemText } from '@material-ui/core';
 import React, { useState } from 'react'
 
 function TeamDescription({ team }) {
@@ -8,6 +9,7 @@ function TeamDescription({ team }) {
     if(expand) {
       return (
         <div>
+          <p>Members: </p>
         {team.members?.map(member => (
            <p key={member._id}>{member.employeeId.email}</p>
         ))}
@@ -19,12 +21,13 @@ function TeamDescription({ team }) {
 
   return (
     <div>
-      <button
-        onClick={e => setExpand(!expand)}
-      >
-        {team.name}
-      </button>
-      {renderTeamData()}
+      <ListItem button onClick={e => setExpand(!expand)}>
+        <ListItemText primary={team.name} />
+      </ListItem>
+      <Divider />
+      <ListItem>
+        {renderTeamData()}
+      </ListItem>
     </div>
   )
 }

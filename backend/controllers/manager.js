@@ -53,7 +53,6 @@ exports.postNewEmployee = (req, res, next) => {
 	
 	Employee.findOne({ email: email })
 		.then(employee => {
-			console.log(employee);
 			if(!employee) {
 				const employee = new Employee({
 					name: name,
@@ -64,14 +63,14 @@ exports.postNewEmployee = (req, res, next) => {
 
 				employee
 					.save()
-					.then(result => {
-						return transporter.sendMail({
-							to: email,
-							from: 'rgritik001@gmail.com',
-							subject: 'Signup Succeeded!',
-							html: '<h4>Hey! You have successfully registered as an employee.</h4>'
-						});
-					})
+					// .then(result => {
+					// 	return transporter.sendMail({
+					// 		to: email,
+					// 		from: 'rgritik001@gmail.com',
+					// 		subject: 'Signup Succeeded!',
+					// 		html: '<h4>Hey! You have successfully registered as an employee.</h4>'
+					// 	});
+					// })
 					.then(resData => {
 						res.status(200).json({
 							message: 'Employee Added!'
@@ -167,34 +166,27 @@ exports.getNotification = (req, res, next) => {
     });
 }
 
-exports.postAcceptReply = (req, res, next) => {
+exports.postAcceptReply = async (req, res, next) => {
 	const { id } = req.body;
-	let dates;
+	let dates, holidays;
 	
-	Notification.findById(id)
-		.then(notification => {
-			dates = notification.dates;
-			notification.addReply('accept');
-			Employee.findById(notification.employeeId)
-				.then(employee => {
-					return employee.addLeave(dates);
-				})
-				.then(result => {
-					res.status(200).json({
-						message: 'Success!'
-					});
-				})
-				.catch(err => {
-      		const error = new Error;
-      		error.message = 'Failed to add dates of leave in employee!'
-      		next(error);
-    		});
-		})
-		.catch(err => {
+	try {
+		const manager = await Manager.find()
+		holidays = manager[0].holiday;
+		let notification = await Notification.findById(id)
+		dates = notification.dates;
+		notification = await	notification.addReply('accept');
+		const employee = await Employee.findById(notification.employeeId)
+		await employee.addLeave(dates, holidays);
+		
+		res.status(200).json({
+			message: 'Success!'
+		});
+	} catch(err) {
       const error = new Error;
       error.message = 'Failed to accept leave!'
-      next(error);
-    });
+      next(err);
+  }
 }
 
 exports.postRejectReply = (req, res, next) => {

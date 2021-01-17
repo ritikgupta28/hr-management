@@ -42,19 +42,6 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const Copyright = () => {
-    return (
-      <Typography variant="body2" color="textSecondary" align="center">
-        {'Copyright © '}
-        <Link color="inherit" href="http://localhost:3000">
-          HR-MANAGER
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
-  }
-
   const onLogin = async (resData) => {
       dispatch({
         type: actionType.SET_TOKEN,
@@ -215,9 +202,6 @@ function Login() {
           cookiePolicy={'single_host_origin'}
         />
       </div>
-      <Box mt={8}>
-        <Copyright />
-        </Box>
     </Container>
   )
 }

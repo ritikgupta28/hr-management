@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import Card from './Card';
 import { useStateValue } from "../../StateProvider";
+import TextField from '@material-ui/core/TextField';
+import Container from '@material-ui/core/Container';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Link from "@material-ui/core/Link"
 
 function EmployeeList() {
 
@@ -34,6 +39,7 @@ function EmployeeList() {
   }, [])
 
   const renderEmployee = (employee) => {
+
     if(name !== "" && employee.name.toLowerCase().indexOf(name.toLowerCase()) === -1) {
       return null
     }
@@ -45,47 +51,48 @@ function EmployeeList() {
     }
 
     return (
-      <Card employee={employee} />
+        <Link href={`/employee/${employee._id}`} style={{ textDecoration: 'none', color: 'black' }}>
+          <ListItemText primary={employee.email} />
+			  </Link>
     )
   }
 
   return (
-    <div>
-      <div>
-        <p>Name: </p>
-        <input 
-          type="text"
-          value={name} 
-          onChange={e => setName(e.target.value)}
-        />
-      </div> 
-      <br />
-      <div>
-        <p>Team: </p>
-        <input 
-          type="text"
-          value={team}
-          onChange={e => setTeam(e.target.value)}
-        />
-      </div>
-      <br />
-      <div>
-        <p>Role: </p>
-        <input 
-          type="text"
-          value={role} 
-          onChange={e => setRole(e.target.value)}
-        />
-      </div>
-      <br />
-      <div>
+    <Container>
+      <List>
+        <ListItem>
+          <TextField
+            value={name} 
+            onChange={e => setName(e.target.value)}
+            id="standard-basic"
+            label="Name"
+          />
+        </ListItem>
+        <ListItem>
+          <TextField
+            value={team}
+            onChange={e => setTeam(e.target.value)}
+            id="standard-basic"
+            label="Team-Name"
+          />  
+        </ListItem>
+        <ListItem>
+          <TextField
+            value={role} 
+            onChange={e => setRole(e.target.value)}
+            id="standard-basic"
+            label="Role"
+          />
+        </ListItem>
+      </List>
+      <List>
         {employees?.map(employee => (
-          <div key={employee._id}>
+          <ListItem key={employee._id}>
             {renderEmployee(employee)}
-          </div>
+          </ListItem>
         ))}
-      </div>
-    </div>
+      </List>
+    </Container>
   )
 }
 

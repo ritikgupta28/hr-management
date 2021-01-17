@@ -27,7 +27,8 @@ function Leave() {
       if (status === 500) {
         throw new Error(resData.message);
       }
-      setReason("")
+      setReason("");
+      setDates([]);
       alert("Done!");
     } catch(err) {
       alert(err);

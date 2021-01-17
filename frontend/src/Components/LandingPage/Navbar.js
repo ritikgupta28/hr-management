@@ -10,6 +10,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import Footer from "../Footer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,12 +39,12 @@ function Navbar() {
           <Typography variant="h5" className={classes.mainTitle}>
             <Link to='/' style={{ textDecoration: 'none', color: 'white' }}>HR-MANAGER</Link>
           </Typography>
-          <Typography variant="h6" className={classes.title}>
-            <Link to='/policies' style={{ textDecoration: 'none', color: 'white' }}>Policies</Link>
-          </Typography>
-          <Typography variant="h6" className={classes.title}>
-					  <Link to='/faq' style={{ textDecoration: 'none', color: 'white' }}>F.A.Q</Link>
-          </Typography>
+					<Button>
+						<Link to='/policies' style={{ textDecoration: 'none', color: 'white' }}>Policies</Link>
+						</Button>
+						<Button>
+						<Link to='/faq' style={{ textDecoration: 'none', color: 'white' }}>F.A.Q</Link>
+						</Button>
 						<Button>
 							<Link to='/login' style={{ textDecoration: 'none', color: 'white' }}>Login</Link>
 						</Button>
@@ -93,6 +94,7 @@ function Navbar() {
 					<Redirect to="/" />
 				</Switch>
 			</div>
+			<Footer />
 		</Router>
   )
 }
