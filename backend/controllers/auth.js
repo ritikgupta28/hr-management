@@ -33,7 +33,7 @@ exports.employeeSignup = (req, res, next) => {
 				}
 				bcrypt.hash(password, 12)
 					.then(hashedPw => {
-						return employee.addEmployee(name, email, hashedPw );
+						return employee.addEmployee(name, email, hashedPw);
 					})
 			}
 		})
@@ -75,7 +75,7 @@ exports.googleEmployeeSignup = (req, res, next) => {
 							}
 							bcrypt.hash(password, 12)
 								.then(hashedPw => {
-									return employee.addGoogleEmployee(name, email, hashedPw);
+									return employee.addEmployee(name, email, hashedPw);
 								})
 						}
 					})
