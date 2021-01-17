@@ -38,10 +38,10 @@ function Navbar() {
           <Typography variant="h5" className={classes.mainTitle}>
             <Link to='/' style={{ textDecoration: 'none', color: 'white' }}>HR-MANAGER</Link>
           </Typography>
-          <Typography variant="h7" className={classes.title}>
+          <Typography variant="h6" className={classes.title}>
             <Link to='/policies' style={{ textDecoration: 'none', color: 'white' }}>Policies</Link>
           </Typography>
-          <Typography variant="h7" className={classes.title}>
+          <Typography variant="h6" className={classes.title}>
 					  <Link to='/faq' style={{ textDecoration: 'none', color: 'white' }}>F.A.Q</Link>
           </Typography>
 						<Button>
