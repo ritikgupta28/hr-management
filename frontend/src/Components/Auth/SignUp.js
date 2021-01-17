@@ -40,7 +40,10 @@ function SignUp() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [mobile, setMobile] = useState("");
+
+  const employeePassword = async () => {
+    setPassword(prompt("Please enter password:", ""));
+  }
 
   const Copyright = () => {
     return (
@@ -59,6 +62,7 @@ function SignUp() {
 
   const onSignUp = async (e) => {
     e.preventDefault();
+    await employeePassword();
     try {
       const response = await fetch('http://localhost:8000/auth/emloyeeSignup', {
       method: 'POST',
@@ -68,8 +72,7 @@ function SignUp() {
       body: JSON.stringify({
         name: name,
         email: email,
-        password: password,
-        mobile: mobile
+        password: password
       })
       })
       const status = await response.status;
@@ -80,7 +83,6 @@ function SignUp() {
       setName("");
       setEmail("");
       setPassword("");
-      setMobile("");
       alert("Done!");
     } catch(err) {
         alert(err);
@@ -89,13 +91,14 @@ function SignUp() {
 
   const responseSuccessGoogle = async (response) => {
     try {
-        const res = await fetch('http://localhost:8000/auth/google', {
+        const res = await fetch('http://localhost:8000/auth/googleEmployeeSignup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          tokenId: response.tokenId
+          tokenId: response.tokenId,
+          password: password
         })
       })
       const status = await res.status;
@@ -103,10 +106,6 @@ function SignUp() {
       if (status === 500) {
         throw new Error(resData.message);
       }
-      setName("");
-      setEmail("");
-      setPassword("");
-      setMobile("");
       alert("Done!");
     } catch(err) {
       dispatch({
@@ -159,18 +158,6 @@ function SignUp() {
             autoComplete="email"
           />
           <TextField
-            value={mobile}
-            onChange={e => setMobile(e.target.value)}
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="mobile"
-            label="Mobile"
-            name="mobile"
-            autoComplete="mobile"
-          />
-          <TextField
             value={password}
             onChange={e => setPassword(e.target.value)}
             variant="outlined"
@@ -212,7 +199,7 @@ function SignUp() {
           cookiePolicy={'single_host_origin'}
         />
       </div>
-      <Box mt={4}>
+      <Box mt={8}>
         <Copyright />
         </Box>
       </Container>
