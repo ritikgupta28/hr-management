@@ -212,9 +212,11 @@ exports.googleLogin = (req, res, next) => {
 							}
 						next(err);
 					});
-					// const error = new Error('E-mail is not registered!');
-					// error.statusCode = 401;
-					// throw error;
+				}
+				else if(!employee.register) {
+					const error = new Error('E-mail is not verified!');
+					error.statusCode = 500;
+					throw error;
 				}
 				loadedEmployee = employee;
 				
