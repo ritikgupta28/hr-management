@@ -19,8 +19,23 @@ router.post('/emloyeeSignup', [
 		.trim()
 		.not()
 		.isEmpty()
-],
+	],
 	authController.employeeSignup
+);
+
+router.post('/googleEmloyeeSignup', [
+	body('email')
+		.isEmail()
+		.withMessage('Please enter a valid email.')
+    .normalizeEmail(),
+  body('password',
+		'Please enter a password with only numbers and text and at least 6 characters.'
+	)
+		.trim()
+		.isLength({ min: 6 })
+		.isAlphanumeric()
+	],
+	authController.googleEmployeeSignup
 );
 
 router.put('/managerSignup', [
@@ -45,8 +60,8 @@ router.put('/managerSignup', [
 	authController.managerSignup
 );
 
-router.post('/google', authController.googleLogin);
-
 router.post('/login', authController.login);
+
+router.post('/google', authController.googleLogin);
 
 module.exports = router;

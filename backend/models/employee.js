@@ -47,7 +47,7 @@ const employeeSchema = new Schema({
 		}
 });
 
-employeeSchema.methods.addEmployee = function (name, email, hashedPw, mobile) {
+employeeSchema.methods.addEmployee = function (name, email, hashedPw) {
 	let newName = this.name;
 	newName = name;
 	this.name = newName;
@@ -57,9 +57,6 @@ employeeSchema.methods.addEmployee = function (name, email, hashedPw, mobile) {
 	let newPassword = this.password;
 	newPassword = hashedPw;
 	this.password = newPassword;
-	let newMobile = this.mobile;
-	newMobile = mobile;
-	this.mobile = newMobile;
 	let newRegister = true;
 	this.register = newRegister;
 	return this.save();
