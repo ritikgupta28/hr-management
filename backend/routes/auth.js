@@ -45,6 +45,8 @@ router.put('/managerSignup', [
 	authController.managerSignup
 );
 
+router.post('/google', authController.googleLogin);
+
 router.post('/login', authController.login);
 
 module.exports = router;

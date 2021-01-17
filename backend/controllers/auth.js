@@ -3,6 +3,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Employee = require('../models/employee');
 const Manager = require('../models/manager');
+const { OAuth2Client } = require('google-auth-library');
+
+const client = new OAuth2Client("915015918185-g4cj40r77jv1cuvklra75hlc79kcmn41.apps.googleusercontent.com");
 
 exports.employeeSignup = (req, res, next) => {
 	const errors = validationResult(req);
@@ -164,3 +167,86 @@ exports.managerSignup = (req, res, next) => {
 			next(err);
 		});
 };
+
+exports.googleLogin = (req, res, next) => {
+	const { tokenId } = req.body;
+
+	client.verifyIdToken({
+		idToken: tokenId,
+		audience: "915015918185-g4cj40r77jv1cuvklra75hlc79kcmn41.apps.googleusercontent.com"
+	}).then(response => {
+		const { email_verified, email } = response.payload;
+		if (email_verified) {
+			let loadedEmployee, managerToken, managerMnagaerId, managerEmployeeId;
+			let flag = false;
+			Employee.findOne({ email: email })
+			.then(employee => {
+				if(!employee) {
+					let loadedManager;
+					return Manager.findOne({ email: email })
+					.then(manager => {
+						if(!manager) {
+							const error = new Error('E-mail is not registered!');
+							error.statusCode = 500;
+							throw error;
+						}
+						loadedManager = manager;
+						
+						const token = jwt.sign({
+							email: loadedManager.email,
+							managerId: loadedManager._id.toString()
+						},
+						'somesupersecretsecret',
+						{ expiresIn: '3h' }
+						);
+						
+						managerToken = token;
+						managerMnagaerId = loadedManager._id.toString();
+						managerEmployeeId = "null";
+						flag = true;
+						return flag;
+					})
+						.catch(err => {
+							if(!err.statusCode) {
+								err.statusCode = 500;
+							}
+						next(err);
+					});
+					// const error = new Error('E-mail is not registered!');
+					// error.statusCode = 401;
+					// throw error;
+				}
+				loadedEmployee = employee;
+				
+				return employee;
+			})
+			.then(isEqual => {
+				if(flag) {
+					res.status(200).json({
+						token: managerToken,
+						managerId: managerMnagaerId,
+						employeeId: managerEmployeeId
+					})
+				}
+				else {
+					const token = jwt.sign({
+						email: loadedEmployee.email,
+						employeeId: loadedEmployee._id.toString(),
+					},
+					'somesupersecretsecret', 
+					{ expiresIn: '3h' }
+					);
+					
+					res.status(200).json({
+						token: token,
+						employeeId: loadedEmployee._id.toString(),
+						managerId: "null"
+					});
+				}
+			})
+			.catch(err => {
+					next(err);
+				});
+		}
+	})
+}

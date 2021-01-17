@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import GoogleLogin from "react-google-login";
 import { actionType } from "../../reducer";
 import { useStateValue } from "../../StateProvider"
 import "./Auth.css"
@@ -9,24 +10,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onLogin = async (e) => {
-    e.preventDefault();
-    try { 
-      const response = await fetch('http://localhost:8000/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password
-      })
-      })
-      const status = await response.status;
-      const resData = await response.json();
-      if (status === 500) {
-        throw new Error(resData.message);
-      }
+  const onLogin = async (resData) => {
       dispatch({
         type: actionType.SET_TOKEN,
         token: resData.token
@@ -51,6 +35,27 @@ function Login() {
         new Date().getTime() + remainingMilliseconds
       );
       localStorage.setItem('expiryDate', expiryDate.toISOString());
+  }
+
+  const onSimpleLogin = async (e) => {
+    e.preventDefault();
+    try { 
+      const response = await fetch('http://localhost:8000/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password
+      })
+      })
+      const status = await response.status;
+      const resData = await response.json();
+      if (status === 500) {
+        throw new Error(resData.message);
+      }
+      await onLogin(resData);
       } catch(err) {
         dispatch({
           type: actionType.SET_IS_AUTH,
@@ -58,6 +63,35 @@ function Login() {
         })
         alert(err);
       }
+  }
+
+  const responseSuccessGoogle = async (response) => {
+    try {
+        const res = await fetch('http://localhost:8000/auth/google', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          tokenId: response.tokenId
+        })
+      })
+      const status = await res.status;
+      const resData = await res.json();
+      if (status === 500) {
+        throw new Error(resData.message);
+      }
+      await onLogin(resData);
+    } catch(err) {
+      dispatch({
+        type: actionType.SET_IS_AUTH,
+        isAuth: false
+      })
+      alert(err);
+    }
+  }
+
+  const responseErrorGoogle = (response) => {
   }
 
   return (
@@ -85,11 +119,18 @@ function Login() {
       <div className="login_button">
         <button
           type="submit"
-          onClick={onLogin}
+          onClick={onSimpleLogin}
         >
           Login
         </button>
-      </div>
+        </div>
+        <GoogleLogin
+          clientId="915015918185-g4cj40r77jv1cuvklra75hlc79kcmn41.apps.googleusercontent.com"
+          buttonText="Login with Google"
+          onSuccess={responseSuccessGoogle}
+          onFailure={responseErrorGoogle}
+          cookiePolicy={'single_host_origin'}
+        />
       </div>
     </div>
   )
