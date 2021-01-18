@@ -7,19 +7,63 @@ const { OAuth2Client } = require('google-auth-library');
 
 const client = new OAuth2Client("915015918185-g4cj40r77jv1cuvklra75hlc79kcmn41.apps.googleusercontent.com");
 
-exports.employeeSignup = (req, res, next) => {
-	const errors = validationResult(req);
-	if(!errors.isEmpty()) {
-	 	const error = new Error(errors.array()[0].msg);
-	 	error.statusCode = 500;
-	 	error.data = errors.array()[0].msg;
-	 	throw error;
-  }
-  
-  const { email, name, password } = req.body;
+exports.employeeSignup = async (req, res, next) => {
+	const { email, name, password } = req.body;
 
-	Employee.findOne({ email: email })
-		.then(employee => {
+	try {
+		const errors = validationResult(req);
+		if(!errors.isEmpty()) {
+	 		const error = new Error(errors.array()[0].msg);
+	 		error.statusCode = 500;
+	 		error.data = errors.array()[0].msg;
+	 		throw error;
+  	}
+
+		let employee = await Employee.findOne({ email: email })
+		if(!employee) {
+			const error = new Error('Email is not verified!');
+			error.statusCode = 500;
+			throw error;
+		}
+		else {
+			if(employee.register) {
+				const error = new Error('Email is already registered!');
+				error.statusCode = 500;
+				throw error;
+			}
+			const hashedPw = await	bcrypt.hash(password, 12)
+			employee = await employee.addEmployee(name, email, hashedPw);
+
+			res.status(201).json({
+				message: 'Employee created!'
+			});
+		}
+	} catch(err) {
+			const error = new Error('Signup is not successful!');
+			error.statusCode = 500;
+			next(error);
+	}
+}
+
+exports.googleEmployeeSignup = async (req, res, next) => {
+	const { tokenId, password } = req.body;
+
+	try {
+		const errors = validationResult(req);
+		if(!errors.isEmpty()) {
+		 	const error = new Error(errors.array()[0].msg);
+	 		error.statusCode = 500;
+		 	error.data = errors.array()[0].msg;
+		 	throw error;
+	  }
+
+		const response = await client.verifyIdToken({
+			idToken: tokenId,
+			audience: "915015918185-g4cj40r77jv1cuvklra75hlc79kcmn41.apps.googleusercontent.com"
+		})
+		const { email_verified, name, email } = response.payload;
+		if(email_verified) {
+			let employee = await Employee.findOne({ email: email })
 			if(!employee) {
 				const error = new Error('Email is not verified!');
 				error.statusCode = 500;
@@ -31,291 +75,175 @@ exports.employeeSignup = (req, res, next) => {
 					error.statusCode = 500;
 					throw error;
 				}
-				bcrypt.hash(password, 12)
-					.then(hashedPw => {
-						return employee.addEmployee(name, email, hashedPw);
-					})
+				const hashedPw = await bcrypt.hash(password, 12)
+				employee = await employee.addEmployee(name, email, hashedPw);
+
+				res.status(201).json({
+					message: 'Employee created!'
+				});
 			}
-		})
-		.then(result => {
-			res.status(201).json({
-				message: 'Employee created!'
-			});
-		})
-		.catch(err => {
-			if(!err.statusCode) {
-				err.statusCode = 500;
-			}
+		}
+		else {
+			const error = new Error('Google email not verified!');
+			error.statusCode = 500;
+			throw error;
+		}
+	} catch(err) {
+			// const error = new Error('Signup is not successful!');
+			// error.statusCode = 500;
 			next(err);
+	}
+}
+
+exports.managerSignup = async (req, res, next) => {
+	const { email, password } = req.body;
+
+	try {
+		const errors = validationResult(req);
+		if(!errors.isEmpty()) {
+		 	const error = new Error(errors.array()[0].msg);
+	 		error.statusCode = 422;
+		 	error.data = errors.array()[0].msg;
+		 	throw error;
+	  }
+
+		const hashedPw = await bcrypt.hash(password, 12)
+		let manager = new Manager({
+			email: email,
+			password: hashedPw
 		});
-};
+		manager = await manager.save();
 
-exports.googleEmployeeSignup = (req, res, next) => {
-	const { tokenId, password } = req.body;
+		res.status(201).json({
+			message: 'Manager created!',
+			managerId: result._id
+		});
+	} catch(err) {
+			const error = new Error('Signup is not successful!');
+			error.statusCode = 500;
+			next(error);
+	}
+}
 
-	client.verifyIdToken({
-		idToken: tokenId,
-		audience: "915015918185-g4cj40r77jv1cuvklra75hlc79kcmn41.apps.googleusercontent.com"
-	})
-		.then(response => {
-			const { email_verified, name, email } = response.payload;
-			if(email_verified) {
-				Employee.findOne({ email: email })
-					.then(employee => {
-						if(!employee) {
-							const error = new Error('Email is not verified!');
-							error.statusCode = 500;
-							throw error;
-						}
-						else {
-							if(employee.register) {
-								const error = new Error('Email is already registered!');
-								error.statusCode = 500;
-								throw error;
-							}
-							bcrypt.hash(password, 12)
-								.then(hashedPw => {
-									return employee.addEmployee(name, email, hashedPw);
-								})
-						}
-					})
-					.then(result => {
-						res.status(201).json({
-							message: 'Employee created!'
-						});
-					})
-					.catch(err => {
-						if(!err.statusCode) {
-							err.statusCode = 500;
-						}
-						next(err);
-					});
-			}
-			else {
-				const error = new Error('Google email not verified!');
+exports.login = async (req, res, next) => {
+  const { email, password } = req.body;
+
+	try {
+		let employee = await Employee.findOne({ email: email })
+		if(!employee) {
+			let manager = await Manager.findOne({ email: email })
+			if(!manager) {
+				const error = new Error('E-mail is not registered!');
 				error.statusCode = 500;
 				throw error;
 			}
-		})
-		.catch(err => {
-			if(!err.statusCode) {
-				err.statusCode = 500;
+			
+			const isEqual = await bcrypt.compare(password, manager.password);
+			if(!isEqual) {
+				const error = new Error('Wrong password!');
+				error.statusCode = 500;
+				throw error;
 			}
-			next(err);
-		})
-}
-
-exports.managerSignup = (req, res, next) => {
-	const errors = validationResult(req);
-	if(!errors.isEmpty()) {
-	 	const error = new Error(errors.array()[0].msg);
-	 	error.statusCode = 422;
-	 	error.data = errors.array()[0].msg;
-	 	throw error;
-  }
-  
-  const { email, password } = req.body;
-
-	bcrypt.hash(password, 12)
-		.then(hashedPw => {
-			const manager = new Manager({
-				email: email,
-				password: hashedPw
-			});
-			return manager.save();
-		})
-		.then(result => {
-			res.status(201).json({
-				message: 'Manager created!',
-				managerId: result._id
-			});
-		})
-		.catch(err => {
-			if(!err.statusCode) {
-				err.statusCode = 500;
-			}
-			next(err);
-		});
-};
-
-exports.login = (req, res, next) => {
-  const { email, password } = req.body;
-
-	let loadedEmployee, managerToken, managerMnagaerId, managerEmployeeId;
-	let flag = false;
-	Employee.findOne({ email: email })
-	.then(employee => {
-		if(!employee) {
-			let loadedManager;
-			return Manager.findOne({ email: email })
-			.then(manager => {
-				if(!manager) {
-					const error = new Error('E-mail is not registered!');
-					error.statusCode = 500;
-					throw error;
-				}
-				loadedManager = manager;
-				
-				return bcrypt.compare(password, manager.password);
-			})
-			.then(isEqual => {
-				if(!isEqual) {
-					const error = new Error('Wrong password!');
-					error.statusCode = 500;
-					throw error;
-				}
-				const token = jwt.sign({
-					email: loadedManager.email,
-					managerId: loadedManager._id.toString()
-				},
-				'somesupersecretsecret',
-				{ expiresIn: '3h' }
-				);
-				
-				managerToken = token;
-				managerMnagaerId = loadedManager._id.toString();
-				managerEmployeeId = "null";
-				flag = true;
-				return flag;
-			})
-				.catch(err => {
-					if(!err.statusCode) {
-						err.statusCode = 500;
-					}
-				next(err);
-			});
-		}
-		loadedEmployee = employee;
-		
-		return bcrypt.compare(password, employee.password);
-	})
-	.then(isEqual => {
-		if(flag) {
+			
+			const token = jwt.sign({
+				email: manager.email,
+				managerId: manager._id.toString()
+			},
+			'somesupersecretsecret',
+			{ expiresIn: '3h' }
+			);
+			
 			res.status(200).json({
-				token: managerToken,
-				managerId: managerMnagaerId,
-				employeeId: managerEmployeeId
+				token: token,
+				managerId: manager._id.toString(),
+				employeeId: "null"
 			});
 		}
 		else {
+			const isEqual = await bcrypt.compare(password, employee.password);
 			if(!isEqual) {
 				const error = new Error('Wrong password!');
 				error.statusCode = 500;
 				throw error;
 			}
 			const token = jwt.sign({
-				email: loadedEmployee.email,
-				employeeId: loadedEmployee._id.toString(),
+				email: employee.email,
+				employeeId: employee._id.toString(),
 			},
 			'somesupersecretsecret', 
 			{ expiresIn: '3h' }
 			);
-			
+
 			res.status(200).json({
 				token: token,
-				employeeId: loadedEmployee._id.toString(),
+				employeeId: employee._id.toString(),
 				managerId: "null"
 			});
 		}
-	})
-	.catch(err => {
-      next(err);
-    });
-};
+	} catch(err) {
+      const error = new Error('Login is not successful!');
+			error.statusCode = 500;
+			next(error);
+  }
+}
 
-exports.googleLogin = (req, res, next) => {
+exports.googleLogin = async (req, res, next) => {
 	const { tokenId } = req.body;
 
-	client.verifyIdToken({
-		idToken: tokenId,
-		audience: "915015918185-g4cj40r77jv1cuvklra75hlc79kcmn41.apps.googleusercontent.com"
-	})
-		.then(response => {
-			const { email_verified, email } = response.payload;
-			if(email_verified) {
-				let loadedEmployee, managerToken, managerMnagaerId, managerEmployeeId;
-				let flag = false;
-				Employee.findOne({ email: email })
-					.then(employee => {
-						if(!employee) {
-							let loadedManager;
-							return Manager.findOne({ email: email })
-							.then(manager => {
-								if(!manager) {
-									const error = new Error('E-mail is not registered!');
-									error.statusCode = 500;
-									throw error;
-								}
-								loadedManager = manager;
-								
-								const token = jwt.sign({
-									email: loadedManager.email,
-									managerId: loadedManager._id.toString()
-								},
-								'somesupersecretsecret',
-								{ expiresIn: '3h' }
-								);
-								
-								managerToken = token;
-								managerMnagaerId = loadedManager._id.toString();
-								managerEmployeeId = "null";
-								flag = true;
-								return flag;
-							})
-							.catch(err => {
-								if(!err.statusCode) {
-									err.statusCode = 500;
-								}
-								next(err);
-							});
-						}
-						else if(!employee.register) {
-							const error = new Error('E-mail is not verified!');
-							error.statusCode = 500;
-							throw error;
-						}
-						loadedEmployee = employee;
-						
-						return employee;
-					})
-					.then(isEqual => {
-						if(flag) {
-							res.status(200).json({
-								token: managerToken,
-								managerId: managerMnagaerId,
-								employeeId: managerEmployeeId
-							})
-						}
-						else {
-							const token = jwt.sign({
-								email: loadedEmployee.email,
-								employeeId: loadedEmployee._id.toString(),
-							},
-							'somesupersecretsecret',
-							{ expiresIn: '3h' }
-							);
-							
-							res.status(200).json({
-								token: token,
-								employeeId: loadedEmployee._id.toString(),
-								managerId: "null"
-							});
-						}
-					})
-					.catch(err => {
-						next(err);
-					});
+	try {
+		const response = await client.verifyIdToken({
+			idToken: tokenId,
+			audience: "915015918185-g4cj40r77jv1cuvklra75hlc79kcmn41.apps.googleusercontent.com"
+		})
+		const { email_verified, email } = response.payload;
+		if(email_verified) {
+			let employee = await Employee.findOne({ email: email })
+			if(!employee) {
+				let manager = await Manager.findOne({ email: email })
+				if(!manager) {
+					const error = new Error('E-mail is not registered!');
+					error.statusCode = 500;
+					throw error;
+				}
+				
+				const token = jwt.sign({
+					email: manager.email,
+					managerId: manager._id.toString()
+				},
+				'somesupersecretsecret',
+				{ expiresIn: '3h' }
+				);
+				
+				res.status(200).json({
+					token: token,
+					managerId: manager._id.toString(),
+					employeeId: "null"
+				});
 			}
 			else {
-				const error = new Error('Google email not verified!');
-				error.statusCode = 500;
-				throw error;
+				const token = jwt.sign({
+					email: employee.email,
+					employeeId: employee._id.toString(),
+				},
+				'somesupersecretsecret', 
+				{ expiresIn: '3h' }
+				);
+
+				res.status(200).json({
+					token: token,
+					employeeId: employee._id.toString(),
+					managerId: "null"
+				});
 			}
-		})
-		.catch(err => {
-			if(!err.statusCode) {
-				err.statusCode = 500;
-			}
-			next(err);
-		})
+		}
+		else {
+			const error = new Error('Google email not verified!');
+			error.statusCode = 500;
+			throw error;
+		}
+	} catch(err) {
+			const error = new Error('Login is not successful!');
+			error.statusCode = 500;
+			next(error);
+	}
 }

@@ -23,6 +23,23 @@ exports.postHoliday = async (req, res, next) => {
   }
 }
 
+exports.getHoliday = async (req, res, next) => {
+	let holidays;
+
+  try {
+    const manager = await Manager.find()
+    holidays = manager[0].holiday;
+    
+    res.status(200).json({
+      holidays: holidays
+    });
+  } catch(err) {
+      const error = new Error;
+      error.message = 'Failed to fetch attendance!';
+      next(error);
+  }
+}
+
 exports.getEmployeeList = async (req, res, next) => {
 	try {
 		const employee = await Employee.find({ register: true })
@@ -57,7 +74,7 @@ exports.postNewEmployee = async (req, res, next) => {
 			});
 		}
 		else {
-				const error = new Error('Employee is already registered!');
+				const error = new Error('Employee is already added!');
 				error.statusCode = 500;
 				throw error;
 		}
@@ -70,7 +87,7 @@ exports.postNewEmployee = async (req, res, next) => {
 
 exports.getTeamList = async (req, res, next) => {
 	try {
-		const team = Team.find().populate('members.employeeId')
+		const team = await Team.find().populate('members.employeeId')
 
 		res.status(200).json({
 			teams: team

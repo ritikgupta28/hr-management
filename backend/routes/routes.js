@@ -23,6 +23,8 @@ router.post('/acceptReply', isManager, managerController.postAcceptReply);
 
 router.post('/rejectReply', isManager, managerController.postRejectReply);
 
+router.get('/holiday', isManager, managerController.getHoliday);
+
 router.post('/holiday', isManager, managerController.postHoliday);
 
 router.get('/employee/:id', isManagerEmployee, managerEmployeeController.getEmployee);
