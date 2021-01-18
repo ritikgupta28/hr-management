@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import moment from "moment"
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 import { useStateValue } from "../../StateProvider"
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Button, TextField, List, ListItem, ListItemText } from '@material-ui/core';
@@ -19,9 +21,34 @@ const useStyles = makeStyles((theme) => ({
 function Holiday() {
   
   const [{ token }, dispatch] = useStateValue();
+  const [date1, onDateChange] = useState(new Date());
   const [dates, setDates] = useState([]);
   const [date, setDate] = useState(new Date());
+  const [holidays, setHolidays] = useState([]);
   const classes = useStyles();
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch('http://localhost:8000/holiday', {
+          method: 'GET',
+          headers: {
+            Authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json'
+          }
+        })
+        const status = await response.status;
+        const resData = await response.json();
+        if (status === 500) {
+          throw new Error(resData.message);
+        }
+        setHolidays(resData["holidays"]);
+      } catch (err) {
+        alert(err);
+      }
+    }
+    fetchData();
+  }, [])
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -41,6 +68,8 @@ function Holiday() {
       if (status === 500) {
         throw new Error(resData.message);
       }
+      setDates([]);
+      setDate("");
       alert("Done!");
     } catch(err) {
       alert(err)
@@ -82,6 +111,15 @@ function Holiday() {
       >
         Submit
       </Button>
+      <Calendar
+        onChange={onDateChange}
+        value={date1}
+        tileClassName={({ date, view }) => {
+          if(holidays?.find(x => x === moment(date).format("DD-MM-YYYY"))) {
+            return 'holidays'
+          }
+        }}
+      />
     </Container>
   )
 }

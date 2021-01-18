@@ -34,6 +34,7 @@ function AddEmployee() {
   const classes = useStyles();
 
   const onAddEmployee = async (e) => {
+    e.preventDefault();
     try {
       const response = await fetch('http://localhost:8000/newEmployee', {
         method: 'POST',

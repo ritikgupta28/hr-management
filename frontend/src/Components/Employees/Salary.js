@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { useStateValue } from "../../StateProvider";
-import { Container } from "@material-ui/core";
+import { CircularProgress, Container, TextField, Typography } from "@material-ui/core";
 
 function Salary({ id }) {
 
   const [{ token }, dispatch] = useStateValue();
   const [month, setMonth] = useState("");
   const [salary, setSalary] = useState("");
-  const [expectedSalary, setExpectedSalary] = useState("");
+  const [expectedSalary, setExpectedSalary] = useState();
+  const [loading, setLoading] = useState(true);
   
   useEffect(() => {
     async function fetchData() {
@@ -31,7 +32,9 @@ function Salary({ id }) {
         }
         setExpectedSalary(resData["expectedSalary"]?.toPrecision(4));
         setSalary(resData["salary"]?.toPrecision(4));
-      } catch(err) {
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
         alert(err);
       }
     }
@@ -42,20 +45,36 @@ function Salary({ id }) {
 
   return (
     <Container>
-      <input
-        type="month"
-        value={month}
-        onChange={e => setMonth(e.target.value)}
+      {loading
+        ?
+        <CircularProgress />
+        :
+        <div>
+          <Typography>
+        Salary(Rs.) :  {salary} /-
+      </Typography>
+      <TextField
+          type="month"
+          value={month}
+          onChange={e => setMonth(e.target.value)}
+          variant="outlined"
+          id="standard-basic"
+          label="Month" 
       />
-      <p>Salary(Rs.) :  {salary} /-</p>
       {month
         ?
         <div>
-          <p>{moment(month).format("MM-YYYY")}</p>
-          <p>Expected Salary(Rs.) :  {expectedSalary} /-</p>
+          <Typography>
+            {moment(month).format("MM-YYYY")}
+          </Typography>
+          <Typography>
+            Expected Salary(Rs.) :  {expectedSalary} /-
+          </Typography>
         </div>
         : 
         null
+      }
+        </div>
       }
     </Container>
   )
