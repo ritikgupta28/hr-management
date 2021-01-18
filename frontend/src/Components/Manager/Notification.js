@@ -1,11 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import Detail from './Detail';
 import { useStateValue } from "../../StateProvider"
+import { makeStyles } from '@material-ui/core/styles';
+import { Card, Container } from '@material-ui/core';
+
+const useStyles = makeStyles({
+  root: {
+    minWidth: 275,
+  },
+  title: {
+    fontSize: 14,
+  },
+  pos: {
+    marginBottom: 12,
+  },
+});
+
 
 function Notification() {
 
   const [{ token }, dispatch] = useStateValue();
   const [notifications, setNotification] = useState([]);
+  const classes = useStyles();
 
   useEffect(() => {
     async function fetchData() {
@@ -22,6 +38,7 @@ function Notification() {
         if (status === 500) {
           throw new Error(resData.message);
         }
+        console.log(resData);
         setNotification(resData["notifications"]);
       } catch(err) {
         alert(err)
@@ -31,12 +48,13 @@ function Notification() {
   }, [])
 
   return (
-    <div>
-      <h1>Notifications</h1>
-        {notifications?.map(notification => (
-          <Detail key={notification._id} notification={notification} />
-        ))}
-    </div>
+    <Container>
+      {notifications?.map(notification => (
+        <Card key={notification._id} className={classes.root} variant="outlined">
+          <Detail notification={notification} />
+        </Card>
+       ))}
+    </Container>
   )
 }
 

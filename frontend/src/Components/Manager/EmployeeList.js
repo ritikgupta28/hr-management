@@ -53,7 +53,7 @@ function EmployeeList() {
   }
 
   return (
-    <Container>
+    <Container component="main" maxWidth="xs">
       <List>
         <ListItem>
           <TextField

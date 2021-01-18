@@ -1,9 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Container, Link } from "@material-ui/core";
+import { Typography, Container, Link, CssBaseline } from "@material-ui/core";
 
 function Copyright() {
-
   return (
     <Typography variant="body2" color="textSecondary">
       {'Copyright © '}
@@ -24,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   footer: {
     padding: theme.spacing(3, 2),
-    marginTop: '80px',
+    marginTop: '60px',
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
   },
@@ -36,11 +35,16 @@ function Footer() {
 
   return (
     <div className={classes.root}>
-        <footer className={classes.footer}>
-          <Typography variant="body1">Code by Sahil and Ritik</Typography>
-          <Copyright />
-        </footer>
-    </div>
+    <CssBaseline />
+    <footer className={classes.footer}>
+      <Container maxWidth="sm">
+          <Typography variant="body1">
+            Code by Ritik and Sahil.
+          </Typography>
+        <Copyright />
+      </Container>
+    </footer>
+  </div>
   );
 }
 

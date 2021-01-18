@@ -1,11 +1,27 @@
 import React, { useState } from 'react'
 import moment from "moment"
 import { useStateValue } from "../../StateProvider"
+import { makeStyles } from '@material-ui/core/styles';
+import { Container, Button, TextField, List, ListItem, ListItemText } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200,
+  },
+}));
 
 function Holiday() {
   
   const [{ token }, dispatch] = useStateValue();
   const [dates, setDates] = useState([]);
+  const [date, setDate] = useState(new Date());
+  const classes = useStyles();
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -32,22 +48,41 @@ function Holiday() {
   }
 
   return (
-    <div>
-      {dates.map(date => (
-        <p>{date}</p>
+    <Container component="main" maxWidth="xs">
+      <List>
+        {dates.map(date => (
+          <ListItem key={date}>
+             <ListItemText primary={date} />
+          </ListItem>
       ))}
-      <input 
+      </List>
+      <TextField
+        value={date}
+        onChange={e => {
+          setDate(e.target.value);
+          if (dates.indexOf(moment(e.target.value).format("DD-MM-YYYY")) === -1) {
+            setDates([...dates, moment(e.target.value).format("DD-MM-YYYY")])
+          }
+        }}
+        id="date"
+        label="Holiday"
         type="date"
-        value={dates}
-        onChange={e => setDates([...dates, moment(e.target.value).format("DD-MM-YYYY")])}
+        className={classes.textField}
+        InputLabelProps={{
+          shrink: true,
+        }}
       />
-      <button
+      <br />
+      <br />
+      <Button
+        variant="outlined"
+        color="primary"
         type="submit"
         onClick={onSubmit}
       >
         Submit
-      </button>
-    </div>
+      </Button>
+    </Container>
   )
 }
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useStateValue } from "../../StateProvider";
+import { List, ListItem, ListItemText, TextField, Button, Container } from "@material-ui/core";
 
 function AddTeam() {
   
@@ -71,49 +72,52 @@ function AddTeam() {
   }
 
   return (
-    <div>
-      <div>
-        <p>Team Name: </p>
-        <input 
-          type = "text"
+    <Container component="main" maxWidth="xs">
+        <TextField
           value = {teamName} 
           onChange = {e => setTeamName(e.target.value)}
+          id="standard-basic"
+          label="Team-Name" 
         />
-      </div>
       <br />
-      <div>
-        <p>Description: </p>
-        <textarea 
-          type = "text"
+      <TextField
           value = {description} 
           onChange = {e => setDescription(e.target.value)}
-        />
-      </div>
+          id="standard-basic"
+          label="Description" 
+      />
       <br />
-      <div>
+      <List>
         {teamArray?.map(employee => (
-          <p key={employee.id} >{employee.email}</p>
+          <ListItem>
+            <ListItemText key={employee.id} primary = {employee.email} />
+          </ListItem>
         ))}
-      </div>
+      </List>
       <hr />
+      <List>
       {employees?.map(employee => (
-        <div key={employee._id}>
-          <p>{employee.email}</p>
-          <button
+        <ListItem key={employee._id}>
+          <ListItemText primary={employee.email} />
+          <Button
+            variant="outlined"
             value={employee._id}
             onClick={() => onAddEmployee(employee._id, employee.email)}
           >
-            Add
-          </button>
-        </div>
+            Add Member
+          </Button>
+        </ListItem>
       ))}
-      <button
+      </List>
+      <br />
+      <Button
+        variant="outlined"
+        color="primary"
         type="submit"
-        onClick={onAddTeam}
-      >
+        onClick={onAddTeam}>
         Add Team
-      </button>
-    </div>
+      </Button>
+    </Container>
   )
 }
 

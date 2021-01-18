@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Divider, ListItem, ListItemText } from '@material-ui/core';
+import { Divider, List, ListItem, ListItemText, Typography } from '@material-ui/core';
 
 function TeamDescription({ team }) {
 
@@ -9,11 +9,15 @@ function TeamDescription({ team }) {
     if(expand) {
       return (
         <div>
-          <p>Members: </p>
-        {team.members?.map(member => (
-           <p key={member._id}>{member.employeeId.email}</p>
-        ))}
-        <p key={team._id}>{team.description}</p>
+          <Typography>Members: </Typography>
+          <List>
+            {team.members?.map(member => (
+              <ListItem key={member._id}>
+                <ListItemText primary={member.employeeId.email} />
+              </ListItem>
+            ))}
+            <Typography key={team._id}>{team.description}</Typography>
+          </List>
       </div>
       )
     }

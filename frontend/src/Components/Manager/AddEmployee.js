@@ -31,6 +31,7 @@ function AddEmployee() {
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('');
   const [salary, setSalary] = useState('');
+  const classes = useStyles();
 
   const onAddEmployee = async (e) => {
     try {
@@ -61,8 +62,6 @@ function AddEmployee() {
       alert(err);
     };
   }
-
-  const classes = useStyles();
 
   return (
     <Container component="main" maxWidth="xs">

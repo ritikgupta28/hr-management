@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import moment from "moment"
 import { useStateValue } from "../../StateProvider";
+import { CardActions, CardContent, Button, Typography } from '@material-ui/core';
+
 
 function Detail({ notification }) {
 
@@ -12,15 +14,27 @@ function Detail({ notification }) {
       reply === "unseen"
         ?
         <div>
-          <button value={notification._id} onClick={onAccept}>Accept</button>
-          <button value={notification._id} onClick={onReject}>Reject</button>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={onAccept}
+          >
+            Accept
+          </Button>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={onReject}
+          >
+            Reject
+          </Button>
         </div>
         :
         (reply === "accept"
           ?
-          <p>Accepted</p>
+          <Typography>Accepted</Typography>
           :
-          <p>Rejected</p>
+          <Typography>Rejected</Typography>
         )
     )
   }
@@ -38,7 +52,7 @@ function Detail({ notification }) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          id: e.target.value
+          id: notification._id
         })
       })
       const status = await response.status;
@@ -61,7 +75,7 @@ function Detail({ notification }) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          id: e.target.value
+          id: notification._id
         })
         })
         const status = await response.status;
@@ -70,22 +84,31 @@ function Detail({ notification }) {
           throw new Error(resData.message);
         }
         setReply("reject")
-    } catch(err) {
-      alert(err);
-    }
+      } catch(err) {
+        alert(err);
+      }
   }
 
   return (
     <div>
-      <p>{moment(notification.createdAt).format("DD-MM-YYYY")}</p>
-      <p>{moment(notification.createdAt).format("HH:mm")}</p>
-      <p>{notification.employeeId.name}</p>
-      {notification.dates.map(date => (
-        <p key={date}>{date}</p>
-      ))}
-      <p>{notification.reason}</p>
+      <CardContent>
+        <Typography>
+          <p>{moment(notification.createdAt).format("DD-MM-YYYY")},
+          {moment(notification.createdAt).format("HH:mm")}</p>
+          <p>{notification.employeeId.name}</p>
+        </Typography>
+        <Typography color="textSecondary" gutterBottom>
+          {notification.dates.map(date => (
+            <p key={date}>{date}</p>
+          ))}
+        </Typography>
+        <Typography variant="body2" component="p">
+          {notification.reason}
+        </Typography>
+      </CardContent>
+      <CardActions>
       {renderButtons()}
-      <br/>
+      </CardActions>
     </div>
   )
 }
