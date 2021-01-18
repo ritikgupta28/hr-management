@@ -31,6 +31,8 @@ router.get('/attendance/:id', isManagerEmployee, managerEmployeeController.getAt
 
 router.post('/salary', isManagerEmployee, managerEmployeeController.postSalary);
 
+router.post('/editEmployee', isEmployee, employeeController.postEditEmployee);
+
 router.post('/leave', isEmployee, employeeController.postApplyLeave);
 
 module.exports = router;

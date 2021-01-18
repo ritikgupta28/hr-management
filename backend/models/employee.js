@@ -13,6 +13,22 @@ const employeeSchema = new Schema({
 			type: String,
 			required: true
 		},
+		mobile: {
+			type: String,
+			default: ""
+		},
+		address: {
+			type: String,
+			default: ""
+		},
+		city: {
+			type: String,
+			default: ""
+		},
+		country: {
+			type: String,
+			default: ""
+		},
 		role: {
 			type: String,
 			default: ""
@@ -33,6 +49,20 @@ const employeeSchema = new Schema({
 			default: false
 		}
 });
+
+employeeSchema.methods.editEmployee = function (name, mobile, address, city, country) {
+	let newName = name;
+	this.name = newName;
+	let newMobile = mobile;
+	this.mobile = newMobile;
+	let newAddress = address;
+	this.address = newAddress;
+	let newCity = city;
+	this.city = newCity;
+	let newCountry = country;
+	this.country = newCountry;
+	return this.save();
+}
 
 employeeSchema.methods.addEmployee = function (name, email, hashedPw) {
 	let newName = name;

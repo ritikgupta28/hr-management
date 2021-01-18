@@ -1,7 +1,5 @@
 const Notification = require('../models/notification');
 
-// const io = require('../socket');
-
 exports.postApplyLeave = (req, res, next) => {
   const { reason, dates } = req.body;
   const notification = new Notification({
@@ -13,11 +11,6 @@ exports.postApplyLeave = (req, res, next) => {
   notification
     .save()
     .then(result => {
-      // io.getIO().emit('leave', {
-      //   action: 'leave',
-      //   employeeId: id,
-      //   reason: reason
-      // });
       res.status(200).json({
         message: 'Success!'
       });
@@ -26,5 +19,20 @@ exports.postApplyLeave = (req, res, next) => {
       const error = new Error;
       error.message = 'Failed to apply leave!'
       next(error);
+    });
+}
+
+exports.postEditEmployee = (req, res, next) => {
+  const { name, email, mobile, address, city, country } = req.body;
+  
+  Employee.findOne({ email: email })
+    .then(employee => {
+      employee.editEmployee(name, mobile, address, city, country);
+    })
+    .catch(err => {
+      if(!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
     });
 }
