@@ -4,6 +4,7 @@ import 'react-calendar/dist/Calendar.css';
 import moment from 'moment';
 import './Attendance.css';
 import { useStateValue } from "../../StateProvider";
+import { Container } from '@material-ui/core';
 
 function Attendance({ id }) {
 
@@ -39,7 +40,7 @@ function Attendance({ id }) {
   }, [])
 
   return (
-    <div>
+    <Container>
       <Calendar
         onChange={onDateChange}
         value={date}
@@ -52,7 +53,7 @@ function Attendance({ id }) {
           }
         }}
       />
-    </div>
+    </Container>
   )
 }
 

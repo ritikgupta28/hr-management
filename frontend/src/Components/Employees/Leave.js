@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import moment from "moment"
 import { useStateValue } from "../../StateProvider";
+import { Container } from '@material-ui/core';
 
 function Leave() {
   
@@ -36,7 +37,7 @@ function Leave() {
   }
 
   return (
-    <div>
+    <Container>
       {dates.map(date => (
         <p>{date}</p>
       ))}
@@ -56,7 +57,7 @@ function Leave() {
       >
         Submit
       </button>
-    </div>
+    </Container>
   )
 }
 

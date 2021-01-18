@@ -33,9 +33,6 @@ function EmployeeNavbar({ logoutHandler }) {
           <Typography variant="h5" className={classes.mainTitle}>
             <Link to='/' style={{ textDecoration: 'none', color: 'white' }}>HR-MANAGER</Link>
           </Typography>
-          <Typography variant="h6" className={classes.title}>
-            <Link to='/dashboard' style={{ textDecoration: 'none', color: 'white' }}>Policies</Link>
-          </Typography>
 						<Button onClick={logoutHandler}>
 							<Link to='/login' style={{ textDecoration: 'none', color: 'white' }}>Logout</Link>
 						</Button>

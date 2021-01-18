@@ -3,53 +3,173 @@ import Attendance from './Attendance';
 import Leave from './Leave';
 import Salary from './Salary';
 import { useStateValue } from "../../StateProvider";
+import { TextField, Button, Container, List, ListItem, ListItemText } from "@material-ui/core";
 
 function Dashboard({ id }) {
   
-  const [{ token, employeeId }, dispatch] = useStateValue();
+  const [{ token }, dispatch] = useStateValue();
   const [employee, setEmployee] = useState({});
+  const [edit, setEdit] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
-    try {
-      const response = await fetch('http://localhost:8000/employee/' + id, {
-      method: 'GET',
-      headers: {
-        Authorization: 'Bearer ' + token,
-        'Content-Type': 'application/json'
-      }
-      })
-      const status = await response.status;
-      const resData = await response.json();
-      if (status === 500) {
-        throw new Error(resData.message);
-      }
-      setEmployee(resData["employee"]);
-    } catch(err) {
+      try {
+        const response = await fetch('http://localhost:8000/employee/' + id, {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + token,
+          'Content-Type': 'application/json'
+        }
+        })
+        const status = await response.status;
+        const resData = await response.json();
+        if (status === 500) {
+          throw new Error(resData.message);
+        }
+        setEmployee(resData["employee"]);
+      } catch(err) {
         alert(err);
-    }
+      }
     }
     if (id !== "null") {
       fetchData();
     }
   }, [])
 
-  return (
-    <div>
-      <button
-      > edit </button>
-      <Attendance id={id} />
-      <input value={employee.name}>{employee?.name}</input>
-      <input value={employee.email}>{employee?.email}</input>
-     	<input value={employee.teamName}>{employee?.teamName}</input>
-      {employeeId !== "null"
-        ?
-        <Leave />
-        :
-        null
+  const onEditEmployee = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/editEmployee/', {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + token,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          newEmployee: employee
+        })
+      })
+      const status = await response.status;
+      const resData = await response.json();
+      if (status === 500) {
+        throw new Error(resData.message);
       }
-      <Salary id={id} />
-    </div>
+      alert("Done!");
+      setEdit(!edit);
+    } catch (err) {
+      alert(err);
+    }
+  }
+
+  return (
+    <Container>
+      <Container style={{ width: '40%', position: 'absolute', 'right': '0' }}>
+        <Attendance id={id} />
+      </Container>
+      <Container style={{ width: '40%', position: 'absolute', marginTop: '40px' }}>
+        {!edit 
+          ?
+          (<Button
+            variant="outlined"
+            color="primary"
+            onClick={e => setEdit(!edit)}
+          >
+            Edit Profile
+          </Button>)
+          :
+          null
+        }
+      <List>
+        <ListItem>
+          <ListItemText primary="Name:" />
+          <TextField
+            disabled
+            value={employee.name}
+          />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="Email:" />
+          <TextField
+            disabled
+            value={employee.email}
+          />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="Team-Name:" />
+          <TextField
+            disabled
+            value={employee.teamName}
+          />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="Mobile:" />
+          <TextField
+              value={employee.mobile}
+              onChange={e => {
+                if (edit) {
+                  setEmployee({ ...employee, mobile: e.target.value })
+                }
+              }}
+          />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="Address:" />
+          <TextField
+              value={employee.address}
+              onChange={e => {
+                if (edit) {
+                  setEmployee({ ...employee, address: e.target.value })
+                }
+              }}
+          />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="City:" />
+          <TextField
+              value={employee.city}
+              onChange={e => {
+                if (edit) {
+                  setEmployee({ ...employee, city: e.target.value })
+                }
+              }}
+          />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="Country:" />
+          <TextField
+              value={employee.country}
+              onChange={e => {
+                if (edit) {
+                  setEmployee({ ...employee, country: e.target.value })
+                }
+              }}
+          />
+        </ListItem>
+        </List>
+        {edit 
+          ?
+          (<Button
+            variant="outlined"
+            color="primary"
+            onClick={onEditEmployee}
+          >
+            Submit
+          </Button>)
+          :
+          null
+        }
+      </Container>
+      <Container style={{ width: '40%', position: 'absolute', 'right': '0', marginTop: '400px' }}>
+        {id !== "null"
+          ?
+          <Leave />
+          :
+          null
+        }
+      </Container>
+      <Container style={{ width: '40%', position: 'absolute', 'right': '0', marginTop: '500px' }}>
+        <Salary id={id} />
+      </Container>
+    </Container>
   )
 }
 

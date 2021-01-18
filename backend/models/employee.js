@@ -50,16 +50,14 @@ const employeeSchema = new Schema({
 		}
 });
 
-employeeSchema.methods.editEmployee = function (name, mobile, address, city, country) {
-	let newName = name;
-	this.name = newName;
-	let newMobile = mobile;
+employeeSchema.methods.editEmployee = function (newEmployee) {
+	let newMobile = newEmployee.mobile;
 	this.mobile = newMobile;
-	let newAddress = address;
+	let newAddress = newEmployee.address;
 	this.address = newAddress;
-	let newCity = city;
+	let newCity = newEmployee.city;
 	this.city = newCity;
-	let newCountry = country;
+	let newCountry = newEmployee.country;
 	this.country = newCountry;
 	return this.save();
 }

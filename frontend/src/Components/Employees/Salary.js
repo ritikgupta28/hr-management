@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { useStateValue } from "../../StateProvider";
+import { Container } from "@material-ui/core";
 
 function Salary({ id }) {
 
@@ -40,7 +41,7 @@ function Salary({ id }) {
   }, [month]);
 
   return (
-    <div>
+    <Container>
       <input
         type="month"
         value={month}
@@ -56,7 +57,7 @@ function Salary({ id }) {
         : 
         null
       }
-    </div >
+    </Container>
   )
 }
 

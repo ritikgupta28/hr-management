@@ -1,4 +1,5 @@
 const Notification = require('../models/notification');
+const Employee = require('../models/employee')
 
 exports.postApplyLeave = (req, res, next) => {
   const { reason, dates } = req.body;
@@ -23,11 +24,14 @@ exports.postApplyLeave = (req, res, next) => {
 }
 
 exports.postEditEmployee = (req, res, next) => {
-  const { name, email, mobile, address, city, country } = req.body;
+  const { newEmployee } = req.body;
   
-  Employee.findOne({ email: email })
+  Employee.findOne({ email: newEmployee.email })
     .then(employee => {
-      employee.editEmployee(name, mobile, address, city, country);
+      employee.editEmployee(newEmployee);
+      res.status(200).json({
+        message: 'update done'
+      })
     })
     .catch(err => {
       if(!err.statusCode) {
