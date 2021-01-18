@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
 import { useStateValue } from "../../StateProvider";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import { Avatar, Button, CssBaseline, TextField, Typography, Container } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   paper: {

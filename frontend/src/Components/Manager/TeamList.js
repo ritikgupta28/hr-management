@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TeamDescription from './TeamDescription';
 import { useStateValue } from "../../StateProvider";
-import Container from "@material-ui/core/Container"
-import List from "@material-ui/core/List"
+import { Container, List } from "@material-ui/core";
 
 function TeamList() {
 

@@ -7,24 +7,26 @@ import AddTeam from "./AddTeam"
 import Notification from "./Notification"
 import Holiday from "./Holiday"
 import Dashboard from "../Employees/Dashboard"
+import Footer from "../Footer";
 import clsx from 'clsx';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import Button from '@material-ui/core/Button'
-import ListItemText from '@material-ui/core/ListItemText';
-import Footer from "../Footer";
+import {
+  Drawer,
+  CssBaseline,
+  AppBar,
+  Toolbar,
+  List,
+  Typography,
+  Divider,
+  IconButton,
+  ListItem,
+  Button,
+  ListItemText
+} from "@material-ui/core";
 
 const drawerWidth = 240;
 
@@ -63,7 +65,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
   },
@@ -139,8 +140,6 @@ function ManagerNavbar({ logoutHandler }) {
       </List>
     </div>
   );
-
-  //const container = window().document.body;
 
 	return (
 		<Router>

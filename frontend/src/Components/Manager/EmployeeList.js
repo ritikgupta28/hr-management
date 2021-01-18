@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useStateValue } from "../../StateProvider";
-import TextField from '@material-ui/core/TextField';
-import Container from '@material-ui/core/Container';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Link from "@material-ui/core/Link"
+import { TextField, Container, Link, List, ListItem, ListItemText } from "@material-ui/core";
 
 function EmployeeList() {
 

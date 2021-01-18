@@ -1,11 +1,11 @@
 import React from 'react'
 
-function Privacy() {
+function Policies() {
   return (
     <div>
-      <h1>Privacy</h1>
+      <h1>Policies</h1>
     </div>
   )
 }
 
-export default Privacy
+export default Policies;

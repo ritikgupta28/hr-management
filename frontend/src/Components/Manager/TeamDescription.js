@@ -1,5 +1,5 @@
-import { Button, Container, Divider, List, ListItem, ListItemText } from '@material-ui/core';
 import React, { useState } from 'react'
+import { Divider, ListItem, ListItemText } from '@material-ui/core';
 
 function TeamDescription({ team }) {
 
