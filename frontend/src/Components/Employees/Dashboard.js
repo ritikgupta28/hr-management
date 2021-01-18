@@ -36,10 +36,12 @@ function Dashboard({ id }) {
 
   return (
     <div>
+      <button
+      > edit </button>
       <Attendance id={id} />
-      <p>{employee?.name}</p>
-      <p>{employee?.email}</p>
-     	<p>{employee?.teamAssign}</p>
+      <input value={employee.name}>{employee?.name}</input>
+      <input value={employee.email}>{employee?.email}</input>
+     	<input value={employee.teamName}>{employee?.teamName}</input>
       {employeeId !== "null"
         ?
         <Leave />

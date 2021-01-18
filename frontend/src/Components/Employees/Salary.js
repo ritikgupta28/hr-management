@@ -34,7 +34,9 @@ function Salary({ id }) {
         alert(err);
       }
     }
-    fetchData();
+    if (id !== "null") {
+      fetchData();
+    }
   }, [month]);
 
   return (

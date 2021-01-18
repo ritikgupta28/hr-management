@@ -33,7 +33,9 @@ function Attendance({ id }) {
         alert(err)
       };
     }
-    fetchData();
+    if (id !== "null") {
+      fetchData();
+    }
   }, [])
 
   return (
