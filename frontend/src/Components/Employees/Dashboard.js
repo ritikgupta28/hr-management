@@ -15,7 +15,7 @@ import {
 
 function Dashboard({ id }) {
   
-  const [{ token }, dispatch] = useStateValue();
+  const [{ token,employeeId }, dispatch] = useStateValue();
   const [employee, setEmployee] = useState({});
   const [edit, setEdit] = useState(false);
   const [loading, setLoading] = useState(true);

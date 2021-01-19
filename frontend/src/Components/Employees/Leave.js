@@ -54,15 +54,15 @@ function Leave() {
   }
 
   return (
-    <Container>
-      <div>
+    <Container style={{ display: 'flex', marginTop: '40px'}}>
+      <div style={{ display: 'flex', flex: '0.5', justifyContent: 'center'}}>
         <List>
           {dates.map(date => (
             <ListItemText key={date} primary={ date}/>
           ))}
         </List>
       </div>
-      <div style={{ margin: '10px 100px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column'}}>
         <TextField
             value={reason}
             onChange={e => setReason(e.target.value)}

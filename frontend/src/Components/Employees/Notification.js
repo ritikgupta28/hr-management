@@ -50,7 +50,7 @@ function Notification() {
   }, [])
 
   return (
-    <Container>
+    <Container style={{marginTop: '20px'}}>
       {loading
         ?
         <CircularProgress />

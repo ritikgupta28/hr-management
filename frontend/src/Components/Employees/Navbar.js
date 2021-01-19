@@ -11,7 +11,8 @@ import {
 	Toolbar,
 	Typography,
 	Button,
-	Tooltip
+	Tooltip,
+	CircularProgress
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -35,68 +36,73 @@ function EmployeeNavbar({ logoutHandler }) {
 	const classes = useStyles();
 
 	return (
-		<Router>
-			<div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-					<Typography variant="h5" className={classes.mainTitle}>
-						<Tooltip title="Dashboard" arrow>
-							<Link to='/dashboard' style={{ textDecoration: 'none', color: 'white' }} >
-								HR - MANAGER
-							</Link>
-						</Tooltip>
-					</Typography>
-					<Typography variant="h5" className={classes.title}>
-							<Tooltip title="Leave" arrow>
-								<Button>
-								  <Link to='/leave' style={{ textDecoration: 'none', color: 'white' }} >
-								    Leave
-							    </Link>
+		<div>
+		{employeeId === "null"
+			?
+			<CircularProgress />
+			:
+				<Router>
+					<div className={classes.root}>
+			      <AppBar position="static">
+      			  <Toolbar>
+								<Typography variant="h5" className={classes.mainTitle}>
+									<Tooltip title="Dashboard" arrow>
+										<Link to='/dashboard' style={{ textDecoration: 'none', color: 'white' }} >
+											HR-MANAGER
+										</Link>
+									</Tooltip>
+								</Typography>
+								<Typography variant="h5" className={classes.title}>
+									<Tooltip title="Leave" arrow>
+										<Button>
+										  <Link to='/leave' style={{ textDecoration: 'none', color: 'white' }} >
+										    Leave
+									    </Link>
+										</Button>
+									</Tooltip>
+      			    </Typography>
+								<Typography variant="h5" className={classes.title}>
+									<Link to='/notification' style={{ textDecoration: 'none', color: 'white' }}>
+										<Tooltip title="Notifications" arrow>
+											<NotificationsIcon />
+										</Tooltip>
+									</Link>
+			          </Typography>
+								<Button onClick={logoutHandler} style={{color: 'white'}}>
+									Logout
 								</Button>
-						</Tooltip>
-          </Typography>
-					<Typography variant="h5" className={classes.title}>
-						<Link to='/notification' style={{ textDecoration: 'none', color: 'white' }}>
-							<Tooltip title="Notifications" arrow>
-								<NotificationsIcon />
-							</Tooltip>
-						</Link>
-          </Typography>
-					<Button onClick={logoutHandler} style={{color: 'white'}}>
-						Logout
-					</Button>
-        </Toolbar>
-      </AppBar>
-    </div>
-			<div>
-				<Switch>
-					<Route
-						path='/dashboard'
-						exact
-						render={props => (
-							<Dashboard
-								id={employeeId}
+			        </Toolbar>
+      			</AppBar>
+			    </div>
+					<div>
+						<Switch>
+							<Route
+								path='/dashboard'
+								exact
+								render={props => (
+									<Dashboard id={employeeId} />
+								)}
 							/>
-						)}
-					/>
-					<Route
-						path='/notification'
-						exact
-						render={props => (
-							<Notification />
-						)}
-					/>
-					<Route
-						path='/leave'
-						exact
-						render={props => (
-							<Leave />
-						)}
-					/>
-					<Redirect to="/dashboard" />
-				</Switch>
-			</div>
-		</Router>
+							<Route
+								path='/notification'
+								exact
+								render={props => (
+									<Notification />
+								)}
+							/>
+							<Route
+								path='/leave'
+								exact
+								render={props => (
+									<Leave />
+								)}
+							/>
+							<Redirect to="/dashboard" />
+						</Switch>
+					</div>
+				</Router>
+			}
+		</div>
 	)
 }
 

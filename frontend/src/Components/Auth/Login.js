@@ -48,20 +48,20 @@ function Login() {
 
   const onLogin = async (resData) => {
       dispatch({
-        type: actionType.SET_TOKEN,
-        token: resData.token
-      })
-      dispatch({
-        type: actionType.SET_IS_AUTH,
-        isAuth: true
-      })
-      dispatch({
         type: actionType.SET_MANAGER_ID,
         managerId: resData.managerId
       })
       dispatch({
         type: actionType.SET_EMPLOYEE_ID,
         employeeId: resData.employeeId
+      })
+      dispatch({
+        type: actionType.SET_TOKEN,
+        token: resData.token
+      })
+      dispatch({
+        type: actionType.SET_IS_AUTH,
+        isAuth: true
       })
       localStorage.setItem('token', resData.token);
       localStorage.setItem('managerId', resData.managerId);
