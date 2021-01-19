@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Attendance from './Attendance';
 import Salary from './Salary';
+import "./Dashboard.css"
 import { useStateValue } from "../../StateProvider";
 import {
   TextField,
@@ -76,11 +77,8 @@ function Dashboard({ id }) {
         ?
         <CircularProgress />
         :
-        <div>
-          <Container style={{ width: '40%', position: 'absolute', 'right': '0', marginTop: '40px' }}>
-            <Attendance id={id} />
-          </Container>
-          <Container style={{ width: '40%', position: 'absolute', marginTop: '40px' }}>
+        <div className="dashboard">
+          <div className="details">
             {!edit 
               ?
               (<Button
@@ -153,7 +151,7 @@ function Dashboard({ id }) {
             </ListItem>
             <ListItem>
               <ListItemText primary="Country:" />
-              <TextField
+                <TextField
                   value={employee.country}
                   onChange={e => {
                     if (edit) {
@@ -175,10 +173,15 @@ function Dashboard({ id }) {
               :
               null
             }
-          </Container>
-          <Container style={{ width: '40%', position: 'absolute', 'right': '0', marginTop: '400px' }}>
-            <Salary id={id} />
-          </Container>
+          </div>
+          <div className="more">
+            <div className="attendance">
+              <Attendance id={id} />
+            </div>
+            <div className="salary">
+              <Salary id={id} />
+            </div>
+          </div>
         </div>
       }
     </Container>

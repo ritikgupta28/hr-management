@@ -1,0 +1,35 @@
+.dashboard {
+  display: flex;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 0.5;
+  width: 100%;
+}
+
+.more {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex: 0.5;
+  flex-direction: column;
+}
+
+.attendance {
+  padding: 40px;
+  max-width: 40vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.salary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
