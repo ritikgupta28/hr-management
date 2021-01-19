@@ -11,8 +11,8 @@ exports.getEmployee = async (req, res, next) => {
       employee: employee
     });
   } catch(err) {
-      const error = new Error;
-      error.message = 'Failed to fetch employee!';
+      const error = new Error('Failed to fetch employee!');
+      error.statusCode = 500;
       next(error);
   }
 }
@@ -31,8 +31,8 @@ exports.getAttendance = async (req, res, next) => {
       holidays: holidays
     });
   } catch(err) {
-      const error = new Error;
-      error.message = 'Failed to fetch attendance!';
+      const error = new Error('Failed to fetch attendance!');
+      error.statusCode = 500;
       next(error);
   }
 }
@@ -41,6 +41,11 @@ exports.postSalary = async (req, res, next) => {
   const { id, month } = req.body;
   
   try {
+    if(!month) {
+      const error = new Error('Please enter valid month!');
+      error.statusCode = 500;
+      throw error;
+    }
     const employee = await Employee.findById(id)
     const absent  = employee.absent;
     let countAbsents = 0;
@@ -58,8 +63,8 @@ exports.postSalary = async (req, res, next) => {
       expectedSalary: expectedSalary
     });
   } catch(err) {
-      const error = new Error;
-      error.message = 'Failed to get salary!';
+      const error = new Error('Failed to get salary!');
+      error.statusCode = 500;
       next(error);
   }
 }

@@ -5,6 +5,11 @@ exports.postApplyLeave = async (req, res, next) => {
   const { reason, dates } = req.body;
 
   try {
+    if(!reason || !dates) {
+      const error = new Error;
+      error.message = 'Please enter valid reason or dates!';
+      throw error;
+    }
     let notification = new Notification({
       dates: dates,
       employeeId: req.employeeId,
@@ -17,8 +22,8 @@ exports.postApplyLeave = async (req, res, next) => {
       message: 'Success!'
     });
   } catch(err) {
-      const error = new Error;
-      error.message = 'Failed to apply leave!';
+      const error = new Error('Failed to apply leave!');
+      error.statusCode = 500;
       next(error);
   }
 }
@@ -34,8 +39,8 @@ exports.postEditEmployee = async (req, res, next) => {
       message: 'update done'
     });
   } catch(err) {
-      const error = new Error;
-      error.message = 'Failed to edit employee!';
+      const error = new Error('Failed to edit employee!');
+      error.statusCode = 500;
       next(error);
   }
 }

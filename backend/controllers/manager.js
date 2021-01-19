@@ -10,6 +10,11 @@ exports.postHoliday = async (req, res, next) => {
 	const { dates } = req.body;
 
 	try {
+		if(!dates) {
+			const error = new Error('Please enter valid dates!');
+			error.statusCode = 500;
+      throw error;
+		}
 		let manager = await Manager.findById(req.managerId)
 		manager = await manager.addHoliday(dates);
 		
@@ -17,8 +22,8 @@ exports.postHoliday = async (req, res, next) => {
 			message: 'Success!'
 		});
 	} catch(err) {
-      const error = new Error;
-      error.message = 'Failed to post holiday!';
+      const error = new Error('Failed to post holiday!');
+      error.statusCode = 500;
       next(error);
   }
 }
@@ -34,8 +39,8 @@ exports.getHoliday = async (req, res, next) => {
       holidays: holidays
     });
   } catch(err) {
-      const error = new Error;
-      error.message = 'Failed to fetch attendance!';
+      const error = new Error('Failed to fetch attendance!');
+      error.statusCode = 500;
       next(error);
   }
 }
@@ -48,8 +53,8 @@ exports.getEmployeeList = async (req, res, next) => {
 			employees: employee
 		});
 	} catch(err) {
-      const error = new Error;
-      error.message = 'Failed to fetch employees!';
+      const error = new Error('Failed to fetch employees!');
+      error.statusCode = 500;
       next(error);
   }
 }
@@ -58,6 +63,11 @@ exports.postNewEmployee = async (req, res, next) => {
 	const { name, email, role, salary } = req.body;
 	
 	try {
+		if(!name || !email || !role || !salary) {
+			const error = new Error('Please enter valid credentials!');
+			error.statusCode = 500;
+      throw error;
+		}
 		let employee = await Employee.findOne({ email: email })
 		if(!employee) {
 			employee = new Employee({
@@ -93,8 +103,8 @@ exports.getTeamList = async (req, res, next) => {
 			teams: team
 		});
 	} catch(err) {
-      const error = new Error;
-      error.message = 'Failed to fetch teams!';
+      const error = new Error('Failed to fetch teams!');
+      error.statusCode = 500;
       next(error);
   }
 }
@@ -103,6 +113,11 @@ exports.postNewTeam = async (req, res, next) => {
 	const { name, members, description } = req.body;
 
 	try {
+		if(!name || !members || !description) {
+			const error = new Error('Please enter valid credentials!');
+			error.statusCode = 500;
+      throw error;
+		}
 		const employees = members.map(i => {
 			return { employeeId: ObjectId(i.id) };
 		});
@@ -131,8 +146,8 @@ exports.postNewTeam = async (req, res, next) => {
 			message: 'Success!'
 		});
 	} catch(err) {
-      const error = new Error;
-      error.message = 'Failed to add team!';
+      const error = new Error('Failed to add team!');
+      error.statusCode = 500;
       next(error);
   }
 }
@@ -145,8 +160,8 @@ exports.getNotification = async (req, res, next) => {
 			notifications: notification
 		});
 	} catch(err) {
-      const error = new Error;
-      error.message = 'Failed to fetch notifications!';
+      const error = new Error('Failed to fetch notifications!');
+      error.statusCode = 500;
       next(error);
   }
 }
@@ -162,14 +177,14 @@ exports.postAcceptReply = async (req, res, next) => {
 		dates = notification.dates;
 		notification = await	notification.addReply('accept');
 		const employee = await Employee.findById(notification.employeeId)
-		await employee.addLeave(dates, holidays);
+		employee = await employee.addLeave(dates, holidays);
 		
 		res.status(200).json({
 			message: 'Success!'
 		});
 	} catch(err) {
-      const error = new Error;
-      error.message = 'Failed to accept leave!';
+      const error = new Error('Failed to accept leave!');
+      error.statusCode = 500;
       next(error);
   }
 }
@@ -185,8 +200,8 @@ exports.postRejectReply = async (req, res, next) => {
 			message: 'Success!'
 		});
 	} catch(err) {
-      const error = new Error;
-      error.message = 'Failed to reject leave!';
+      const error = new Error('Failed to reject leave!');
+      error.statusCode = 500;
       next(error);
   }
 }
