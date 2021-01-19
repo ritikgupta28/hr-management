@@ -3,7 +3,15 @@ import Attendance from './Attendance';
 import Leave from './Leave';
 import Salary from './Salary';
 import { useStateValue } from "../../StateProvider";
-import { TextField, Button, Container, List, ListItem, ListItemText, CircularProgress } from "@material-ui/core";
+import {
+  TextField,
+  Button,
+  Container,
+  List,
+  ListItem,
+  ListItemText,
+  CircularProgress
+} from "@material-ui/core";
 
 function Dashboard({ id }) {
   

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import TeamDescription from './TeamDescription';
 import { useStateValue } from "../../StateProvider";
-import { Container, List } from "@material-ui/core";
+import { CircularProgress, Container, List } from "@material-ui/core";
 
 function TeamList() {
 
   const [{ token }, dispatch] = useStateValue();
   const [teams, setTeams] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
@@ -24,7 +25,9 @@ function TeamList() {
           throw new Error(resData.message);
         }
         setTeams(resData["teams"]);
-      } catch(err) {
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
         alert(err)
       }
     }
@@ -32,12 +35,17 @@ function TeamList() {
   }, [])
 
   return (
-    <Container style={{padding: '0px 100px'}}>
-      <List>
-        {teams?.map(team => (
-          <TeamDescription key={team._id} team={team} />
-        ))}
-      </List>
+    <Container style={{ padding: '0px 100px' }}>
+      {loading
+        ?
+        <CircularProgress />
+        :
+        <List>
+          {teams?.map(team => (
+            <TeamDescription key={team._id} team={team} />
+          ))}
+        </List>
+      }
     </Container>
   )
 }

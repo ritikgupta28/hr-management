@@ -1,21 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ManagerNavbar from "./Components/Manager/Navbar";
 import EmployeeNavbar from "./Components/Employees/Navbar";
 import { actionType } from "./reducer";
 import { useStateValue } from "./StateProvider";
 import Navbar from './Components/LandingPage/Navbar';
+import { CircularProgress } from '@material-ui/core';
 
 function App() {
 
   const [{ isAuth, managerId }, dispatch] = useStateValue();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     const expiryDate = localStorage.getItem('expiryDate');
     if (!token || !expiryDate) {
+      setLoading(false);
       return;
     }
     if (new Date(expiryDate) <= new Date()) {
+      setLoading(false);
       logoutHandler();
       return;
     }
@@ -39,6 +43,7 @@ function App() {
       isAuth: true
     })
     setAutoLogout(remainingMilliseconds);
+    setLoading(false);
   }, [])
 
   const setAutoLogout = (milliseconds) => {
@@ -64,16 +69,23 @@ function App() {
 
     return (
       <div>
-        {isAuth
+        {loading
           ?
-          (managerId !== "null"
-          ?
-          <ManagerNavbar logoutHandler={logoutHandler} />
+          <CircularProgress />
           :
-          <EmployeeNavbar logoutHandler={logoutHandler} />
-          )
-          :
-          <Navbar />
+          <div>
+            {isAuth
+              ?
+              (managerId !== "null"
+              ?
+              <ManagerNavbar logoutHandler={logoutHandler} />
+              :
+              <EmployeeNavbar logoutHandler={logoutHandler} />
+              )
+              :
+              <Navbar />
+            } 
+          </div>
         }
       </div>
     );

@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { useStateValue } from "../../StateProvider";
-import { CircularProgress, Container, TextField, Typography } from "@material-ui/core";
+import {
+  CircularProgress,
+  Container,
+  TextField,
+  Typography
+} from "@material-ui/core";
 
 function Salary({ id }) {
 

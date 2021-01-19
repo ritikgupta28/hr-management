@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { useStateValue } from "../../StateProvider";
-import { List, ListItem, ListItemText, TextField, Button, Container } from "@material-ui/core";
+import {
+  List,
+  ListItem,
+  ListItemText,
+  TextField,
+  Button,
+  Container,
+  CircularProgress
+} from "@material-ui/core";
 
 function AddTeam() {
   
@@ -9,6 +17,7 @@ function AddTeam() {
   const [teamArray, setTeamArray] = useState([]);
   const [description, setDescription] = useState("");
   const [employees, setEmployees] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
@@ -26,9 +35,11 @@ function AddTeam() {
           throw new Error(resData.message);
         }
         setEmployees(resData["employees"].filter(employees => employees.teamName === ""));
-        } catch(err) {
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
           alert(err);
-        };
+      }
       }
     fetchData();
   }, [])
@@ -96,18 +107,25 @@ function AddTeam() {
       </List>
       <hr />
       <List>
-      {employees?.map(employee => (
-        <ListItem key={employee._id}>
-          <ListItemText primary={employee.email} />
-          <Button
-            variant="outlined"
-            value={employee._id}
-            onClick={() => onAddEmployee(employee._id, employee.email)}
-          >
-            Add Member
-          </Button>
-        </ListItem>
-      ))}
+        {!loading
+          ?
+          <div>
+            {employees?.map(employee => (
+            <ListItem key={employee._id}>
+              <ListItemText primary={employee.email} />
+              <Button
+                variant="outlined"
+                value={employee._id}
+                onClick={() => onAddEmployee(employee._id, employee.email)}
+              >
+                Add Member
+              </Button>
+            </ListItem>
+          ))}
+          </div>
+          :
+          <CircularProgress />
+        }
       </List>
       <br />
       <Button

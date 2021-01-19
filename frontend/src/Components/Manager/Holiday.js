@@ -4,7 +4,15 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { useStateValue } from "../../StateProvider"
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Button, TextField, List, ListItem, ListItemText } from '@material-ui/core';
+import {
+  Container,
+  Button,
+  TextField,
+  List,
+  ListItem,
+  ListItemText,
+  CircularProgress
+} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -25,6 +33,7 @@ function Holiday() {
   const [dates, setDates] = useState([]);
   const [date, setDate] = useState(new Date());
   const [holidays, setHolidays] = useState([]);
+  const [loading, setLoading] = useState(true);
   const classes = useStyles();
 
   useEffect(() => {
@@ -43,7 +52,9 @@ function Holiday() {
           throw new Error(resData.message);
         }
         setHolidays(resData["holidays"]);
+        setLoading(false);
       } catch (err) {
+        setLoading(false);
         alert(err);
       }
     }
@@ -111,15 +122,20 @@ function Holiday() {
       >
         Submit
       </Button>
-      <Calendar
-        onChange={onDateChange}
-        value={date1}
-        tileClassName={({ date, view }) => {
-          if(holidays?.find(x => x === moment(date).format("DD-MM-YYYY"))) {
-            return 'holidays'
-          }
-        }}
-      />
+      {loading
+        ?
+        <CircularProgress />
+        :
+        <Calendar
+          onChange={onDateChange}
+          value={date1}
+          tileClassName={({ date, view }) => {
+            if(holidays?.find(x => x === moment(date).format("DD-MM-YYYY"))) {
+              return 'holidays'
+            }
+          }}
+        />  
+      }
     </Container>
   )
 }

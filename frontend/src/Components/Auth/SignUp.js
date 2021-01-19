@@ -12,7 +12,8 @@ import {
   Link,
   Grid,
   Typography,
-  Container
+  Container,
+  CircularProgress
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -41,6 +42,7 @@ function SignUp() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const classes = useStyles();
 
   const employeePassword = async () => {
@@ -48,6 +50,7 @@ function SignUp() {
   }
 
   const onSignUp = async (e) => {
+    setLoading(true);
     e.preventDefault();
     try {
       const response = await fetch('http://localhost:8000/auth/emloyeeSignup', {
@@ -70,12 +73,15 @@ function SignUp() {
       setEmail("");
       setPassword("");
       alert("Done!");
-    } catch(err) {
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
         alert(err);
     };
   }
 
   const responseSuccessGoogle = async (response) => {
+    setLoading(true);
     let psswrd;
     try {
       await employeePassword().then(resData => {
@@ -97,16 +103,19 @@ function SignUp() {
         throw new Error(resData.message);
       }
       alert("Done!");
+      setLoading(false);
     } catch(err) {
       dispatch({
         type: actionType.SET_IS_AUTH,
         isAuth: false
       })
+      setLoading(false);
       alert(err);
     }
   }
 
   const responseErrorGoogle = (response) => {
+    setLoading(false);
     alert("Somthing went Wrong")
   }
   
@@ -160,16 +169,21 @@ function SignUp() {
             id="password"
             autoComplete="current-password"
           />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            onClick={onSignUp}
-            className={classes.submit}
-          >
-            SignUp
-          </Button>
+          {loading
+            ?
+            <CircularProgress />
+            :
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              onClick={onSignUp}
+              className={classes.submit}
+            >
+              SignUp
+            </Button>
+          }
           <Grid container>
             <Grid item xs>
             </Grid>

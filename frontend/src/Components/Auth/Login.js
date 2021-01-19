@@ -14,7 +14,8 @@ import {
   Link,
   Grid,
   Typography,
-  Container
+  Container,
+  CircularProgress
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -42,6 +43,7 @@ function Login() {
   const [{}, dispatch] = useStateValue();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const classes = useStyles();
 
   const onLogin = async (resData) => {
@@ -68,10 +70,12 @@ function Login() {
       const expiryDate = new Date(
         new Date().getTime() + remainingMilliseconds
       );
-      localStorage.setItem('expiryDate', expiryDate.toISOString());
+    localStorage.setItem('expiryDate', expiryDate.toISOString());
+    setLoading(false);
   }
 
   const onSimpleLogin = async (e) => {
+    setLoading(true);
     e.preventDefault();
     try { 
       const response = await fetch('http://localhost:8000/auth/login', {
@@ -95,11 +99,13 @@ function Login() {
           type: actionType.SET_IS_AUTH,
           isAuth: false
         })
+        setLoading(false);
         alert(err);
       }
   }
 
   const responseSuccessGoogle = async (response) => {
+    setLoading(true);
     try {
         const res = await fetch('http://localhost:8000/auth/google', {
         method: 'POST',
@@ -121,6 +127,7 @@ function Login() {
         type: actionType.SET_IS_AUTH,
         isAuth: false
       })
+      setLoading(false);
       alert(err);
     }
   }
@@ -170,21 +177,24 @@ function Login() {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            onClick={onSimpleLogin}
-            className={classes.submit}
-          >
-            Login
-          </Button>
+          {loading
+            ?
+            <CircularProgress />
+            :
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              onClick={onSimpleLogin}
+              className={classes.submit}
+            >
+              Login
+            </Button>
+          }
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
+              
             </Grid>
             <Grid item>
               <Link href="/signup" variant="body2">

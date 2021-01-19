@@ -89,6 +89,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 	mainTitle: {
     flexGrow:  1
+  },
+  link: {
+    textDecoration: 'none',
+    color: 'black'
   }
 }));
 
@@ -96,7 +100,7 @@ function ManagerNavbar({ logoutHandler }) {
 	
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -112,27 +116,27 @@ function ManagerNavbar({ logoutHandler }) {
       <div className={classes.toolbar} />
       <Divider />
 			<List>
-			<Link to='/teams' style={{ textDecoration: 'none', color: 'black' }}>
+			<Link to='/teams' className={classes.link} >
 				<ListItem button>
 					  <ListItemText primary="Teams" />
 					</ListItem>
 				</Link>
-				<Link to='/add_team' style={{ textDecoration: 'none', color: 'black' }}>
+				<Link to='/add_team' className={classes.link}>
 				<ListItem button>
 					  <ListItemText primary="Add Team" />
 				</ListItem>
 				</Link>
-				<Link to='/employee' style={{ textDecoration: 'none', color: 'black' }}>
+				<Link to='/employee' className={classes.link}>
 				<ListItem button>
 					  <ListItemText primary="Employee" />
 					</ListItem>
 				</Link>
-				<Link to='/add_employee' style={{ textDecoration: 'none', color: 'black' }}>
+				<Link to='/add_employee' className={classes.link}>
 				<ListItem button>
 						<ListItemText primary="Add Employee" />
 				</ListItem>
 				</Link>
-				<Link to='/holiday' style={{ textDecoration: 'none', color: 'black' }}>
+				<Link to='/holiday' className={classes.link}>
 				<ListItem button>
 						<ListItemText primary="Holidays" />
 					</ListItem>
@@ -254,7 +258,7 @@ function ManagerNavbar({ logoutHandler }) {
 					/>
 					<Redirect to="/teams" />
 					</Switch>
-				</main>
+        </main>
       </div>
       <Footer />
 		</Router>

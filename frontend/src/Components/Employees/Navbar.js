@@ -3,7 +3,12 @@ import { BrowserRouter as Router, Route, Switch, Redirect, Link } from 'react-ro
 import Dashboard from "../Employees/Dashboard";
 import { useStateValue } from "../../StateProvider";
 import { makeStyles } from "@material-ui/core/styles";
-import { AppBar, Toolbar, Typography, Button} from "@material-ui/core";
+import {
+	AppBar,
+	Toolbar,
+	Typography,
+	Button
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {

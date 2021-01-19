@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Detail from './Detail';
 import { useStateValue } from "../../StateProvider"
 import { makeStyles } from '@material-ui/core/styles';
-import { Card, Container } from '@material-ui/core';
+import { Card, CircularProgress, Container } from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
@@ -21,6 +21,7 @@ function Notification() {
 
   const [{ token }, dispatch] = useStateValue();
   const [notifications, setNotification] = useState([]);
+  const [loading, setLoading] = useState(true);
   const classes = useStyles();
 
   useEffect(() => {
@@ -38,9 +39,10 @@ function Notification() {
         if (status === 500) {
           throw new Error(resData.message);
         }
-        console.log(resData);
         setNotification(resData["notifications"]);
-      } catch(err) {
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
         alert(err)
       }
     }
@@ -49,11 +51,18 @@ function Notification() {
 
   return (
     <Container>
-      {notifications?.map(notification => (
-        <Card key={notification._id} className={classes.root} variant="outlined">
-          <Detail notification={notification} />
-        </Card>
-       ))}
+      {loading
+        ?
+        <CircularProgress />
+        :
+        <div>
+          {notifications?.map(notification => (
+            <Card key={notification._id} className={classes.root} variant="outlined">
+              <Detail notification={notification} />
+            </Card>
+          ))}
+        </div>
+      }
     </Container>
   )
 }

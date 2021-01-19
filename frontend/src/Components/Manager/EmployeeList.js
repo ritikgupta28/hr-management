@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useStateValue } from "../../StateProvider";
-import { TextField, Container, Link, List, ListItem, ListItemText } from "@material-ui/core";
+import {
+  TextField,
+  Container,
+  Link,
+  List,
+  ListItem,
+  ListItemText,
+  CircularProgress
+} from "@material-ui/core";
 
 function EmployeeList() {
 
@@ -9,6 +17,7 @@ function EmployeeList() {
   const [name, setName] = useState("");
   const [team, setTeam] = useState("");
   const [role, setRole] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
@@ -26,7 +35,9 @@ function EmployeeList() {
           throw new Error(resData.message);
         }
         setEmployees(resData["employees"])
-      } catch(err) {
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
         alert(err)
       }
     }
@@ -81,11 +92,18 @@ function EmployeeList() {
         </ListItem>
       </List>
       <List>
-        {employees?.map(employee => (
-          <ListItem key={employee._id}>
-            {renderEmployee(employee)}
-          </ListItem>
-        ))}
+        {loading
+          ?
+          <CircularProgress />
+          :
+          <div>
+            {employees?.map(employee => (
+              <ListItem key={employee._id}>
+                {renderEmployee(employee)}
+              </ListItem>
+            ))}
+          </div>
+        }
       </List>
     </Container>
   )

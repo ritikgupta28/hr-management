@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import moment from "moment"
 import { useStateValue } from "../../StateProvider";
-import { CardActions, CardContent, Button, Typography } from '@material-ui/core';
+import {
+  CardActions,
+  CardContent,
+  Button,
+  Typography
+} from '@material-ui/core';
 
 
 function Detail({ notification }) {

@@ -1,5 +1,11 @@
 import React, { useState } from 'react'
-import { Divider, List, ListItem, ListItemText, Typography } from '@material-ui/core';
+import {
+  Divider,
+  List,
+  ListItem,
+  ListItemText,
+  Typography
+} from '@material-ui/core';
 
 function TeamDescription({ team }) {
 
