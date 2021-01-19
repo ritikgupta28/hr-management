@@ -55,45 +55,49 @@ function Leave() {
 
   return (
     <Container>
-      <List>
-        {dates.map(date => (
-          <ListItemText key={date} primary={ date}/>
-        ))}
-      </List>
-      <TextField
-          value={reason}
-          onChange={e => setReason(e.target.value)}
-          multiline
-          rows={4}
+      <div>
+        <List>
+          {dates.map(date => (
+            <ListItemText key={date} primary={ date}/>
+          ))}
+        </List>
+      </div>
+      <div style={{ margin: '10px 100px' }}>
+        <TextField
+            value={reason}
+            onChange={e => setReason(e.target.value)}
+            multiline
+            rows={4}
+            variant="outlined"
+            id="standard-basic"
+            label="Reason" 
+        />
+        <TextField
+          value={date}
+          onChange={e => {
+            setDate(e.target.value);
+            if (dates.indexOf(moment(e.target.value).format("DD-MM-YYYY")) === -1) {
+              setDates([...dates, moment(e.target.value).format("DD-MM-YYYY")])
+            }
+          }}
+          id="date"
+          label="Holiday"
+          type="date"
+          className={classes.textField}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+        <br />
+        <Button
           variant="outlined"
-          id="standard-basic"
-          label="Reason" 
-      />
-      <TextField
-        value={date}
-        onChange={e => {
-          setDate(e.target.value);
-          if (dates.indexOf(moment(e.target.value).format("DD-MM-YYYY")) === -1) {
-            setDates([...dates, moment(e.target.value).format("DD-MM-YYYY")])
-          }
-        }}
-        id="date"
-        label="Holiday"
-        type="date"
-        className={classes.textField}
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <br />
-      <Button
-        variant="outlined"
-        color="primary"
-        type="submit"
-        onClick={onSubmit}
-      >
-        Submit
-      </Button>
+          color="primary"
+          type="submit"
+          onClick={onSubmit}
+        >
+          Submit
+        </Button>
+      </div>
     </Container>
   )
 }

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Attendance from './Attendance';
-import Leave from './Leave';
 import Salary from './Salary';
 import { useStateValue } from "../../StateProvider";
 import {
@@ -177,15 +176,7 @@ function Dashboard({ id }) {
               null
             }
           </Container>
-          <Container style={{ width: '40%', position: 'absolute', 'right': '0', marginTop: '300px' }}>
-            {id !== "null"
-              ?
-              <Leave />
-              :
-              null
-            }
-          </Container>
-          <Container style={{ width: '40%', position: 'absolute', 'right': '0', marginTop: '500px' }}>
+          <Container style={{ width: '40%', position: 'absolute', 'right': '0', marginTop: '400px' }}>
             <Salary id={id} />
           </Container>
         </div>
