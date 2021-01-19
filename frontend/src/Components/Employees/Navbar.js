@@ -1,13 +1,16 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect, Link } from 'react-router-dom';
 import Dashboard from "../Employees/Dashboard";
+import Notification from "./Notification";
 import { useStateValue } from "../../StateProvider";
+import NotificationsIcon from '@material-ui/icons/Notifications';
 import { makeStyles } from "@material-ui/core/styles";
 import {
 	AppBar,
 	Toolbar,
 	Typography,
-	Button
+	Button,
+	Tooltip
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -35,12 +38,23 @@ function EmployeeNavbar({ logoutHandler }) {
 			<div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h5" className={classes.mainTitle}>
-            <Link to='/' style={{ textDecoration: 'none', color: 'white' }}>HR-MANAGER</Link>
+						<Typography variant="h5" className={classes.mainTitle}>
+							<Tooltip title="Dashboard" arrow>
+								<Link to='/dashboard' style={{ textDecoration: 'none', color: 'white' }} >
+									HR - MANAGER
+								</Link>
+							</Tooltip>
           </Typography>
-						<Button onClick={logoutHandler}>
-							<Link to='/login' style={{ textDecoration: 'none', color: 'white' }}>Logout</Link>
-						</Button>
+					<Typography variant="h5" className={classes.title}>
+						<Link to='/notification' style={{ textDecoration: 'none', color: 'white' }}>
+							<Tooltip title="Notifications" arrow>
+								<NotificationsIcon />
+							</Tooltip>
+						</Link>
+          </Typography>
+					<Button onClick={logoutHandler} style={{color: 'white'}}>
+						Logout
+					</Button>
         </Toolbar>
       </AppBar>
     </div>
@@ -53,6 +67,13 @@ function EmployeeNavbar({ logoutHandler }) {
 							<Dashboard
 								id={employeeId}
 							/>
+						)}
+					/>
+					<Route
+						path='/notification'
+						exact
+						render={props => (
+							<Notification />
 						)}
 					/>
 					<Redirect to="/dashboard" />

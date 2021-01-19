@@ -44,3 +44,17 @@ exports.postEditEmployee = async (req, res, next) => {
       next(error);
   }
 }
+
+exports.getNotification = async (req, res, next) => {
+  const id = req.params.id; 
+	try {
+    const notification = await Notification.find({ employeeId: id }).sort({ 'updatedAt': -1 }).populate('employeeId').exec()
+		res.status(200).json({
+			notifications: notification
+		});
+	} catch(err) {
+      const error = new Error('Failed to fetch notifications!');
+      error.statusCode = 500;
+      next(error);
+  }
+}

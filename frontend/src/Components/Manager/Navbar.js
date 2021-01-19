@@ -9,8 +9,8 @@ import Holiday from "./Holiday"
 import Dashboard from "../Employees/Dashboard"
 import Footer from "../Footer";
 import clsx from 'clsx';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import NotificationsIcon from '@material-ui/icons/Notifications';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -25,7 +25,8 @@ import {
   IconButton,
   ListItem,
   Button,
-  ListItemText
+  ListItemText,
+  Tooltip
 } from "@material-ui/core";
 
 const drawerWidth = 240;
@@ -165,15 +166,19 @@ function ManagerNavbar({ logoutHandler }) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h5" noWrap className={classes.mainTitle}>
-							<Link to='/teams' style={{ textDecoration: 'none', color: 'white' }}>
-							  HR-MANAGER
-							</Link>
+            <Typography variant="h5" noWrap className={classes.mainTitle}>
+              <Tooltip title="Dashboard" arrow>
+						  	<Link to='/teams' style={{ textDecoration: 'none', color: 'white' }}>
+                  HR-MANAGER
+							  </Link>
+              </Tooltip>
 						</Typography>
 						<Typography variant="h6" noWrap className={classes.title}>
 							<Link to='/notification' style={{ textDecoration: 'none', color: 'white' }}>
-							<NotificationsIcon />
-				    </Link>
+                <Tooltip title="Notifications" arrow>
+                  <NotificationsIcon />
+                </Tooltip>
+				      </Link>
 						</Typography>
 					<Typography variant="h6" noWrap className={classes.title}>
 						<Button style={{ color: 'white' }} onClick={logoutHandler}>

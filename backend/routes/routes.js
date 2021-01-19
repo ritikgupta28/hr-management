@@ -31,6 +31,8 @@ router.get('/employee/:id', isManagerEmployee, managerEmployeeController.getEmpl
 
 router.get('/attendance/:id', isManagerEmployee, managerEmployeeController.getAttendance);
 
+router.get('/notification/:id', isEmployee, employeeController.getNotification);
+
 router.post('/salary', isManagerEmployee, managerEmployeeController.postSalary);
 
 router.post('/editEmployee', isEmployee, employeeController.postEditEmployee);
