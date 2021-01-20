@@ -65,8 +65,8 @@ function Salary({ id }) {
                   onChange={e => setMonth(e.target.value)}
                   variant="outlined"
                   id="standard-basic"
-                  label="Month" 
-              />    
+                  label="Month"
+              />
               {month
                 ?
                 <div>

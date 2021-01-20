@@ -53,6 +53,13 @@ function EmployeeNavbar({ logoutHandler }) {
 									</Tooltip>
 								</Typography>
 								<Typography variant="h5" className={classes.title}>
+									<Link to='/notification' style={{ textDecoration: 'none', color: 'white' }}>
+										<Tooltip title="Notifications" arrow>
+											<NotificationsIcon />
+										</Tooltip>
+									</Link>
+			          </Typography>
+								<Typography variant="h5" className={classes.title}>
 									<Tooltip title="Leave" arrow>
 										<Button>
 										  <Link to='/leave' style={{ textDecoration: 'none', color: 'white' }} >
@@ -61,13 +68,6 @@ function EmployeeNavbar({ logoutHandler }) {
 										</Button>
 									</Tooltip>
       			    </Typography>
-								<Typography variant="h5" className={classes.title}>
-									<Link to='/notification' style={{ textDecoration: 'none', color: 'white' }}>
-										<Tooltip title="Notifications" arrow>
-											<NotificationsIcon />
-										</Tooltip>
-									</Link>
-			          </Typography>
 								<Button onClick={logoutHandler} style={{color: 'white'}}>
 									Logout
 								</Button>

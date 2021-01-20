@@ -6,7 +6,8 @@ import {
 	Typography
 } from '@material-ui/core/';
 
-import VerticalStepper from './Stepper';
+import ManagerStepper from './ManagerStepper';
+import EmployeeStepper from './EmployeeStepper';
 
 const useStylesCard = makeStyles({
   root: {
@@ -38,7 +39,7 @@ function LandingPage() {
   			<CardContent>
 			    <div>
 		  	  	<Typography>For Manager:</Typography>
-  		  	  <VerticalStepper />
+  		  	  <ManagerStepper />
   			  </div>
   			</CardContent>
 	  	</Card>
@@ -46,7 +47,7 @@ function LandingPage() {
   			<CardContent>
 		  	  <div>
 		    		<Typography>For Employee:</Typography>
-  		    	<VerticalStepper />
+  		    	<EmployeeStepper />
 	  		  </div>
   			</CardContent>
   		</Card>

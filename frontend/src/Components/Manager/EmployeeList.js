@@ -59,15 +59,21 @@ function EmployeeList() {
     return (
         <Link href={`/employee/${employee._id}`} style={{ textDecoration: 'none', color: 'black' }}>
           <ListItemText primary={employee.email} />
-			  </Link>
+        </Link>
     )
   }
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" style={{
+      display: 'flex', flexDirection: 'column'
+    }}>
       <List>
+        Search by name, team name or role
+      </List>
+      <List style={{ display: 'flex' }}>
         <ListItem>
           <TextField
+            style={{width: '120px'}}
             value={name} 
             onChange={e => setName(e.target.value)}
             id="standard-basic"
@@ -76,6 +82,7 @@ function EmployeeList() {
         </ListItem>
         <ListItem>
           <TextField
+            style={{width: '120px'}}
             value={team}
             onChange={e => setTeam(e.target.value)}
             id="standard-basic"
@@ -84,6 +91,7 @@ function EmployeeList() {
         </ListItem>
         <ListItem>
           <TextField
+            style={{width: '120px'}}
             value={role} 
             onChange={e => setRole(e.target.value)}
             id="standard-basic"
@@ -91,7 +99,7 @@ function EmployeeList() {
           />
         </ListItem>
       </List>
-      <List>
+      <List style={{ display: 'flex', justifyContent: 'center' }}>
         {loading
           ?
           <CircularProgress />

@@ -154,7 +154,7 @@ exports.postNewTeam = async (req, res, next) => {
 
 exports.getNotification = async (req, res, next) => {
 	try {
-		const notification = await Notification.find().sort({ 'updatedAt': -1 }).populate('employeeId').exec()
+		const notification = await Notification.find().sort({ 'createdAt': -1 }).populate('employeeId').exec()
 		
 		res.status(200).json({
 			notifications: notification

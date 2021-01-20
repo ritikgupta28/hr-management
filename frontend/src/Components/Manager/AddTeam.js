@@ -83,7 +83,7 @@ function AddTeam() {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container>
         <TextField
           value = {teamName} 
           onChange = {e => setTeamName(e.target.value)}

@@ -27,28 +27,31 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-  return ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+  return ['Login', 'Add Employee', 'All Employees', 'Create Team', 'All Teams', 'Holiday', 'Notifications'];
 }
 
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return `For each ad campaign that you create, you can control how much
-              you're willing to spend on clicks and conversions, which networks
-              and geographical locations you want your ads to show on, and more.`;
+      return `Login as a manager with given manager credentials. And go to menu bar for more functionalities.`;
     case 1:
-      return 'An ad group contains one or more ads which target a shared set of keywords.';
+      return `Add a new employee with valid email id.`;
     case 2:
-      return `Try out different ad text to see what brings in the most customers,
-              and learn how to enhance your ads using features like ad extensions.
-              If you run into any problems with your ads, find out how to tell if
-              they're running and how to resolve approval issues.`;
+      return `List of all employees with a search option based on employee name, team name and employee role. And for employee description click on employee email.`;
+    case 3:
+      return `Create a new team wtih team name and description and add employees which are not present in either team.`;
+    case 4:
+      return `List of all teams and for team details click on team name. Here team description and employees list will be display. And for employee description click on employee email.`;
+    case 5:
+      return `Mark the holiday of company in calendar.`;
+    case 6:
+      return `For employee request of leaves and another information click on the notification icon in the top right corner. For leave request, mark the leave as accepted or rejected.`;
     default:
       return 'Unknown step';
   }
 }
 
-export default function VerticalStepper() {
+export default function ManagerStepper() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
@@ -83,12 +86,13 @@ export default function VerticalStepper() {
  	      	          Back
    	      	      </Button>
      	      	    <Button
+                  disabled={activeStep === steps.length - 1}
       	    	    variant="contained"
    	    	    	  color="primary"
      	    	    	onClick={handleNext}
           	  	  className={classes.button}
               	  >
-                	  {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                	  Next
                   </Button>
    	            </div>
        	      </div>
@@ -96,24 +100,6 @@ export default function VerticalStepper() {
         	</Step>
     	 	))}
       </Stepper>
-   		{activeStep === steps.length && (
-     	 	<Paper square elevation={0} className={classes.resetContainer}>
-         	<Typography>All steps completed - you&apos;re finished</Typography>
-          <Button onClick={handleReset} className={classes.button}>
-            Reset
-     	 		</Button>
-        </Paper>
-  		)}
     </div>
   );
 }
-
-// function LandingPage() {
-//   return (
-//     <div>
-//       <h1>Landing Page</h1>
-//     </div>
-//   )
-// }
-
-// export default LandingPage;
