@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect, Link } from 'react-ro
 import Dashboard from "../Employees/Dashboard";
 import Notification from "./Notification";
 import Leave from './Leave';
+import Footer from '../Footer';
 import { useStateValue } from "../../StateProvider";
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { makeStyles } from "@material-ui/core/styles";
@@ -52,14 +53,14 @@ function EmployeeNavbar({ logoutHandler }) {
 										</Link>
 									</Tooltip>
 								</Typography>
-								<Typography variant="h5" className={classes.title}>
+								<Typography variant="h6" className={classes.title}>
 									<Link to='/notification' style={{ textDecoration: 'none', color: 'white' }}>
 										<Tooltip title="Notifications" arrow>
 											<NotificationsIcon />
 										</Tooltip>
 									</Link>
 			          </Typography>
-								<Typography variant="h5" className={classes.title}>
+								<Typography variant="h6" className={classes.title}>
 									<Tooltip title="Leave" arrow>
 										<Button>
 										  <Link to='/leave' style={{ textDecoration: 'none', color: 'white' }} >
@@ -67,10 +68,12 @@ function EmployeeNavbar({ logoutHandler }) {
 									    </Link>
 										</Button>
 									</Tooltip>
-      			    </Typography>
+								</Typography>
+								<Typography variant="h6" className={classes.title}>
 								<Button onClick={logoutHandler} style={{color: 'white'}}>
 									Logout
 								</Button>
+      			    </Typography>
 			        </Toolbar>
       			</AppBar>
 			    </div>
@@ -79,27 +82,24 @@ function EmployeeNavbar({ logoutHandler }) {
 							<Route
 								path='/dashboard'
 								exact
-								render={props => (
+								render={() => (
 									<Dashboard id={employeeId} />
 								)}
 							/>
 							<Route
 								path='/notification'
 								exact
-								render={props => (
-									<Notification />
-								)}
+								component={Notification}
 							/>
 							<Route
 								path='/leave'
 								exact
-								render={props => (
-									<Leave />
-								)}
+								component={Leave}
 							/>
 							<Redirect to="/dashboard" />
 						</Switch>
 					</div>
+					<Footer />
 				</Router>
 			}
 		</div>

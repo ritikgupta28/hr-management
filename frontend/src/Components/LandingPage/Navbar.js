@@ -56,37 +56,27 @@ function Navbar() {
 				<Route
 						path='/'
 						exact
-						render={props => (
-							<LandingPage />
-						)}
+						component={LandingPage}
 					/>
 					<Route
 						path='/policies'
 						exact
-						render={props => (
-							<Policies />
-						)}
+						component={Policies}
 					/>
 					<Route
 						path='/faq'
 						exact
-						render={props => (
-							<FAQ />
-						)}
+						component={FAQ}
             />
 					<Route
 						path='/login'
 						exact
-						render={props => (
-							<Login />
-						)}
+						component={Login}
             />
             <Route
 						path='/signup'
 						exact
-						render={props => (
-							<SignUp />
-						)}
+						component={SignUp}
 					/>
 					<Redirect to="/" />
 				</Switch>

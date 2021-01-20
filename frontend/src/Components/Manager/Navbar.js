@@ -214,44 +214,32 @@ function ManagerNavbar({ logoutHandler }) {
 					<Route
 						path='/teams'
 						exact
-						render={props => (
-							<TeamList />
-						)} 
+						component={TeamList} 
 					/>
 					<Route
 						path='/add_team'
 						exact
-						render={props => (
-							<AddTeam />
-						)} 
+						component={AddTeam} 
 					/>
 					<Route
 						path='/employee'
 						exact
-						render={props => (
-							<EmployeeList />
-						)} 
+						component={EmployeeList} 
 					/>
 					<Route
 						path='/add_employee'
 						exact
-						render={props => (
-							<AddEmployee />
-						)} 
+						component={AddEmployee} 
 					/>
 					<Route
 						path='/notification'
 						exact
-						render={props => (
-							<Notification />
-						)} 
+						component={Notification} 
 					/>
 					<Route
 						path='/holiday'
 						exact
-						render={props => (
-							<Holiday />
-						)} 
+						component={Holiday} 
 					/>
 					<Route
 						path='/employee/:id'
