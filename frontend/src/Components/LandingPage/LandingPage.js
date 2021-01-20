@@ -2,7 +2,8 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
 	Card,
-	CardContent
+	CardContent,
+	Typography
 } from '@material-ui/core/';
 
 import VerticalStepper from './Stepper';
@@ -36,7 +37,7 @@ function LandingPage() {
 	  	<Card className={classesCard.root}>
   			<CardContent>
 			    <div>
-		  	  	<p>For manager:</p>
+		  	  	<Typography>For Manager:</Typography>
   		  	  <VerticalStepper />
   			  </div>
   			</CardContent>
@@ -44,7 +45,7 @@ function LandingPage() {
   		<Card className={classesCard.root}>
   			<CardContent>
 		  	  <div>
-		    		<p>For employee:</p>
+		    		<Typography>For Employee:</Typography>
   		    	<VerticalStepper />
 	  		  </div>
   			</CardContent>

@@ -4,7 +4,7 @@ import 'react-calendar/dist/Calendar.css';
 import moment from 'moment';
 import './Attendance.css';
 import { useStateValue } from "../../StateProvider";
-import { CircularProgress, Container } from '@material-ui/core';
+import { CircularProgress, Container, Typography } from '@material-ui/core';
 
 function Attendance({ id }) {
 
@@ -48,18 +48,21 @@ function Attendance({ id }) {
         ?
         <CircularProgress />
         :
-        <Calendar
-          onChange={onDateChange}
-          value={date}
-          tileClassName={({ date, view }) => {
-            if(absents?.find(x => x === moment(date).format("DD-MM-YYYY"))) {
-              return 'absents'
-            }
-            if(holidays?.find(x => x === moment(date).format("DD-MM-YYYY"))) {
-              return 'holidays'
-            }
-          }}
-        />
+        <div>
+          <Typography>Attendance</Typography>
+          <Calendar
+            onChange={onDateChange}
+            value={date}
+            tileClassName={({ date, view }) => {
+              if(absents?.find(x => x === moment(date).format("DD-MM-YYYY"))) {
+                return 'absents'
+              }
+              if(holidays?.find(x => x === moment(date).format("DD-MM-YYYY"))) {
+                return 'holidays'
+              }
+            }}
+          />
+        </div>
       }
     </Container>
   )

@@ -35,8 +35,8 @@ function Salary({ id }) {
         if (status === 500) {
           throw new Error(resData.message);
         }
-        setExpectedSalary(resData["expectedSalary"]?.toPrecision(4));
-        setSalary(resData["salary"]?.toPrecision(4));
+        setExpectedSalary(resData["expectedSalary"]?.toPrecision(6));
+        setSalary(resData["salary"]?.toPrecision(6));
         setLoading(false);
       } catch (err) {
         setLoading(false);
@@ -55,30 +55,32 @@ function Salary({ id }) {
         <CircularProgress />
         :
         <div>
-          <Typography>
-        Salary(Rs.) :  {salary} /-
-      </Typography>
-      <TextField
-          type="month"
-          value={month}
-          onChange={e => setMonth(e.target.value)}
-          variant="outlined"
-          id="standard-basic"
-          label="Month" 
-      />
-      {month
-        ?
-        <div>
-          <Typography>
-            {moment(month).format("MM-YYYY")}
-          </Typography>
-          <Typography>
-            Expected Salary(Rs.) :  {expectedSalary} /-
-          </Typography>
-        </div>
-        : 
-        null
-      }
+          <div>
+              <Typography>
+                Salary(Rs.) :  {salary} /-
+              </Typography>
+              <TextField
+                  type="month"
+                  value={month}
+                  onChange={e => setMonth(e.target.value)}
+                  variant="outlined"
+                  id="standard-basic"
+                  label="Month" 
+              />    
+              {month
+                ?
+                <div>
+                  <Typography>
+                    {moment(month).format("MM-YYYY")}
+                  </Typography>
+                  <Typography>
+                    Expected Salary(Rs.) :  {expectedSalary} /-
+                  </Typography>
+                </div>
+                : 
+                null
+              }
+            </div>
         </div>
       }
     </Container>

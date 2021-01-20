@@ -1,17 +1,17 @@
 .dashboard {
+  margin: 20px;
   display: flex;
 }
 
 .details {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  padding: 20px;
+  margin: 30px;
   flex: 0.5;
   width: 100%;
 }
 
 .more {
+  margin: 40px;
   justify-content: center;
   align-items: center;
   display: flex;
@@ -20,16 +20,21 @@
 }
 
 .attendance {
-  padding: 40px;
-  max-width: 40vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 20px;
 }
 
 .salary {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
+  margin: 40px;
+  padding: 50px;
+  border: 1px solid black;
+}
+
+@media only screen and (max-width: 900px) {
+  .dashboard {
+    flex-direction: column;
+  }
+}
+
+.text_field {
+  width: 240px;
 }

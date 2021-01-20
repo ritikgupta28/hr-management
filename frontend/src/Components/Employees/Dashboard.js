@@ -100,25 +100,29 @@ function Dashboard({ id }) {
           <List>
             <ListItem>
               <ListItemText primary="Name:" />
-              <TextField
+                <TextField
+                  className="text_field"
                 value={employee.name}
               />
             </ListItem>
             <ListItem>
               <ListItemText primary="Email:" />
-              <TextField
+                <TextField
+                  className="text_field"
                 value={employee.email}
               />
             </ListItem>
             <ListItem>
               <ListItemText primary="Team-Name:" />
-              <TextField
+                <TextField
+                  className="text_field"
                 value={employee.teamName}
               />
             </ListItem>
             <ListItem>
               <ListItemText primary="Mobile:" />
-              <TextField
+                <TextField
+                  className="text_field"
                   value={employee.mobile}
                   onChange={e => {
                     if (edit) {
@@ -129,7 +133,8 @@ function Dashboard({ id }) {
             </ListItem>
             <ListItem>
               <ListItemText primary="Address:" />
-              <TextField
+                <TextField
+                  className="text_field"
                   value={employee.address}
                   onChange={e => {
                     if (edit) {
@@ -140,7 +145,8 @@ function Dashboard({ id }) {
             </ListItem>
             <ListItem>
               <ListItemText primary="City:" />
-              <TextField
+                <TextField
+                  className="text_field"
                   value={employee.city}
                   onChange={e => {
                     if (edit) {
@@ -152,6 +158,7 @@ function Dashboard({ id }) {
             <ListItem>
               <ListItemText primary="Country:" />
                 <TextField
+                  className="text_field"
                   value={employee.country}
                   onChange={e => {
                     if (edit) {

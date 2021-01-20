@@ -17,7 +17,7 @@ import {
 const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
-    flexWrap: 'wrap',
+    justifyContent: 'center'
   },
   textField: {
     marginLeft: theme.spacing(1),
@@ -88,54 +88,59 @@ function Holiday() {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
-      <List>
-        {dates.map(date => (
-          <ListItem key={date}>
-             <ListItemText primary={date} />
-          </ListItem>
-      ))}
-      </List>
-      <TextField
-        value={date}
-        onChange={e => {
-          setDate(e.target.value);
-          if (dates.indexOf(moment(e.target.value).format("DD-MM-YYYY")) === -1) {
-            setDates([...dates, moment(e.target.value).format("DD-MM-YYYY")])
-          }
-        }}
-        id="date"
-        label="Holiday"
-        type="date"
-        className={classes.textField}
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <br />
-      <br />
-      <Button
-        variant="outlined"
-        color="primary"
-        type="submit"
-        onClick={onSubmit}
-      >
-        Submit
-      </Button>
-      {loading
-        ?
-        <CircularProgress />
-        :
-        <Calendar
-          onChange={onDateChange}
-          value={date1}
-          tileClassName={({ date, view }) => {
-            if(holidays?.find(x => x === moment(date).format("DD-MM-YYYY"))) {
-              return 'holidays'
+    <Container className={classes.container}>
+      <div>
+        <List>
+          {dates.map(date => (
+            <ListItem key={date}>
+              <ListItemText primary={date} />
+            </ListItem>
+        ))}
+        </List>
+      </div>
+      <div>
+        <TextField
+          value={date}
+          onChange={e => {
+            setDate(e.target.value);
+            if (dates.indexOf(moment(e.target.value).format("DD-MM-YYYY")) === -1) {
+              setDates([...dates, moment(e.target.value).format("DD-MM-YYYY")])
             }
           }}
-        />  
-      }
+          id="date"
+          label="Holiday"
+          type="date"
+          className={classes.textField}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+        <br />
+        <Button
+          variant="outlined"
+          color="primary"
+          type="submit"
+          onClick={onSubmit}
+        >
+          Submit
+        </Button>
+      </div>
+      <div>
+        {loading
+          ?
+          <CircularProgress />
+          :
+          <Calendar
+            onChange={onDateChange}
+            value={date1}
+            tileClassName={({ date, view }) => {
+              if(holidays?.find(x => x === moment(date).format("DD-MM-YYYY"))) {
+                return 'holidays'
+              }
+            }}
+          />  
+        }
+      </div>
     </Container>
   )
 }
