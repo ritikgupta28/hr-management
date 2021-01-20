@@ -176,7 +176,7 @@ exports.postAcceptReply = async (req, res, next) => {
 		let notification = await Notification.findById(id)
 		dates = notification.dates;
 		notification = await	notification.addReply('accept');
-		const employee = await Employee.findById(notification.employeeId)
+		let employee = await Employee.findById(notification.employeeId)
 		employee = await employee.addLeave(dates, holidays);
 		
 		res.status(200).json({

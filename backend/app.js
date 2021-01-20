@@ -4,11 +4,15 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const routes = require('./routes/routes');
+const helmet = require('helmet');
+const compression = require('compression');
 
 const MONGODB_URL = "mongodb+srv://ritikgupta:ZU5DvtmxnizGbPsu@cluster0-mzunh.mongodb.net/hr_manager?retryWrites=true&w=majority";
 
 const app = express();
 
+app.use(helmet());
+app.use(compression());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
