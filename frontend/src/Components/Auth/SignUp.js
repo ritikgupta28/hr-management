@@ -9,8 +9,6 @@ import {
   Button,
   CssBaseline,
   TextField,
-  Link,
-  Grid,
   Typography,
   Container,
   CircularProgress
@@ -184,15 +182,6 @@ function SignUp() {
               SignUp
             </Button>
           }
-          <Grid container>
-            <Grid item xs>
-            </Grid>
-            <Grid item>
-              <Link href="/login" variant="body2">
-                {"You already have an account? Login"}
-              </Link>
-            </Grid>
-          </Grid>
         </form>
         <br />
         <GoogleLogin

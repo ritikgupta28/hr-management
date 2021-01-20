@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import Typed from 'react-typed'
 import {
 	Card,
 	CardContent,
@@ -10,35 +10,46 @@ import "./LandingPage.css";
 import ManagerStepper from './ManagerStepper';
 import EmployeeStepper from './EmployeeStepper';
 
-const useStylesCard = makeStyles({
-  root: {
-    width: 500,
-    margin: '10px',
-  }
-});
-
 function LandingPage() {
-  const classesCard = useStylesCard();
 
 	return (
-		<div className="landing_page">
-				<Card className={classesCard.root}>
-					<CardContent>
-						<div>
-							<Typography>For Manager:</Typography>
-							<ManagerStepper />
-						</div>
-					</CardContent>
-				</Card>
-				<Card className={classesCard.root}>
-					<CardContent>
-						<div>
-							<Typography>For Employee:</Typography>
-							<EmployeeStepper />
-						</div>
-					</CardContent>
-				</Card>
+		<div>
+			<div className="main">
+				<div className="heading">
+					<h1>HR Management</h1>
+					<p>
+						<Typed
+							strings={[
+							`Attendance Management`,
+							`Payroll Management`,
+							`Team Management`
+							]}
+							typeSpeed={50}
+							loop
+						>
+						</Typed>
+					</p>
+				</div>
 			</div>
+			<div className="landing_page">
+				<Card className="card">
+						<CardContent>
+							<div>
+								<Typography>For Manager:</Typography>
+								<ManagerStepper />
+							</div>
+						</CardContent>
+					</Card>
+					<Card className="card">
+						<CardContent>
+							<div>
+								<Typography>For Employee:</Typography>
+								<EmployeeStepper />
+							</div>
+						</CardContent>
+					</Card>
+			</div>
+		</div>
   );
 }
 

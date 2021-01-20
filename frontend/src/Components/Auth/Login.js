@@ -11,8 +11,6 @@ import {
   TextField,
   FormControlLabel,
   Checkbox,
-  Link,
-  Grid,
   Typography,
   Container,
   CircularProgress
@@ -192,16 +190,6 @@ function Login() {
               Login
             </Button>
           }
-          <Grid container>
-            <Grid item xs>
-              
-            </Grid>
-            <Grid item>
-              <Link href="/signup" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
         </form>
         <br />
         <GoogleLogin

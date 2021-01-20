@@ -1,10 +1,46 @@
 .landing_page {
   display: flex;
-  margin: 20px;
+  justify-content: center;
+}
+
+.heading {
+  margin-left: 200px;
+  font-size: medium;
+  font-size: x-large;
+  letter-spacing: 1px;
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 450px;
+  min-height: 250px;
+  background: url(./img.jpg) no-repeat right top;
+  background-size: 70% 110%;
+}
+
+.card {
+  width: 500px;
+  margin: 10px;
 }
 
 @media only screen and (max-width: 700px) {
   .landing_page {
     flex-direction: column;
+  }
+  .heading {
+    margin-left: 20px;
+    font-size: small;
+  }
+  .card {
+    width: 300px;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .heading {
+    margin-left: 40px;
+    font-size: medium;
   }
 }
