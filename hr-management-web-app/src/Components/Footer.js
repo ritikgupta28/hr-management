@@ -48,7 +48,10 @@ function Footer() {
           flexDirection: 'column'
         }}>
           <Typography variant="body1">
-            Code by Ritik and Sahil.
+            Code by 
+            <Link href="https://sahilgoyal.herokuapp.com/"> Sahil </Link> 
+            and 
+            <Link href="https://ritikgupta.herokuapp.com/"> Ritik </Link>
           </Typography>
           <Copyright />
         </Container>

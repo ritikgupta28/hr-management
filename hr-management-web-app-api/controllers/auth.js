@@ -5,7 +5,7 @@ const Employee = require('../models/employee');
 const Manager = require('../models/manager');
 const { OAuth2Client } = require('google-auth-library');
 
-const client = new OAuth2Client("915015918185-g4cj40r77jv1cuvklra75hlc79kcmn41.apps.googleusercontent.com");
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 exports.employeeSignup = async (req, res, next) => {
 	const { email, name, password } = req.body;

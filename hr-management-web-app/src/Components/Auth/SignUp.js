@@ -185,7 +185,7 @@ function SignUp() {
         </form>
         <br />
         <GoogleLogin
-          clientId="915015918185-g4cj40r77jv1cuvklra75hlc79kcmn41.apps.googleusercontent.com"
+          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
           buttonText="SignUp with Google"
           onSuccess={responseSuccessGoogle}
           onFailure={responseErrorGoogle}

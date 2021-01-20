@@ -6,9 +6,9 @@ const authRoutes = require('./routes/auth');
 const routes = require('./routes/routes');
 const helmet = require('helmet');
 const compression = require('compression');
+require('dotenv').config();
 
-const MONGODB_URL = "mongodb+srv://ritikgupta:ZU5DvtmxnizGbPsu@cluster0-mzunh.mongodb.net/hr_manager?retryWrites=true&w=majority";
-
+const MONGODB_URL = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-mzunh.mongodb.net/${process.env.MONGO_DATABASE_NAME}?retryWrites=true&w=majority`;
 const app = express();
 
 app.use(helmet());
