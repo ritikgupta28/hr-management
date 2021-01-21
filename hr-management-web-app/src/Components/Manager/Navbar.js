@@ -7,7 +7,6 @@ import AddTeam from "./AddTeam"
 import Notification from "./Notification"
 import Holiday from "./Holiday"
 import Dashboard from "../Employees/Dashboard"
-import Footer from "../Footer";
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -29,7 +28,7 @@ import {
   Tooltip
 } from "@material-ui/core";
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -101,7 +100,7 @@ function ManagerNavbar({ logoutHandler }) {
 	
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -253,7 +252,6 @@ function ManagerNavbar({ logoutHandler }) {
 					</Switch>
         </main>
       </div>
-      <Footer />
 		</Router>
 	)
 }

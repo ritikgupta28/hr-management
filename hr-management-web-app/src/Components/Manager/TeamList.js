@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import TeamDescription from './TeamDescription';
+import Footer from "../Footer"
 import { useStateValue } from "../../StateProvider";
-import { CircularProgress, Container, List } from "@material-ui/core";
+import { CircularProgress, Container, List, Typography } from "@material-ui/core";
 
 function TeamList() {
 
@@ -35,7 +36,9 @@ function TeamList() {
   }, [])
 
   return (
-    <Container style={{ padding: '0px 100px' }}>
+    <div>
+      <Container component="main" maxWidth="xs">
+        <Typography variant="h4">All Teams</Typography>
       {loading
         ?
         <CircularProgress />
@@ -47,6 +50,8 @@ function TeamList() {
         </List>
       }
     </Container>
+    <Footer />
+    </div>
   )
 }
 

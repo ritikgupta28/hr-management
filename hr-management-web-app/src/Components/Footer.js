@@ -22,12 +22,13 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    width: '100%',
     justifyContent: 'center',
     flexDirection: 'column'
   },
   footer: {
     padding: theme.spacing(3, 2),
-    marginTop: '40px',
+    marginTop: '50px',
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
   },

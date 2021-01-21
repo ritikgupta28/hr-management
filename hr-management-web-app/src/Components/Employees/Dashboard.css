@@ -3,15 +3,18 @@
   display: flex;
 }
 
+.text_field {
+  width: 250px;
+}
+
 .details {
-  padding: 20px;
-  margin: 30px;
+  display: flex;
   flex: 0.5;
-  width: 100%;
+  letter-spacing: 2px;
+  justify-content: center;
 }
 
 .more {
-  margin: 40px;
   justify-content: center;
   align-items: center;
   display: flex;
@@ -20,12 +23,12 @@
 }
 
 .attendance {
-  padding: 20px;
+  padding: 40px;
 }
 
 .salary {
   margin: 20px 20px 0px 20px;
-  padding: 40px;
+  padding: 20px 40px;
   border: 1px solid black;
 }
 
@@ -33,8 +36,10 @@
   .dashboard {
     flex-direction: column;
   }
-}
-
-.text_field {
-  width: 240px;
+  .salary {
+    padding: 20px;
+  }
+  .attendance {
+    padding: 20px;
+  }
 }

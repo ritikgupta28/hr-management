@@ -1,0 +1,26 @@
+.con {
+  display: flex;
+  justify-content: center;
+}
+
+.cal {
+  width: 80%;
+}
+
+.text {
+  width: 50%;
+}
+
+@media only screen and (max-width: 1000px) {
+  .con {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .cal {
+    width: 70%;
+  }
+  .text {
+    width: 160px;
+  }
+}

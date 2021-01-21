@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useStateValue } from "../../StateProvider";
+import Footer from "../Footer"
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -72,7 +73,8 @@ function AddEmployee() {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
+    <div>
+     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -124,7 +126,7 @@ function AddEmployee() {
             required
             fullWidth
             name="salary"
-            label="Salary"
+            label="Salary Per Annum"
             autoComplete="salary"
           />
           <Button
@@ -139,7 +141,9 @@ function AddEmployee() {
           </Button>
         </form>
       </div>
-    </Container>
+      </Container>
+      <Footer />
+    </div>
   )
 }
 

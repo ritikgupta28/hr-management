@@ -96,24 +96,29 @@ function Detail({ notification }) {
 
   return (
     <div style={{
-      display: 'flex', justifyContent: 'space-between', margin: '0px 20px'}}>
+      display: 'flex', justifyContent: 'space-between'}}>
       <CardContent>
        <Typography>
-         <p>{notification.employeeId.name}</p>
+         {notification.employeeId.name}
        </Typography>
-        <Typography color="textSecondary" gutterBottom>
           {notification.dates.map(date => (
-            <p key={date}>{date}</p>
+            <Typography component="p" color="textSecondary" key={date}>
+              {date}
+            </Typography>
           ))}
-        </Typography>
         <Typography variant="body2" component="p">
           {notification.reason}
         </Typography>
       </CardContent>
-      <CardActions style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}>
+      <CardActions style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+      }}>
       <Typography>
-        <p>{moment(notification.createdAt).format("DD-MM-YYYY")},
-        {moment(notification.createdAt).format("HH:mm")}</p>
+        {moment(notification.createdAt).format("DD-MM-YYYY")},
+        {moment(notification.createdAt).format("HH:mm")}
       </Typography>
       {renderButtons()}
       </CardActions>

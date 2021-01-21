@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Footer from "../Footer"
 import { useStateValue } from "../../StateProvider";
 import {
   TextField,
@@ -6,8 +7,8 @@ import {
   Link,
   List,
   ListItem,
-  ListItemText,
-  CircularProgress
+  CircularProgress,
+  Typography
 } from "@material-ui/core";
 
 function EmployeeList() {
@@ -57,19 +58,24 @@ function EmployeeList() {
     }
 
     return (
-        <Link href={`/employee/${employee._id}`} style={{ textDecoration: 'none', color: 'black' }}>
-          <ListItemText primary={employee.email} />
-        </Link>
+      <Link
+        href={`/employee/${employee._id}`}
+        style={{
+          textDecoration: 'none', color: 'black'
+        }}>
+          <Typography>{employee.email}</Typography>
+      </Link>
     )
   }
 
   return (
+    <div>
     <Container component="main" maxWidth="xs" style={{
       display: 'flex', flexDirection: 'column'
     }}>
-      <List>
-        Search by name, team name or role
-      </List>
+      <Typography>
+        Search by Name, Team-Name or Role
+      </Typography>
       <List style={{ display: 'flex' }}>
         <ListItem>
           <TextField
@@ -110,7 +116,9 @@ function EmployeeList() {
           </div>
         }
       </List>
-    </Container>
+      </Container>
+      <Footer />
+    </div>
   )
 }
 

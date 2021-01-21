@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Detail from './Detail';
+import Footer from "../Footer"
 import { useStateValue } from "../../StateProvider"
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CircularProgress, Container } from '@material-ui/core';
@@ -50,6 +51,7 @@ function Notification() {
   }, [])
 
   return (
+    <div>
     <Container>
       {loading
         ?
@@ -64,6 +66,8 @@ function Notification() {
         </div>
       }
     </Container>
+    <Footer />
+    </div>
   )
 }
 

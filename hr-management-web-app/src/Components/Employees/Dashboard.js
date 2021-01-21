@@ -15,7 +15,7 @@ import {
 
 function Dashboard({ id }) {
   
-  const [{ token,employeeId }, dispatch] = useStateValue();
+  const [{ token }, dispatch] = useStateValue();
   const [employee, setEmployee] = useState({});
   const [edit, setEdit] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -79,7 +79,9 @@ function Dashboard({ id }) {
         :
         <div className="dashboard">
           <div className="details">
-            {!edit 
+            <List>
+              <ListItem>
+              {!edit 
               ?
               (<Button
                 variant="outlined"
@@ -97,26 +99,26 @@ function Dashboard({ id }) {
                 Cancel
               </Button>)
             }
-          <List>
+              </ListItem>
             <ListItem>
               <ListItemText primary="Name:" />
                 <TextField
                   className="text_field"
-                value={employee.name}
+                  value={employee.name}
               />
             </ListItem>
             <ListItem>
               <ListItemText primary="Email:" />
                 <TextField
                   className="text_field"
-                value={employee.email}
+                  value={employee.email}
               />
             </ListItem>
             <ListItem>
               <ListItemText primary="Team-Name:" />
                 <TextField
                   className="text_field"
-                value={employee.teamName}
+                  value={employee.teamName}
               />
             </ListItem>
             <ListItem>
@@ -166,9 +168,9 @@ function Dashboard({ id }) {
                     }
                   }}
               />
-            </ListItem>
-            </List>
-            {edit 
+              </ListItem>
+              <ListItem>
+              {edit 
               ?
               (<Button
                 variant="outlined"
@@ -180,6 +182,8 @@ function Dashboard({ id }) {
               :
               null
             }
+              </ListItem>
+            </List>
           </div>
           <div className="more">
             <div className="attendance">

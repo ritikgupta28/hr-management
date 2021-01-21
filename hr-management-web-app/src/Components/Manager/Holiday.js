@@ -3,28 +3,15 @@ import moment from "moment"
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { useStateValue } from "../../StateProvider"
-import { makeStyles } from '@material-ui/core/styles';
+import Footer from "../Footer"
+import "./Manager.css"
 import {
   Container,
   Button,
   TextField,
-  List,
-  ListItem,
-  ListItemText,
-  CircularProgress
+  CircularProgress,
+  Typography
 } from '@material-ui/core';
-
-const useStyles = makeStyles((theme) => ({
-  container: {
-    display: 'flex',
-    justifyContent: 'center'
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 200,
-  },
-}));
 
 function Holiday() {
   
@@ -34,7 +21,6 @@ function Holiday() {
   const [date, setDate] = useState(new Date());
   const [holidays, setHolidays] = useState([]);
   const [loading, setLoading] = useState(true);
-  const classes = useStyles();
 
   useEffect(() => {
     async function fetchData() {
@@ -88,18 +74,17 @@ function Holiday() {
   }
 
   return (
-    <Container className={classes.container}>
+    <div>
+      <Container component="main" maxWidth="xs">
       <div>
-        <List>
-          {dates.map(date => (
-            <ListItem key={date}>
-              <ListItemText primary={date} />
-            </ListItem>
+        {dates.map(date => (
+          <Typography key={date}>
+            {date}
+          </Typography>
         ))}
-        </List>
       </div>
-      <div>
-        <TextField
+      <div className="text">
+          <TextField
           value={date}
           onChange={e => {
             setDate(e.target.value);
@@ -109,7 +94,6 @@ function Holiday() {
           }}
           label="Holiday"
           type="date"
-          className={classes.textField}
           InputLabelProps={{
             shrink: true,
           }}
@@ -125,7 +109,7 @@ function Holiday() {
           Submit
         </Button>
       </div>
-      <div>
+      <div className="cal">
         {loading
           ?
           <CircularProgress />
@@ -141,7 +125,9 @@ function Holiday() {
           />  
         }
       </div>
-    </Container>
+      </Container>
+      <Footer />
+      </div>
   )
 }
 

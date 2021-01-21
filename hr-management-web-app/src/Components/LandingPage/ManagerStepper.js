@@ -6,7 +6,6 @@ import {
 	StepLabel,
 	StepContent,
 	Button,
-	Paper,
 	Typography
 } from '@material-ui/core/';
 
@@ -62,10 +61,6 @@ export default function ManagerStepper() {
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
   };
 
   return (

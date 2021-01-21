@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useStateValue } from "../../StateProvider";
 import {
-  List,
-  ListItem,
-  ListItemText,
   TextField,
   Button,
   Container,
-  CircularProgress
+  CircularProgress,
+  Typography
 } from "@material-ui/core";
+import Footer from '../Footer';
 
 function AddTeam() {
   
@@ -83,7 +82,8 @@ function AddTeam() {
   }
 
   return (
-    <Container>
+    <div>
+    <Container component="main" maxWidth="xs">
         <TextField
           value = {teamName} 
           onChange = {e => setTeamName(e.target.value)}
@@ -96,35 +96,31 @@ function AddTeam() {
           label="Description" 
       />
       <br />
-      <List>
         {teamArray?.map(employee => (
-          <ListItem>
-            <ListItemText key={employee.id} primary = {employee.email} />
-          </ListItem>
+          <Typography key={employee.id}>
+            {employee.email}
+          </Typography>
         ))}
-      </List>
-      <hr />
-      <List>
+        <br />
+        <hr />
         {!loading
           ?
           <div>
             {employees?.map(employee => (
-            <ListItem key={employee._id}>
-              <ListItemText primary={employee.email} />
+              <div key={employee._id} style={{ display: 'flex', justifyContent: 'space-between'}}>
+              <Typography>{employee.email}</Typography>
               <Button
-                variant="outlined"
                 value={employee._id}
                 onClick={() => onAddEmployee(employee._id, employee.email)}
               >
-                Add Member
+                Add
               </Button>
-            </ListItem>
+            </div>
           ))}
           </div>
           :
           <CircularProgress />
         }
-      </List>
       <br />
       <Button
         variant="outlined"
@@ -133,7 +129,9 @@ function AddTeam() {
         onClick={onAddTeam}>
         Add Team
       </Button>
-    </Container>
+      </Container>
+      <Footer />
+    </div>
   )
 }
 

@@ -8,6 +8,7 @@ import { CircularProgress } from '@material-ui/core';
 require('dotenv').config();
 
 function App() {
+  
   const [{ isAuth, managerId }, dispatch] = useStateValue();
   const [loading, setLoading] = useState(true);
 

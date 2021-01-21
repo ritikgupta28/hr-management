@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import {
+  Button,
   Divider,
-  List,
-  ListItem,
-  ListItemText,
+  Link,
   Typography
 } from '@material-ui/core';
 
@@ -16,14 +15,15 @@ function TeamDescription({ team }) {
       return (
         <div>
           <Typography>Members: </Typography>
-          <List>
-            {team.members?.map(member => (
-              <ListItem key={member._id}>
-                <ListItemText primary={member.employeeId.email} />
-              </ListItem>
+          {team.members?.map(member => (
+            <Typography key={member._id} style={{marginLeft: '20px'}}>
+              <Link href={`/employee/${member.employeeId._id}`} style={{ textDecoration: 'none', color: 'black' }}>
+                {member.employeeId.email}
+              </Link>
+            </Typography>
             ))}
-            <Typography key={team._id}>{team.description}</Typography>
-          </List>
+            <Typography>Description: </Typography>
+            <Typography key={team._id} style={{marginLeft: '20px'}}>{team.description}</Typography>
       </div>
       )
     }
@@ -31,13 +31,11 @@ function TeamDescription({ team }) {
 
   return (
     <div>
-      <ListItem button onClick={e => setExpand(!expand)}>
-        <ListItemText primary={team.name} />
-      </ListItem>
+      <Button onClick={e => setExpand(!expand)} fullWidth>
+       {team.name}
+      </Button>
       <Divider />
-      <ListItem>
-        {renderTeamData()}
-      </ListItem>
+      {renderTeamData()}
     </div>
   )
 }
