@@ -43,7 +43,7 @@ function AddEmployee() {
   const onAddEmployee = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8000/newEmployee', {
+      const response = await fetch('https://hr-management-web-app-api.herokuapp.com/newEmployee', {
         method: 'POST',
         headers: {
           Authorization: 'Bearer ' + token,

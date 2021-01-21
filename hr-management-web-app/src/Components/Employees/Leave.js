@@ -29,7 +29,7 @@ function Leave() {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8000/leave', {
+      const response = await fetch('https://hr-management-web-app-api.herokuapp.com/leave', {
       method: 'POST',
       headers: {
         Authorization: 'Bearer ' + token,

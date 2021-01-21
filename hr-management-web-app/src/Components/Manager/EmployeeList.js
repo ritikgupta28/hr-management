@@ -22,7 +22,7 @@ function EmployeeList() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('http://localhost:8000/employeeList', {
+        const response = await fetch('https://hr-management-web-app-api.herokuapp.com/employeeList', {
           method: 'GET',
           headers: {
             Authorization: 'Bearer ' + token,

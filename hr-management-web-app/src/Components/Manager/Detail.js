@@ -50,7 +50,7 @@ function Detail({ notification }) {
 
   const onAccept = async (e) => {
     try {
-      const response = await fetch('http://localhost:8000/acceptReply', {
+      const response = await fetch('https://hr-management-web-app-api.herokuapp.com/acceptReply', {
         method: 'POST',
         headers: {
           Authorization: 'Bearer ' + token,
@@ -73,7 +73,7 @@ function Detail({ notification }) {
   
     const onReject = async (e) => {
       try { 
-        const response = await fetch('http://localhost:8000/rejectReply', {
+        const response = await fetch('https://hr-management-web-app-api.herokuapp.com/rejectReply', {
         method: 'POST',
         headers: {
           Authorization: 'Bearer ' + token,

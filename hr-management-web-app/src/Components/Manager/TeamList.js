@@ -12,7 +12,7 @@ function TeamList() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('http://localhost:8000/teamList', {
+        const response = await fetch('https://hr-management-web-app-api.herokuapp.com/teamList', {
           method: 'GET',
           headers: {
             Authorization: 'Bearer ' + token,

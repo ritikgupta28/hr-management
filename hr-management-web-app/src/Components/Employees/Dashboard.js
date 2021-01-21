@@ -23,7 +23,7 @@ function Dashboard({ id }) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('http://localhost:8000/employee/' + id, {
+        const response = await fetch('https://hr-management-web-app-api.herokuapp.com/employee/' + id, {
         method: 'GET',
         headers: {
           Authorization: 'Bearer ' + token,
@@ -49,7 +49,7 @@ function Dashboard({ id }) {
 
   const onEditEmployee = async () => {
     try {
-      const response = await fetch('http://localhost:8000/editEmployee/', {
+      const response = await fetch('https://hr-management-web-app-api.herokuapp.com/editEmployee/', {
         method: 'POST',
         headers: {
           Authorization: 'Bearer ' + token,

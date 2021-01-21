@@ -22,7 +22,7 @@ function AddTeam() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('http://localhost:8000/employeeList', {
+        const response = await fetch('https://hr-management-web-app-api.herokuapp.com/employeeList', {
           method: 'GET',
           headers: {
             Authorization: 'Bearer ' + token,
@@ -47,7 +47,7 @@ function AddTeam() {
   const onAddTeam = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8000/newTeam', {
+      const response = await fetch('https://hr-management-web-app-api.herokuapp.com/newTeam', {
         method: 'POST',
         headers: {
           Authorization: 'Bearer ' + token,

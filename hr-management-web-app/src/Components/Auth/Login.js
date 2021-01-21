@@ -76,7 +76,7 @@ function Login() {
     setLoading(true);
     e.preventDefault();
     try { 
-      const response = await fetch('http://localhost:8000/auth/login', {
+      const response = await fetch('https://hr-management-web-app-api.herokuapp.com/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -105,7 +105,7 @@ function Login() {
   const responseSuccessGoogle = async (response) => {
     setLoading(true);
     try {
-        const res = await fetch('http://localhost:8000/auth/google', {
+        const res = await fetch('https://hr-management-web-app-api.herokuapp.com/auth/google', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

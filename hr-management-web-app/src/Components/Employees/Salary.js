@@ -19,7 +19,7 @@ function Salary({ id }) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('http://localhost:8000/salary', {
+        const response = await fetch('https://hr-management-web-app-api.herokuapp.com/salary', {
           method: 'POST',
           headers: {
             Authorization: 'Bearer ' + token,

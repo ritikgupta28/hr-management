@@ -51,7 +51,7 @@ function SignUp() {
     setLoading(true);
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8000/auth/emloyeeSignup', {
+      const response = await fetch('https://hr-management-web-app-api.herokuapp.com/auth/emloyeeSignup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -85,7 +85,7 @@ function SignUp() {
       await employeePassword().then(resData => {
         psswrd = resData;
       });
-      const res = await fetch('http://localhost:8000/auth/googleEmployeeSignup', {
+      const res = await fetch('https://hr-management-web-app-api.herokuapp.com/auth/googleEmployeeSignup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

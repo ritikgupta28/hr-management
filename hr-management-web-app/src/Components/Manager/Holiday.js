@@ -39,7 +39,7 @@ function Holiday() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('http://localhost:8000/holiday', {
+        const response = await fetch('https://hr-management-web-app-api.herokuapp.com/holiday', {
           method: 'GET',
           headers: {
             Authorization: 'Bearer ' + token,
@@ -64,7 +64,7 @@ function Holiday() {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8000/holiday', {
+      const response = await fetch('https://hr-management-web-app-api.herokuapp.com/holiday', {
         method: 'POST',
         headers: {
           Authorization: 'Bearer ' + token,

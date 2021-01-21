@@ -27,7 +27,7 @@ function Notification() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('http://localhost:8000/notification', {
+        const response = await fetch('https://hr-management-web-app-api.herokuapp.com/notification', {
           method: 'GET',
           headers: {
             Authorization: 'Bearer ' + token,
