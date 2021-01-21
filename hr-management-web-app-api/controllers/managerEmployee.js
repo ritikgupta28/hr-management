@@ -41,7 +41,7 @@ exports.postSalary = async (req, res, next) => {
   const { id, month } = req.body;
   
   try {
-    if(!month) {
+    if(month.length === 0) {
       const error = new Error('Please enter valid month!');
       error.statusCode = 500;
       throw error;
@@ -54,9 +54,19 @@ exports.postSalary = async (req, res, next) => {
         countAbsents++;
       }
     })
+    let presentMonth = month.substring(0,2);
+    let totalDays;
+    if(presentMonth === "01" || presentMonth === "03" || presentMonth === "05" || presentMonth === "07" || presentMonth === "08" || presentMonth === "10" || presentMonth === "12") {
+      totalDays = 31;
+    }
+    else if(presentMonth === "04" || presentMonth === "06" || presentMonth === "09" || presentMonth === "11") {
+      totalDays = 30;
+    }
+    else {
+      totalDays = 28;
+    }
     let salary = (employee.salary)/12;
-    let expectedSalary = salary;
-    expectedSalary -= ((expectedSalary/30)*countAbsents);
+    let expectedSalary = salary - ((salary/totalDays)*countAbsents);
     
     res.status(200).json({
       salary: salary,

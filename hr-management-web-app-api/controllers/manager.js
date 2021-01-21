@@ -10,7 +10,7 @@ exports.postHoliday = async (req, res, next) => {
 	const { dates } = req.body;
 
 	try {
-		if(!dates) {
+		if(dates.length === 0) {
 			const error = new Error('Please enter valid dates!');
 			error.statusCode = 500;
       throw error;
@@ -68,7 +68,7 @@ exports.postNewEmployee = async (req, res, next) => {
 	const { name, email, role, salary } = req.body;
 	
 	try {
-		if(!name || !email || !role || !salary) {
+		if(name.length === 0 || email.length === 0 || role.length === 0 || salary.length === 0) {
 			const error = new Error('Please enter valid credentials!');
 			error.statusCode = 500;
       throw error;
@@ -123,7 +123,7 @@ exports.postNewTeam = async (req, res, next) => {
 	const { name, members, description } = req.body;
 
 	try {
-		if(!name || !members || !description) {
+		if(name.length === 0 || members.length === 0 || description.length === 0) {
 			const error = new Error('Please enter valid credentials!');
 			error.statusCode = 500;
       throw error;
@@ -138,8 +138,8 @@ exports.postNewTeam = async (req, res, next) => {
 					employee.addTeam(name);
 				})
 				.catch(err => {
-					const error = new Error;
-      		error.message = 'Failed to add team!';
+					const error = new Error('Failed to add team!');
+					error.statusCode = 500;
       		next(error);
 				});
 		})

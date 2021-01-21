@@ -5,9 +5,9 @@ exports.postApplyLeave = async (req, res, next) => {
   const { reason, dates } = req.body;
 
   try {
-    if(!reason || !dates) {
-      const error = new Error;
-      error.message = 'Please enter valid reason or dates!';
+    if(reason.length === 0 || dates.length === 0) {
+      const error = new Error('Please enter valid reason or dates!');
+      error.statusCode = 500;
       throw error;
     }
     let notification = new Notification({
