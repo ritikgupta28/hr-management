@@ -31,9 +31,8 @@ function FAQ() {
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
-          id="panel1a-header"
         >
-          <Typography className={classes.heading}>Accordion 1</Typography>
+          <Typography className={classes.heading}>Question 1</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
@@ -46,9 +45,8 @@ function FAQ() {
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel2a-content"
-          id="panel2a-header"
         >
-          <Typography className={classes.heading}>Accordion 2</Typography>
+          <Typography className={classes.heading}>Question 2</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>

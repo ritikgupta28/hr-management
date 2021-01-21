@@ -69,7 +69,6 @@ function Leave() {
             multiline
             rows={4}
             variant="outlined"
-            id="standard-basic"
             label="Reason" 
         />
         <TextField
@@ -80,7 +79,6 @@ function Leave() {
               setDates([...dates, moment(e.target.value).format("DD-MM-YYYY")])
             }
           }}
-          id="date"
           label="Holiday"
           type="date"
           className={classes.textField}

@@ -107,7 +107,6 @@ function Holiday() {
               setDates([...dates, moment(e.target.value).format("DD-MM-YYYY")])
             }
           }}
-          id="date"
           label="Holiday"
           type="date"
           className={classes.textField}

@@ -87,14 +87,12 @@ function AddTeam() {
         <TextField
           value = {teamName} 
           onChange = {e => setTeamName(e.target.value)}
-          id="standard-basic"
           label="Team-Name" 
         />
       <br />
       <TextField
           value = {description} 
           onChange = {e => setDescription(e.target.value)}
-          id="standard-basic"
           label="Description" 
       />
       <br />

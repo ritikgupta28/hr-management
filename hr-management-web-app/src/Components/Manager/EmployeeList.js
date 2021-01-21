@@ -76,7 +76,6 @@ function EmployeeList() {
             style={{width: '120px'}}
             value={name} 
             onChange={e => setName(e.target.value)}
-            id="standard-basic"
             label="Name"
           />
         </ListItem>
@@ -85,7 +84,6 @@ function EmployeeList() {
             style={{width: '120px'}}
             value={team}
             onChange={e => setTeam(e.target.value)}
-            id="standard-basic"
             label="Team-Name"
           />  
         </ListItem>
@@ -94,7 +92,6 @@ function EmployeeList() {
             style={{width: '120px'}}
             value={role} 
             onChange={e => setRole(e.target.value)}
-            id="standard-basic"
             label="Role"
           />
         </ListItem>

@@ -89,7 +89,6 @@ function AddEmployee() {
             margin="normal"
             required
             fullWidth
-            id="name"
             label="Name"
             name="name"
             autoComplete="name"
@@ -102,7 +101,6 @@ function AddEmployee() {
             margin="normal"
             required
             fullWidth
-            id="email"
             label="Email Address"
             name="email"
             autoComplete="email"
@@ -116,7 +114,6 @@ function AddEmployee() {
             fullWidth
             name="role"
             label="Role"
-            id="role"
             autoComplete="role"
           />
           <TextField
@@ -128,7 +125,6 @@ function AddEmployee() {
             fullWidth
             name="salary"
             label="Salary"
-            id="salary"
             autoComplete="salary"
           />
           <Button
