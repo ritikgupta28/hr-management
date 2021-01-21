@@ -5,7 +5,6 @@ import { actionType } from "./reducer";
 import { useStateValue } from "./StateProvider";
 import Navbar from './Components/LandingPage/Navbar';
 import { CircularProgress } from '@material-ui/core';
-require('dotenv').config();
 
 function App() {
   

@@ -1,10 +1,12 @@
 .con {
+  padding: 20px;
   display: flex;
   justify-content: center;
 }
 
 .cal {
-  width: 80%;
+  padding: 20px;
+  width: 100%;
 }
 
 .text {
@@ -13,6 +15,7 @@
 
 @media only screen and (max-width: 1000px) {
   .con {
+    padding: 20px;
     display: flex;
     justify-content: center;
     flex-direction: column;

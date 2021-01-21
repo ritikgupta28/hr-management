@@ -57,22 +57,30 @@ function EmployeeList() {
       return null
     }
 
-    return (
-      <Link
-        href={`/employee/${employee._id}`}
+    return ( 
+      <div
         style={{
-          textDecoration: 'none', color: 'black'
-        }}>
+          width: '115%',
+          padding: '2px',
+          display: 'flex',
+          justifyContent: 'space-between'
+        }}
+       >
+        <Typography>{employee.name}</Typography>
+        <Link
+          href={`/employee/${employee._id}`}
+          style={{
+            textDecoration: 'none', color: 'black'
+          }}>
           <Typography>{employee.email}</Typography>
-      </Link>
+        </Link>
+      </div>
     )
   }
 
   return (
     <div>
-    <Container component="main" maxWidth="xs" style={{
-      display: 'flex', flexDirection: 'column'
-    }}>
+      <Container component="main" maxWidth="xs">
       <Typography>
         Search by Name, Team-Name or Role
       </Typography>
@@ -102,20 +110,18 @@ function EmployeeList() {
           />
         </ListItem>
       </List>
-      <List style={{ display: 'flex', justifyContent: 'center' }}>
         {loading
           ?
           <CircularProgress />
           :
           <div>
             {employees?.map(employee => (
-              <ListItem key={employee._id}>
+              <div key={employee._id}>
                 {renderEmployee(employee)}
-              </ListItem>
+              </div>
             ))}
           </div>
         }
-      </List>
       </Container>
       <Footer />
     </div>

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useStateValue } from "../../StateProvider";
+import GroupIcon from '@material-ui/icons/Group';
+import { makeStyles } from '@material-ui/core/styles';
 import {
+  Avatar,
   TextField,
   Button,
   Container,
@@ -8,6 +11,24 @@ import {
   Typography
 } from "@material-ui/core";
 import Footer from '../Footer';
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(3),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  feild: {
+    display: 'flex',
+    // flexDirection: 'column',
+    // alignItems: 'left',
+  }
+}));
 
 function AddTeam() {
   
@@ -17,6 +38,7 @@ function AddTeam() {
   const [description, setDescription] = useState("");
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(true);
+  const classes = useStyles();
 
   useEffect(() => {
     async function fetchData() {
@@ -84,18 +106,38 @@ function AddTeam() {
   return (
     <div>
     <Container component="main" maxWidth="xs">
-        <TextField
-          value = {teamName} 
-          onChange = {e => setTeamName(e.target.value)}
-          label="Team-Name" 
-        />
-      <br />
-      <TextField
-          value = {description} 
-          onChange = {e => setDescription(e.target.value)}
-          label="Description" 
-      />
-      <br />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <GroupIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Create Team
+        </Typography>
+        <div className={classes.feild}>
+          <TextField
+            value = {teamName} 
+            onChange = {e => setTeamName(e.target.value)}
+            label="Team Name"
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="email"
+            autoComplete="email"
+          />
+          <TextField
+            value = {description} 
+            onChange = {e => setDescription(e.target.value)}
+            label="Description"
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="email"
+            autoComplete="email"
+            style={{paddingLeft: '10px'}}
+          />
+        </div>
         {teamArray?.map(employee => (
           <Typography key={employee.id}>
             {employee.email}
@@ -108,29 +150,32 @@ function AddTeam() {
           <div>
             {employees?.map(employee => (
               <div key={employee._id} style={{ display: 'flex', justifyContent: 'space-between'}}>
-              <Typography>{employee.email}</Typography>
-              <Button
-                value={employee._id}
-                onClick={() => onAddEmployee(employee._id, employee.email)}
-              >
-                Add
-              </Button>
-            </div>
-          ))}
+                <Typography>{employee.email}</Typography>
+                <Button
+                  color="primary"
+                  value={employee._id}
+                  style={{paddingLeft: '100px'}}
+                  onClick={() => onAddEmployee(employee._id, employee.email)}
+                >
+                  Add
+                </Button>
+              </div>
+            ))}
           </div>
           :
           <CircularProgress />
         }
-      <br />
-      <Button
-        variant="outlined"
-        color="primary"
-        type="submit"
-        onClick={onAddTeam}>
-        Add Team
-      </Button>
-      </Container>
-      <Footer />
+        <br />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          onClick={onAddTeam}>
+          Add Team
+        </Button>
+      </div>
+    </Container>
+    <Footer />
     </div>
   )
 }

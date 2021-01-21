@@ -50,6 +50,10 @@ function Attendance({ id }) {
         :
         <div>
           <Typography>Attendance</Typography>
+          <Typography style={{ display: 'flex' }}>
+           <div style={{ padding: '8px', margin: '5px', backgroundColor: 'green' }} />Holiday
+           <div style={{ padding: '8px', margin: '5px', backgroundColor: 'red' }} />Leave
+          </Typography>
           <Calendar
             onChange={onDateChange}
             value={date}

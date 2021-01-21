@@ -104,6 +104,7 @@ function Dashboard({ id }) {
               <ListItemText primary="Name:" />
                 <TextField
                   className="text_field"
+                  style={{paddingLeft: '20px'}}
                   value={employee.name}
               />
             </ListItem>
@@ -111,13 +112,15 @@ function Dashboard({ id }) {
               <ListItemText primary="Email:" />
                 <TextField
                   className="text_field"
+                  style={{paddingLeft: '20px'}}
                   value={employee.email}
               />
             </ListItem>
             <ListItem>
-              <ListItemText primary="Team-Name:" />
+              <ListItemText primary="Team:" />
                 <TextField
                   className="text_field"
+                  style={{paddingLeft: '20px'}}
                   value={employee.teamName}
               />
             </ListItem>
@@ -125,6 +128,7 @@ function Dashboard({ id }) {
               <ListItemText primary="Mobile:" />
                 <TextField
                   className="text_field"
+                  style={{paddingLeft: '20px'}}
                   value={employee.mobile}
                   onChange={e => {
                     if (edit) {
@@ -137,6 +141,7 @@ function Dashboard({ id }) {
               <ListItemText primary="Address:" />
                 <TextField
                   className="text_field"
+                  style={{paddingLeft: '20px'}}
                   value={employee.address}
                   onChange={e => {
                     if (edit) {
@@ -149,6 +154,7 @@ function Dashboard({ id }) {
               <ListItemText primary="City:" />
                 <TextField
                   className="text_field"
+                  style={{paddingLeft: '20px'}}
                   value={employee.city}
                   onChange={e => {
                     if (edit) {
@@ -161,6 +167,7 @@ function Dashboard({ id }) {
               <ListItemText primary="Country:" />
                 <TextField
                   className="text_field"
+                  style={{paddingLeft: '20px'}}
                   value={employee.country}
                   onChange={e => {
                     if (edit) {

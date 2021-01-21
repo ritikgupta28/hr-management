@@ -10,8 +10,8 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary">
       {'Copyright © '}
-      <Link color="inherit" href="http://localhost:3000/">
-        HR-Manager
+      <Link color="inherit" href="https://hr-management-web-app.herokuapp.com/">
+        HR-Management
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}

@@ -14,6 +14,9 @@ function TeamDescription({ team }) {
     if(expand) {
       return (
         <div>
+          <Typography>Description: </Typography>
+            <Typography key={team._id} style={{ marginLeft: '20px' }}>{team.description}
+          </Typography>
           <Typography>Members: </Typography>
           {team.members?.map(member => (
             <Typography key={member._id} style={{marginLeft: '20px'}}>
@@ -22,8 +25,6 @@ function TeamDescription({ team }) {
               </Link>
             </Typography>
             ))}
-            <Typography>Description: </Typography>
-            <Typography key={team._id} style={{marginLeft: '20px'}}>{team.description}</Typography>
       </div>
       )
     }

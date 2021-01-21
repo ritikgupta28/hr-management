@@ -45,10 +45,9 @@ function Holiday() {
       }
     }
     fetchData();
-  }, [])
+  }, [holidays])
 
   const onSubmit = async (e) => {
-    e.preventDefault();
     try {
       const response = await fetch('https://hr-management-web-app-api.herokuapp.com/holiday', {
         method: 'POST',

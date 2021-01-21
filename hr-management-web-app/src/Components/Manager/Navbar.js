@@ -115,7 +115,17 @@ function ManagerNavbar({ logoutHandler }) {
 		<div>
       <div className={classes.toolbar} />
       <Divider />
-			<List>
+      <List>
+      <Link to='/employee' className={classes.link}>
+				<ListItem button>
+					  <ListItemText primary="Employee" />
+					</ListItem>
+        </Link>
+        <Link to='/add_employee' className={classes.link}>
+				<ListItem button>
+						<ListItemText primary="Add Employee" />
+				</ListItem>
+				</Link>
 			<Link to='/teams' className={classes.link} >
 				<ListItem button>
 					  <ListItemText primary="Teams" />
@@ -123,17 +133,7 @@ function ManagerNavbar({ logoutHandler }) {
 				</Link>
 				<Link to='/add_team' className={classes.link}>
 				<ListItem button>
-					  <ListItemText primary="Add Team" />
-				</ListItem>
-				</Link>
-				<Link to='/employee' className={classes.link}>
-				<ListItem button>
-					  <ListItemText primary="Employee" />
-					</ListItem>
-				</Link>
-				<Link to='/add_employee' className={classes.link}>
-				<ListItem button>
-						<ListItemText primary="Add Employee" />
+					  <ListItemText primary="Create Team" />
 				</ListItem>
 				</Link>
 				<Link to='/holiday' className={classes.link}>
@@ -248,7 +248,7 @@ function ManagerNavbar({ logoutHandler }) {
 							/>
 						)}
 					/>
-					<Redirect to="/teams" />
+					<Redirect to="/employee" />
 					</Switch>
         </main>
       </div>

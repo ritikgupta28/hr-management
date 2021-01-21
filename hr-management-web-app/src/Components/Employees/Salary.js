@@ -57,7 +57,7 @@ function Salary({ id }) {
         <div>
           <div>
               <Typography>
-                Salary(Rs.) :  {salary} /-
+                Salary(₹) :  {salary} /-
               </Typography>
               <TextField
                   type="month"
@@ -73,7 +73,7 @@ function Salary({ id }) {
                     {moment(month).format("MM-YYYY")}
                   </Typography>
                   <Typography>
-                    Expected Salary(Rs.) :  {expectedSalary} /-
+                    Expected Salary(₹) :  {expectedSalary} /-
                   </Typography>
                 </div>
                 : 
