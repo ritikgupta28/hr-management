@@ -22,9 +22,14 @@ exports.postApplyLeave = async (req, res, next) => {
       message: 'Success!'
     });
   } catch(err) {
-      const error = new Error('Failed to apply leave!');
-      error.statusCode = 500;
-      next(error);
+      if(err.statusCode !== 500) {
+        const error = new Error('Failed to apply leave!');
+        error.statusCode = 500;
+        next(error);
+      }
+      else {
+        next(err);
+      }
   }
 }
 

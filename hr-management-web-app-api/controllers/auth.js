@@ -39,9 +39,14 @@ exports.employeeSignup = async (req, res, next) => {
 			});
 		}
 	} catch(err) {
-			const error = new Error('Signup is not successful!');
-			error.statusCode = 500;
-			next(error);
+			if(err.statusCode !== 500) {
+				const error = new Error('Signup is not successful!');
+				error.statusCode = 500;
+				next(error);
+			}
+			else {
+				next(err);
+			}
 	}
 }
 
@@ -89,9 +94,14 @@ exports.googleEmployeeSignup = async (req, res, next) => {
 			throw error;
 		}
 	} catch(err) {
-			// const error = new Error('Signup is not successful!');
-			// error.statusCode = 500;
-			next(err);
+			if(err.statusCode !== 500) {
+				const error = new Error('Signup is not successful!');
+				error.statusCode = 500;
+				next(error);
+			}
+			else {
+				next(err);
+			}
 	}
 }
 
@@ -119,9 +129,14 @@ exports.managerSignup = async (req, res, next) => {
 			managerId: result._id
 		});
 	} catch(err) {
-			const error = new Error('Signup is not successful!');
-			error.statusCode = 500;
-			next(error);
+			if(err.statusCode !== 500) {
+				const error = new Error('Signup is not successful!');
+				error.statusCode = 500;
+				next(error);
+			}
+			else {
+				next(err);
+			}
 	}
 }
 
@@ -181,9 +196,14 @@ exports.login = async (req, res, next) => {
 			});
 		}
 	} catch(err) {
-      const error = new Error('Login is not successful!');
-			error.statusCode = 500;
-			next(error);
+			if(err.statusCode !== 500) {
+				const error = new Error('Login is not successful!');
+				error.statusCode = 500;
+				next(error);
+			}
+			else {
+				next(err);
+			}
   }
 }
 
@@ -242,8 +262,13 @@ exports.googleLogin = async (req, res, next) => {
 			throw error;
 		}
 	} catch(err) {
-			const error = new Error('Login is not successful!');
-			error.statusCode = 500;
-			next(error);
+			if(err.statusCode !== 500) {
+				const error = new Error('Login is not successful!');
+				error.statusCode = 500;
+				next(error);
+			}
+			else {
+				next(err);
+			}
 	}
 }

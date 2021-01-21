@@ -63,8 +63,13 @@ exports.postSalary = async (req, res, next) => {
       expectedSalary: expectedSalary
     });
   } catch(err) {
-      const error = new Error('Failed to get salary!');
-      error.statusCode = 500;
-      next(error);
+      if(err.statusCode !== 500) {
+        const error = new Error('Failed to get salary!');
+        error.statusCode = 500;
+        next(error);
+      }
+      else {
+        next(err);
+      }
   }
 }

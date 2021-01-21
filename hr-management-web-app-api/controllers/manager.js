@@ -22,9 +22,14 @@ exports.postHoliday = async (req, res, next) => {
 			message: 'Success!'
 		});
 	} catch(err) {
-      const error = new Error('Failed to post holiday!');
-      error.statusCode = 500;
-      next(error);
+			if(err.statusCode !== 500) {
+        const error = new Error('Failed to post holiday!');
+        error.statusCode = 500;
+        next(error);
+      }
+      else {
+        next(err);
+      }
   }
 }
 
@@ -84,14 +89,19 @@ exports.postNewEmployee = async (req, res, next) => {
 			});
 		}
 		else {
-				const error = new Error('Employee is already added!');
-				error.statusCode = 500;
-				throw error;
+			const error = new Error('Employee is already added!');
+			error.statusCode = 500;
+			throw error;
 		}
 	} catch(err) {
-			const error = new Error('Added employee is failed!');
-			error.statusCode = 500;
-			next(error);
+			if(err.statusCode !== 500) {
+        const error = new Error('Added employee is failed!');
+        error.statusCode = 500;
+        next(error);
+      }
+      else {
+        next(err);
+      }
 	}
 }
 
@@ -146,9 +156,14 @@ exports.postNewTeam = async (req, res, next) => {
 			message: 'Success!'
 		});
 	} catch(err) {
-      const error = new Error('Failed to add team!');
-      error.statusCode = 500;
-      next(error);
+			if(err.statusCode !== 500) {
+        const error = new Error('Failed to add team!');
+        error.statusCode = 500;
+        next(error);
+      }
+      else {
+        next(err);
+      }
   }
 }
 
