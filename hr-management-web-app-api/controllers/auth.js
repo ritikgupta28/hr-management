@@ -59,7 +59,7 @@ exports.googleEmployeeSignup = async (req, res, next) => {
 
 		const response = await client.verifyIdToken({
 			idToken: tokenId,
-			audience: "915015918185-g4cj40r77jv1cuvklra75hlc79kcmn41.apps.googleusercontent.com"
+			audience: GOOGLE_CLIENT_ID
 		})
 		const { email_verified, name, email } = response.payload;
 		if(email_verified) {
