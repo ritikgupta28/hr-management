@@ -1,10 +1,10 @@
-# HR-Manager
+# HR-Management
 
 Code </> by Ritik and Sahil.
 
-<img src="https://github.com/ritikgupta28/hr-management/blob/master/img/1.png" title="img">
-
-<img src="https://github.com/ritikgupta28/hr-management/blob/master/img/4.png" title="img">
+<img src="https://github.com/ritikgupta28/hr-management/blob/master/img/1.png" width="450" title="img">
+ 
+<img src="https://github.com/ritikgupta28/hr-management/blob/master/img/4.png" width="450" title="img">
 
 1. Run npm install in command prompt in both frontend and backend.
 2. Create a .env file in both frontend and backend.
