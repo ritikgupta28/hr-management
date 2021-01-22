@@ -45,7 +45,7 @@ function Holiday() {
       }
     }
     fetchData();
-  }, [holidays])
+  }, [])
 
   const onSubmit = async (e) => {
     try {
@@ -67,14 +67,14 @@ function Holiday() {
       setDates([]);
       setDate("");
       alert("Done!");
-    } catch(err) {
+    } catch (err) {
       alert(err)
     }
   }
 
   return (
     <div>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" style={{ minHeight: '450px' }}>
       <div>
         {dates.map(date => (
           <Typography key={date}>

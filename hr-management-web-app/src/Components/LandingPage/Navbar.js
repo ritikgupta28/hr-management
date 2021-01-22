@@ -20,7 +20,8 @@ const useStyles = makeStyles((theme) => ({
     flexGrow:  0.05
 	},
 	mainTitle: {
-    flexGrow:  1
+		flexGrow: 1,
+		paddingRight: '10px'
   }
 }));
 
@@ -37,16 +38,24 @@ function Navbar() {
             <Link to='/' style={{ textDecoration: 'none', color: 'white' }}>HR-MANAGER</Link>
           </Typography>
 					<Button>
-						<Link to='/policies' style={{ textDecoration: 'none', color: 'white' }}>Policies</Link>
+							<Link to='/policies' style={{ textDecoration: 'none', color: 'white' }}>
+								Policies
+							</Link>
 						</Button>
 						<Button>
-						<Link to='/faq' style={{ textDecoration: 'none', color: 'white' }}>F.A.Q</Link>
+							<Link to='/faq' style={{ textDecoration: 'none', color: 'white' }}>
+								F.A.Q
+							</Link>
 						</Button>
 						<Button>
-							<Link to='/login' style={{ textDecoration: 'none', color: 'white' }}>Login</Link>
+							<Link to='/login' style={{ textDecoration: 'none', color: 'white' }}>
+								Login
+							</Link>
 						</Button>
 						<Button>
-							<Link to='/signup' style={{ textDecoration: 'none', color: 'white' }}>SignUp</Link>
+							<Link to='/signup' style={{ textDecoration: 'none', color: 'white' }}>
+								SignUp
+							</Link>
 						</Button>
         </Toolbar>
       </AppBar>

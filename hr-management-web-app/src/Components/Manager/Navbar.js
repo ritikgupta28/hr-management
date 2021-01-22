@@ -178,12 +178,14 @@ function ManagerNavbar({ logoutHandler }) {
                   <NotificationsIcon />
                 </Tooltip>
 				      </Link>
+            </Typography>
+            <Typography variant="h6" noWrap className={classes.title}>
+                <Tooltip title="Logout" arrow>
+                <Button style={{ color: 'white' }} onClick={logoutHandler}>
+						    	Logout
+					    	</Button>
+                </Tooltip>
 						</Typography>
-					<Typography variant="h6" noWrap className={classes.title}>
-						<Button style={{ color: 'white' }} onClick={logoutHandler}>
-							Logout
-						</Button>
-          </Typography>
         </Toolbar>
       </AppBar>
 			<Drawer
@@ -247,7 +249,7 @@ function ManagerNavbar({ logoutHandler }) {
 								id={props.match.params.id}
 							/>
 						)}
-					/>
+            />
 					<Redirect to="/employee" />
 					</Switch>
         </main>

@@ -69,9 +69,7 @@ function EmployeeList() {
         <Typography>{employee.name}</Typography>
         <Link
           href={`/employee/${employee._id}`}
-          style={{
-            textDecoration: 'none', color: 'black'
-          }}>
+          style={{ textDecoration: 'none' }}>
           <Typography>{employee.email}</Typography>
         </Link>
       </div>
@@ -80,7 +78,7 @@ function EmployeeList() {
 
   return (
     <div>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" style={{ minHeight: '450px' }}>
       <Typography>
         Search by Name, Team-Name or Role
       </Typography>

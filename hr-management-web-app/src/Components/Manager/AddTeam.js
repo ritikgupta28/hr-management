@@ -104,7 +104,7 @@ function AddTeam() {
   }
 
   return (
-    <div>
+    <div style={{ minHeight: '450px' }}>
     <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>

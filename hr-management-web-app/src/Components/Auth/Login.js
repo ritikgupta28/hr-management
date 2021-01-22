@@ -9,8 +9,6 @@ import {
   Button,
   CssBaseline,
   TextField,
-  FormControlLabel,
-  Checkbox,
   Typography,
   Container,
   CircularProgress
@@ -135,7 +133,7 @@ function Login() {
   }
 
   return (
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" style={{ minHeight: '450px' }}>
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -168,10 +166,6 @@ function Login() {
             label="Password"
             type="password"
             autoComplete="current-password"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
           />
           {loading
             ?

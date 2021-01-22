@@ -36,8 +36,8 @@ function TeamList() {
   }, [])
 
   return (
-    <div>
-      <Container component="main" maxWidth="xs">
+      <div>
+      <Container component="main" maxWidth="xs" style={{ minHeight: '450px' }}>
         <Typography variant="h4">All Teams</Typography>
       {loading
         ?
@@ -49,9 +49,9 @@ function TeamList() {
           ))}
         </List>
       }
-    </Container>
-    <Footer />
-    </div>
+      </Container>
+      <Footer />
+      </div>
   )
 }
 

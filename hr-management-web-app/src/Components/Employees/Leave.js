@@ -54,7 +54,7 @@ function Leave() {
   }
 
   return (
-    <Container style={{ display: 'flex', marginTop: '40px'}}>
+    <Container style={{ display: 'flex', marginTop: '40px', minHeight: '450px'}}>
       <div style={{ display: 'flex', flex: '0.5', justifyContent: 'center', alignItems: 'center'}}>
         <List>
           {dates.map(date => (
@@ -75,7 +75,8 @@ function Leave() {
           value={date}
           onChange={e => {
             setDate(e.target.value);
-            if (dates.indexOf(moment(e.target.value).format("DD-MM-YYYY")) === -1) {
+            let day = new Date(e.target.value);
+            if(day.getDay() !== 6 && day.getDay() !== 0 && dates.indexOf(moment(e.target.value).format("DD-MM-YYYY")) === -1) {
               setDates([...dates, moment(e.target.value).format("DD-MM-YYYY")])
             }
           }}

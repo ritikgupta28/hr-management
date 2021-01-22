@@ -35,8 +35,8 @@ function Salary({ id }) {
         if (status === 500) {
           throw new Error(resData.message);
         }
-        setExpectedSalary(resData["expectedSalary"]?.toPrecision(6));
-        setSalary(resData["salary"]?.toPrecision(6));
+        setExpectedSalary(resData["expectedSalary"]?.toFixed(2));
+        setSalary(resData["salary"]?.toFixed(2));
         setLoading(false);
       } catch (err) {
         setLoading(false);
@@ -59,7 +59,8 @@ function Salary({ id }) {
               <Typography>
                 Salary(₹) :  {salary} /-
               </Typography>
-              <TextField
+            <TextField
+              style={{ widht: '240px'}}
                   type="month"
                   value={month}
                   onChange={e => setMonth(e.target.value)}

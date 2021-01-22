@@ -44,27 +44,59 @@ function Footer() {
       <footer className={classes.footer}>
         <Container style={{
           display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column'
+          justifyContent: 'space-between',
+          alignItems: 'center'
         }}>
+          <div>
           <Typography variant="body1">
-            Code by 
-            <Link href="https://sahilgoyal.herokuapp.com/"> Sahil </Link> 
-            and 
-            <Link href="https://ritikgupta.herokuapp.com/"> Ritik </Link>
+            Code by
+            <Link href="https://sahilgoyal.herokuapp.com/"> Sahil Goyal </Link>
+             and
+            <Link href="https://ritikgupta.herokuapp.com/"> Ritik Gupta </Link>
           </Typography>
           <Copyright />
-        </Container>
-        <Container maxWidth="xs" style={{
-          display: 'flex',
-          justifyContent: 'center'
-        }}>
-          <LinkedInIcon />
-          <GitHubIcon />
-          <InstagramIcon />
-          <FacebookIcon />
-        </Container>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div>
+              <div>
+                <Link href="https://sahilgoyal.herokuapp.com/"> Sahil Goyal </Link>
+              </div>
+              <div>
+                <Link
+                  href="https://www.linkedin.com/in/sahil-goyal-138b96175/"
+                  style={{ color: 'black' }}
+                >
+                  <LinkedInIcon fontSize="small" />
+                </Link>
+                <Link
+                  href="https://github.com/sahilgoyals1999"
+                  style={{ color: 'black' }}
+                >
+                  <GitHubIcon fontSize="small" />
+                </Link>
+              </div>
+          </div>
+            <div>
+              <div>
+               <Link href="https://ritikgupta.herokuapp.com/"> Ritik Gupta </Link>
+              </div>
+              <div>
+                <Link
+                  href="https://www.linkedin.com/in/ritik-gupta-4756851a1/"
+                  style={{ color: 'black' }}
+                >
+                  <LinkedInIcon fontSize="small" />
+                </Link>
+                <Link
+                  href="https://github.com/ritikgupta28"
+                  style={{ color: 'black' }}
+                >
+                  <GitHubIcon fontSize="small" />
+                </Link>
+              </div>
+          </div>
+          </div>
+          </Container>
       </footer>
   </div>
   );

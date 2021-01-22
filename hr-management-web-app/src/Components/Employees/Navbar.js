@@ -24,10 +24,11 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2)
   },
   title: {
-    flexGrow:  0.05
+    flexGrow:  0.03
 	},
 	mainTitle: {
-    flexGrow:  1
+		flexGrow: 1,
+		paddingRight: '30px'
   }
 }));
 
@@ -70,10 +71,12 @@ function EmployeeNavbar({ logoutHandler }) {
 									</Tooltip>
 								</Typography>
 								<Typography variant="h6" className={classes.title}>
-								<Button onClick={logoutHandler} style={{color: 'white'}}>
-									Logout
-								</Button>
-      			    </Typography>
+									<Tooltip title="Logout" arrow>
+										<Button onClick={logoutHandler} style={{ color: 'white'}}>
+										  Logout
+										</Button>
+									</Tooltip>
+								</Typography>
 			        </Toolbar>
       			</AppBar>
 			    </div>

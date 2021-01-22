@@ -51,7 +51,7 @@ function Notification() {
   }, [])
 
   return (
-    <div>
+    <div style={{ minHeight: '450px' }}>
     <Container>
       {loading
         ?

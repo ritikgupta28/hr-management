@@ -19,8 +19,10 @@ function TeamDescription({ team }) {
           </Typography>
           <Typography>Members: </Typography>
           {team.members?.map(member => (
-            <Typography key={member._id} style={{marginLeft: '20px'}}>
-              <Link href={`/employee/${member.employeeId._id}`} style={{ textDecoration: 'none', color: 'black' }}>
+            <Typography key={member._id} style={{ marginLeft: '20px' }}>
+              <Link
+                href={`/employee/${member.employeeId._id}`}
+                style={{ textDecoration: 'none' }}>
                 {member.employeeId.email}
               </Link>
             </Typography>

@@ -73,7 +73,7 @@ function AddEmployee() {
   }
 
   return (
-    <div>
+    <div style={{ minHeight: '450px' }}>
      <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
