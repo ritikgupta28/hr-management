@@ -2,9 +2,9 @@
 
 Code </> by Ritik and Sahil.
 
-<img src="https://github.com/ritikgupta28/hr-management/blob/master/1.png" title="img">
+<img src="https://github.com/ritikgupta28/hr-management/blob/master/img/1.png" title="img">
 
-<img src="https://github.com/ritikgupta28/hr-management/blob/master/4.png" title="img">
+<img src="https://github.com/ritikgupta28/hr-management/blob/master/img/4.png" title="img">
 
 1. Run npm install in command prompt in both frontend and backend.
 2. Create a .env file in both frontend and backend.
