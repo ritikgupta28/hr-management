@@ -38,9 +38,9 @@ function getStepContent(step) {
     case 2:
       return `For add or edit details click on edit profile and change and save details.`;
     case 3:
-      return `All holidays of company and employee leave is display in calendar.`;
+      return `All holidays of company and employee leaves is display in calendar.`;
     case 4:
-      return `Employee salary is displaying and for per month salary select the month and your expected salary will be shown.`;
+      return `Employee annual salary is display and select month for per month expected salary.`;
     case 5:
       return `Request to manager for apply leave with selected dates.`;
     case 6:

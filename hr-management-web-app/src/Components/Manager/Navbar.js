@@ -118,7 +118,7 @@ function ManagerNavbar({ logoutHandler }) {
       <List>
       <Link to='/employee' className={classes.link}>
 				<ListItem button>
-					  <ListItemText primary="Employee" />
+					  <ListItemText primary="Employees" />
 					</ListItem>
         </Link>
         <Link to='/add_employee' className={classes.link}>

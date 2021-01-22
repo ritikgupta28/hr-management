@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2)
   },
   title: {
-    flexGrow:  0.03
+    flexGrow:  0.019
 	},
 	mainTitle: {
 		flexGrow: 1,
@@ -50,7 +50,7 @@ function EmployeeNavbar({ logoutHandler }) {
 								<Typography variant="h5" className={classes.mainTitle}>
 									<Tooltip title="Dashboard" arrow>
 										<Link to='/dashboard' style={{ textDecoration: 'none', color: 'white' }} >
-											HR-MANAGER
+											DASHBOARD
 										</Link>
 									</Tooltip>
 								</Typography>
