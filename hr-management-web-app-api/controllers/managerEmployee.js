@@ -65,11 +65,10 @@ exports.postSalary = async (req, res, next) => {
     else {
       totalDays = 28;
     }
-    let salary = (employee.salary)/12;
-    let expectedSalary = salary - ((salary/totalDays)*countAbsents);
+    let expectedSalary = employee.salary - ((employee.salary/totalDays)*countAbsents);
     
     res.status(200).json({
-      salary: salary,
+      salary: employee.salary,
       expectedSalary: expectedSalary
     });
   } catch(err) {
