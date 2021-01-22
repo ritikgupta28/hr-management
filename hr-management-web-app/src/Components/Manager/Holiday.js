@@ -74,7 +74,7 @@ function Holiday() {
 
   return (
     <div>
-      <Container component="main" maxWidth="xs" style={{ minHeight: '450px' }}>
+      <Container component="main" maxWidth="xs" style={{ minHeight: '480px' }}>
       <div>
         {dates.map(date => (
           <Typography key={date}>

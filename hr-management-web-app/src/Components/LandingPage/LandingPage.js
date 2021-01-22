@@ -35,7 +35,7 @@ function LandingPage() {
 				<Card className="card">
 						<CardContent>
 							<div>
-								<Typography>For Manager:</Typography>
+								<Typography variant="h5">For Manager:</Typography>
 								<ManagerStepper />
 							</div>
 						</CardContent>
@@ -43,7 +43,7 @@ function LandingPage() {
 					<Card className="card">
 						<CardContent>
 							<div>
-								<Typography>For Employee:</Typography>
+								<Typography variant="h5">For Employee:</Typography>
 								<EmployeeStepper />
 							</div>
 						</CardContent>

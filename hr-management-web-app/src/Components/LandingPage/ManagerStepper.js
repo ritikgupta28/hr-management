@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
 	Stepper,
@@ -26,7 +26,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-  return ['Login', 'Add Employee', 'All Employees', 'Create Team', 'All Teams', 'Holiday', 'Notifications'];
+  return ['Login',
+    'Add Employee',
+    'All Employees',
+    'Create Team',
+    'All Teams',
+    'Holidays',
+    'Notifications'
+  ];
 }
 
 function getStepContent(step) {
@@ -38,21 +45,22 @@ function getStepContent(step) {
     case 2:
       return `List of all employees with a search option based on employee name, team name and employee role. And for employee description click on employee email.`;
     case 3:
-      return `Create a new team wtih team name and description and add employees which are not present in either team.`;
+      return `Create a new team with team name and description and add employees which are not present in any earlier team.`;
     case 4:
       return `List of all teams and for team details click on team name. Here team description and employees list will be display. And for employee description click on employee email.`;
     case 5:
       return `Mark the holiday of company in calendar.`;
     case 6:
-      return `For employee request of leaves and another information click on the notification icon in the top right corner. For leave request, mark the leave as accepted or rejected.`;
+      return `For employee request of leaves and another information click on the notification icon in the top right corner. For leave request mark the leave as accepted or rejected.`;
     default:
       return 'Unknown step';
   }
 }
 
 export default function ManagerStepper() {
+  
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(0);
   const steps = getSteps();
 
   const handleNext = () => {

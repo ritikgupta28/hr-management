@@ -78,7 +78,7 @@ function EmployeeList() {
 
   return (
     <div>
-      <Container component="main" maxWidth="xs" style={{ minHeight: '450px' }}>
+      <Container component="main" maxWidth="xs" style={{ minHeight: '480px' }}>
       <Typography>
         Search by Name, Team-Name or Role
       </Typography>

@@ -16,7 +16,7 @@ import {
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(6),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-  },
+  }
 }));
 
 function SignUp() {
@@ -114,12 +114,12 @@ function SignUp() {
 
   const responseErrorGoogle = (response) => {
     setLoading(false);
-    alert("Somthing went Wrong")
+    alert("Somthing Went Wrong")
   }
   
 
   return (
-    <Container component="main" maxWidth="xs" style={{ minHeight: '450px' }}>
+    <Container component="main" maxWidth="xs" style={{ minHeight: '480px' }}>
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>

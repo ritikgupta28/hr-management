@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: '50px',
     width: '70%',
-    minHeight: '50vh'
+    minHeight: '480px'
   },
   heading: {
     fontSize: theme.typography.pxToRem(20),

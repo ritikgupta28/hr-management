@@ -54,24 +54,20 @@ function Leave() {
   }
 
   return (
-    <Container style={{ display: 'flex', marginTop: '40px', minHeight: '450px'}}>
-      <div style={{ display: 'flex', flex: '0.5', justifyContent: 'center', alignItems: 'center'}}>
-        <List>
-          {dates.map(date => (
-            <ListItemText key={date} primary={ date}/>
-          ))}
-        </List>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', margin: '20px'}}>
+    <Container style={{
+      display: 'flex',
+      marginTop: '40px',
+      minHeight: '480px',
+      justifyContent: 'space-evenly'
+    }}>
+      <div>
+        <div>
+        {dates.map(date => (
+          <p key={date}>{date}</p>
+        ))}
+        </div>
         <TextField
-            value={reason}
-            onChange={e => setReason(e.target.value)}
-            multiline
-            rows={4}
-            variant="outlined"
-            label="Reason" 
-        />
-        <TextField
+          style={{ margin: '20px'}}
           value={date}
           onChange={e => {
             setDate(e.target.value);
@@ -80,21 +76,32 @@ function Leave() {
               setDates([...dates, moment(e.target.value).format("DD-MM-YYYY")])
             }
           }}
-          label="Holiday"
+          label="Add Date"
           type="date"
           className={classes.textField}
           InputLabelProps={{
             shrink: true,
           }}
         />
+          </div>
+      <div style={{ margin: '20px'}}>
+        <TextField
+            value={reason}
+            onChange={e => setReason(e.target.value)}
+            multiline
+            rows={4}
+            variant="outlined"
+            label="Reason" 
+        />
         <br />
         <Button
+          style={{ margin: '20px'}}
           variant="outlined"
           color="primary"
           type="submit"
           onClick={onSubmit}
         >
-          Submit
+            Submit
         </Button>
       </div>
     </Container>

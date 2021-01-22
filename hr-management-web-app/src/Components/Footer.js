@@ -27,8 +27,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column'
   },
   footer: {
-    padding: theme.spacing(3, 2),
-    marginTop: '50px',
+    padding: theme.spacing(3, 1),
+    marginTop: '20px',
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
   },
@@ -59,7 +59,12 @@ function Footer() {
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <div>
               <div>
-                <Link href="https://sahilgoyal.herokuapp.com/"> Sahil Goyal </Link>
+                <Link
+                  style={{ textDecoration: 'none' }}
+                  href="https://sahilgoyal.herokuapp.com/"
+                >
+                  Sahil Goyal
+                </Link>
               </div>
               <div>
                 <Link
@@ -78,7 +83,12 @@ function Footer() {
           </div>
             <div>
               <div>
-               <Link href="https://ritikgupta.herokuapp.com/"> Ritik Gupta </Link>
+                <Link
+                  style={{ textDecoration: 'none' }}
+                  href="https://ritikgupta.herokuapp.com/"
+                >
+                  Ritik Gupta
+                </Link>
               </div>
               <div>
                 <Link

@@ -37,7 +37,7 @@ function TeamList() {
 
   return (
       <div>
-      <Container component="main" maxWidth="xs" style={{ minHeight: '450px' }}>
+      <Container component="main" maxWidth="xs" style={{ minHeight: '480px' }}>
         <Typography variant="h4">All Teams</Typography>
       {loading
         ?

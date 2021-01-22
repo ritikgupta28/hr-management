@@ -3,7 +3,7 @@ import Detail from './Detail';
 import Footer from "../Footer"
 import { useStateValue } from "../../StateProvider"
 import { makeStyles } from '@material-ui/core/styles';
-import { Card, CircularProgress, Container } from '@material-ui/core';
+import { Card, CircularProgress, Container, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
@@ -57,12 +57,17 @@ function Notification() {
         ?
         <CircularProgress />
         :
-        <div>
-          {notifications?.map(notification => (
-            <Card key={notification._id} className={classes.root} variant="outlined">
-              <Detail notification={notification} />
-            </Card>
-          ))}
+          <div>
+            {notifications.length === 0
+              ?
+              <Typography variant="h4">No Notification</Typography>
+              :
+              notifications?.map(notification => (
+                <Card key={notification._id} className={classes.root} variant="outlined">
+                  <Detail notification={notification} />
+                </Card>
+              ))
+            }
         </div>
       }
     </Container>
