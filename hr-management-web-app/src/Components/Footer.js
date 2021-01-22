@@ -69,13 +69,13 @@ function Footer() {
               <div>
                 <Link
                   href="https://www.linkedin.com/in/sahil-goyal-138b96175/"
-                  style={{ color: 'black' }}
+                  style={{ color: 'black', padding: '0px 2px' }}
                 >
                   <LinkedInIcon fontSize="small" />
                 </Link>
                 <Link
                   href="https://github.com/sahilgoyals1999"
-                  style={{ color: 'black' }}
+                  style={{ color: 'black', padding: '0px 2px' }}
                 >
                   <GitHubIcon fontSize="small" />
                 </Link>
@@ -93,13 +93,13 @@ function Footer() {
               <div>
                 <Link
                   href="https://www.linkedin.com/in/ritik-gupta-4756851a1/"
-                  style={{ color: 'black' }}
+                  style={{ color: 'black', padding: '0px 2px' }}
                 >
                   <LinkedInIcon fontSize="small" />
                 </Link>
                 <Link
                   href="https://github.com/ritikgupta28"
-                  style={{ color: 'black' }}
+                  style={{ color: 'black', padding: '0px 2px' }}
                 >
                   <GitHubIcon fontSize="small" />
                 </Link>

@@ -15,7 +15,7 @@ import {
 
 function Dashboard({ id }) {
   
-  const [{ token }, dispatch] = useStateValue();
+  const [{ token, employeeId }, dispatch] = useStateValue();
   const [employee, setEmployee] = useState({});
   const [edit, setEdit] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -81,24 +81,29 @@ function Dashboard({ id }) {
           <div className="details">
             <List>
               <ListItem>
-              {!edit 
-              ?
-              (<Button
-                variant="outlined"
-                color="primary"
-                onClick={e => setEdit(!edit)}
-              >
-                Edit Profile
-              </Button>)
-              :
-              (<Button
-                variant="outlined"
-                color="primary"
-                onClick={e => setEdit(!edit)}
-              >
-                Cancel
-              </Button>)
-            }
+                {employeeId !== "null"
+                  ?
+                  (!edit
+                    ?
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      onClick={e => setEdit(!edit)}
+                    >
+                      Edit Profile
+                    </Button>
+                    :
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      onClick={e => setEdit(!edit)}
+                    >
+                      Cancel
+                    </Button>
+                  )
+                  :
+                  null
+                }
               </ListItem>
             <ListItem>
               <ListItemText primary="Name:" />
