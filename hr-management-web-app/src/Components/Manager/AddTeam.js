@@ -122,8 +122,7 @@ function AddTeam() {
             margin="normal"
             required
             fullWidth
-            name="email"
-            autoComplete="email"
+            name="teamName"
           />
           <TextField
             value = {description} 
@@ -133,8 +132,7 @@ function AddTeam() {
             margin="normal"
             required
             fullWidth
-            name="email"
-            autoComplete="email"
+            name="description"
             style={{paddingLeft: '10px'}}
           />
         </div>

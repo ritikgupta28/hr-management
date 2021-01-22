@@ -39,7 +39,7 @@ function getSteps() {
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return `Login as a manager with given manager credentials. And go to menu bar for more functionalities.`;
+      return `Login as a manager with only given manager credentials. And go to menu bar for more functionalities.`;
     case 1:
       return `Add a new employee with valid email id.`;
     case 2:
